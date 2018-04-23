@@ -57,13 +57,9 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 function dt_starter_plugin() {
     $current_theme = get_option( 'current_theme' );
-<<<<<<< HEAD
+
     if ( 'Disciple Tools' == $current_theme || dt_is_child_theme_of_disciple_tools() ) {
         return DT_Starter_Plugin::get_instance();
-=======
-    if ( 'Disciple Tools' == $current_theme || 'Disciple Tools Child theme of disciple-tools-theme' == $current_theme ) {
-        return DT_FAcebook::get_instance();
->>>>>>> e44e33f2c976606197202e7c48ccc38c62460f44
     }
     else {
         add_action( 'admin_notices', 'dt_starter_plugin_no_disciple_tools_theme_found' );
@@ -338,7 +334,6 @@ if ( !function_exists( 'dt_write_log' ) ) {
         }
     }
 }
-<<<<<<< HEAD
 
 if ( ! function_exists(  'dt_is_child_theme_of_disciple_tools') ) {
     /**
@@ -356,5 +351,4 @@ if ( ! function_exists(  'dt_is_child_theme_of_disciple_tools') ) {
         return false;
     }
 }
-=======
->>>>>>> e44e33f2c976606197202e7c48ccc38c62460f44
+
