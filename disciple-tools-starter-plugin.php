@@ -62,7 +62,8 @@ function dt_starter_plugin() {
         return DT_Starter_Plugin::get_instance();
     }
     else {
-        add_action( 'admin_notices', 'dt_starter_plugin_no_disciple_tools_theme_found' );
+        add_action( 'admin_notices', 'dt_starter_hook_admin_notice' );
+        add_action( 'wp_ajax_dismissed_notice_handler', 'dt_starter_ajax_notice_handler' );
         return new WP_Error( 'current_theme_not_dt', 'Disciple Tools Theme not active.' );
     }
 
@@ -212,6 +213,7 @@ class DT_Starter_Plugin {
      * @return void
      */
     public static function deactivation() {
+        delete_option( 'dismissed-dt-starter' );
     }
 
     /**
@@ -352,3 +354,36 @@ if ( ! function_exists( 'dt_is_child_theme_of_disciple_tools' ) ) {
     }
 }
 
+function dt_starter_hook_admin_notice() {
+    // Check if it's been dismissed...
+    if ( ! get_option( 'dismissed-dt-starter', false ) ) {
+        // multiple dismissible notice states ?>
+        <div class="notice notice-error notice-dt-starter is-dismissible" data-notice="dt-demo">
+            <p><?php esc_html_e( "'Disciple Tools - Starter' plugin requires 'Disciple Tools' theme to work. Please activate 'Disciple Tools' theme or deactivate 'Disciple Tools - Starter' plugin." ); ?></p>
+        </div>
+        <script>
+            jQuery(function($) {
+                $( document ).on( 'click', '.notice-dt-starter .notice-dismiss', function () {
+                    let type = $( this ).closest( '.notice-dt-starter' ).data( 'notice' );
+                    $.ajax( ajaxurl,
+                        {
+                            type: 'POST',
+                            data: {
+                                action: 'dismissed_notice_handler',
+                                type: type,
+                            }
+                        } );
+                } );
+            });
+        </script>
+
+    <?php }
+}
+
+/**
+ * AJAX handler to store the state of dismissible notices.
+ */
+function dt_starter_ajax_notice_handler() {
+    $type = 'dt-starter';
+    update_option( 'dismissed-' . $type, true );
+}
