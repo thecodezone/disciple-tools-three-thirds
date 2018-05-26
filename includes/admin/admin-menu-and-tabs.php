@@ -58,7 +58,8 @@ class DT_Starter_Plugin_Menu {
      * @since 0.1
      */
     public function register_menu() {
-        add_menu_page( __( 'Starter Plugin (DT)', 'dt_starter_plugin' ), __( 'Starter Plugin (DT)', 'dt_starter_plugin' ), 'manage_dt', 'dt_starter_plugin', [ $this, 'content' ], 'dashicons-admin-generic', 59 );
+        add_menu_page( __( 'Extensions (DT)', 'disciple_tools' ), __( 'Extensions (DT)', 'disciple_tools' ), 'manage_dt', 'dt_extensions', [ $this, 'extensions_menu' ], 'dashicons-admin-generic', 59 );
+        add_submenu_page( 'dt_extensions', __( 'Starter Plugin', 'dt_starter_plugin' ), __( 'Starter Plugin', 'dt_starter_plugin' ), 'manage_dt', $this->token, [ $this, 'content' ] );
     }
 
     /**
@@ -95,11 +96,11 @@ class DT_Starter_Plugin_Menu {
             <?php
             switch ($tab) {
                 case "general":
-                    $object = new DT_Facebook_Tab_General();
+                    $object = new DT_Starter_Tab_General();
                     $object->content();
                     break;
                 case "second":
-                    $object = new DT_Facebook_Tab_Second();
+                    $object = new DT_Starter_Tab_Second();
                     $object->content();
                     break;
                 default:
@@ -114,9 +115,9 @@ class DT_Starter_Plugin_Menu {
 }
 
 /**
- * Class DT_Facebook_Tab_General
+ * Class DT_Starter_Tab_General
  */
-class DT_Facebook_Tab_General
+class DT_Starter_Tab_General
 {
     public function content() {
         ?>
@@ -188,9 +189,9 @@ class DT_Facebook_Tab_General
 }
 
 /**
- * Class DT_Facebook_Tab_Second
+ * Class DT_Starter_Tab_Second
  */
-class DT_Facebook_Tab_Second
+class DT_Starter_Tab_Second
 {
     public function content() {
         ?>
@@ -259,3 +260,4 @@ class DT_Facebook_Tab_Second
         <?php
     }
 }
+
