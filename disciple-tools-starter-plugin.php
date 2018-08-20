@@ -287,7 +287,7 @@ function dt_starter_plugin_no_disciple_tools_theme_found()
 {
     ?>
     <div class="notice notice-error">
-        <p><?php esc_html_e( "'Disciple Tools - Starter_Plugin' requires 'Disciple Tools' theme to work. Please activate 'Disciple Tools' theme or deactivate 'Disciple Tools - Starter_Plugin' plugin.", "dt_starter_plugin" ); ?></p>
+        <p><?php esc_html_e( "'Disciple Tools - Starter Plugin' requires 'Disciple Tools' theme to work. Please activate 'Disciple Tools' theme or deactivate 'Disciple Tools - Starter Plugin' plugin.", "dt_starter_plugin" ); ?></p>
     </div>
     <?php
 }
@@ -359,7 +359,7 @@ function dt_starter_hook_admin_notice() {
     if ( ! get_option( 'dismissed-dt-starter', false ) ) {
         // multiple dismissible notice states ?>
         <div class="notice notice-error notice-dt-starter is-dismissible" data-notice="dt-demo">
-            <p><?php esc_html_e( "'Disciple Tools - Starter' plugin requires 'Disciple Tools' theme to work. Please activate 'Disciple Tools' theme or deactivate 'Disciple Tools - Starter' plugin." ); ?></p>
+            <p><?php esc_html_e( "'Disciple Tools - Starter Plugin' requires 'Disciple Tools' theme to work. Please activate 'Disciple Tools' theme or deactivate 'Disciple Tools - Starter Plugin'." ); ?></p>
         </div>
         <script>
             jQuery(function($) {
