@@ -16,7 +16,7 @@ the Disciple Tools system.
 1. Starter Admin menu and options page with tabs.
 
 ### Refactoring this plugin as your own:
-1. Refactor all occurences of the name `DT_Starter_Plugin`, `dt_starter_plugin`, `starter-plugin`, and `Starter Plugin` with you're own plugin
+1. Refactor all occurences of the name `Starter_Plugin`, `starter_plugin`, `starter-plugin`, and `Starter Plugin` with you're own plugin
 name for the `disciple-tools-starter-plugin.php and admin-menu-and-tabs.php files.
 1. Update the README.md and LICENSE
 1. Update the translation strings inside `default.pot` file with a multilingual sofware like POEdit, if you intend to make your plugin multilingual.
