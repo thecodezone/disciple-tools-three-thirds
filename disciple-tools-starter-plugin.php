@@ -1,12 +1,12 @@
 <?php
 /**
  * Plugin Name: Disciple Tools - Starter Plugin
- * Plugin URI: https://github.com/ZumeProject/disciple-tools-starter_plugin
+ * Plugin URI: https://github.com/ZumeProject/disciple-tools-starter-plugin
  * Description: Disciple Tools - Starter Plugin is intended to help developers and integrator jumpstart their extension
  * of the Disiple Tools system.
  * Version:  0.1.0
  * Author URI: https://github.com/DiscipleTools
- * GitHub Plugin URI: https://github.com/DiscipleTools/disciple-tools-starter_plugin
+ * GitHub Plugin URI: https://github.com/DiscipleTools/disciple-tools-starter-plugin
  * Requires at least: 4.7.0
  * (Requires 4.7+ because of the integration of the REST API at 4.7 and the security requirements of this milestone version.)
  * Tested up to: 4.9
