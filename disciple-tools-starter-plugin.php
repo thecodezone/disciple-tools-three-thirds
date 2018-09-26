@@ -27,7 +27,7 @@
 /**
  * Refactoring (renaming) this plugin as your own:
  * 1. Refactor all occurrences of the name DT_Starter_Plugin, dt_starter_plugin, and Starter Plugin with you're own plugin
- * name for the `disciple-tools-starter-plugin.php and admin-menu-and-tabs.php files.
+ * name for the `disciple-tools-starter-plugin.php and menu-and-tabs.php files.
  * 2. Update the README.md and LICENSE
  * 3. Update the default.pot file if you intend to make your plugin multilingual. Use a tool like POEdit
  * 4. Change the translation domain to in the phpcs.xml your plugin's domain: @todo
@@ -56,14 +56,14 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @return object
  */
 function dt_starter_plugin() {
-    $current_theme = get_option( 'current_theme' );
+    $current_theme = wp_get_theme()->get( "Name" );
 
     if ( 'Disciple Tools' == $current_theme || dt_is_child_theme_of_disciple_tools() ) {
         return DT_Starter_Plugin::get_instance();
     }
     else {
-        add_action( 'admin_notices', 'dt_starter_hook_admin_notice' );
-        add_action( 'wp_ajax_dismissed_notice_handler', 'dt_starter_ajax_notice_handler' );
+        add_action( 'admin_notices', 'dt_starter_plugin_hook_admin_notice' );
+        add_action( 'wp_ajax_dismissed_notice_handler', 'dt_starter_plugin_ajax_notice_handler' );
         return new WP_Error( 'current_theme_not_dt', 'Disciple Tools Theme not active.' );
     }
 
@@ -287,7 +287,7 @@ function dt_starter_plugin_no_disciple_tools_theme_found()
 {
     ?>
     <div class="notice notice-error">
-        <p><?php esc_html_e( "'Disciple Tools - Starter_Plugin' requires 'Disciple Tools' theme to work. Please activate 'Disciple Tools' theme or deactivate 'Disciple Tools - Starter_Plugin' plugin.", "dt_starter_plugin" ); ?></p>
+        <p><?php esc_html_e( "'Disciple Tools - Starter Plugin' requires 'Disciple Tools' theme to work. Please activate 'Disciple Tools' theme or deactivate 'Disciple Tools - Starter Plugin' plugin.", "dt_starter_plugin" ); ?></p>
     </div>
     <?php
 }
@@ -354,12 +354,12 @@ if ( ! function_exists( 'dt_is_child_theme_of_disciple_tools' ) ) {
     }
 }
 
-function dt_starter_hook_admin_notice() {
+function dt_starter_plugin_hook_admin_notice() {
     // Check if it's been dismissed...
     if ( ! get_option( 'dismissed-dt-starter', false ) ) {
         // multiple dismissible notice states ?>
         <div class="notice notice-error notice-dt-starter is-dismissible" data-notice="dt-demo">
-            <p><?php esc_html_e( "'Disciple Tools - Starter' plugin requires 'Disciple Tools' theme to work. Please activate 'Disciple Tools' theme or deactivate 'Disciple Tools - Starter' plugin." ); ?></p>
+            <p><?php esc_html_e( "'Disciple Tools - Starter Plugin' requires 'Disciple Tools' theme to work. Please activate 'Disciple Tools' theme or deactivate 'Disciple Tools - Starter Plugin'." ); ?></p>
         </div>
         <script>
             jQuery(function($) {
@@ -383,7 +383,7 @@ function dt_starter_hook_admin_notice() {
 /**
  * AJAX handler to store the state of dismissible notices.
  */
-function dt_starter_ajax_notice_handler() {
+function dt_starter_plugin_ajax_notice_handler() {
     $type = 'dt-starter';
     update_option( 'dismissed-' . $type, true );
 }
