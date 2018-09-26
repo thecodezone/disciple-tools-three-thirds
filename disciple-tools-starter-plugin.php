@@ -56,7 +56,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @return object
  */
 function dt_starter_plugin() {
-    $current_theme = get_option( 'current_theme' );
+    $current_theme = wp_get_theme()->get( "Name" );
 
     if ( 'Disciple Tools' == $current_theme || dt_is_child_theme_of_disciple_tools() ) {
         return DT_Starter_Plugin::get_instance();
