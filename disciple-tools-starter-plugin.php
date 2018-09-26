@@ -1,12 +1,12 @@
 <?php
 /**
  * Plugin Name: Disciple Tools - Starter Plugin
- * Plugin URI: https://github.com/ZumeProject/disciple-tools-starter_plugin
+ * Plugin URI: https://github.com/DiscipleTools/disciple-tools-starter-plugin
  * Description: Disciple Tools - Starter Plugin is intended to help developers and integrator jumpstart their extension
- * of the Disiple Tools system.
+ * of the Disciple Tools system.
  * Version:  0.1.0
  * Author URI: https://github.com/DiscipleTools
- * GitHub Plugin URI: https://github.com/DiscipleTools/disciple-tools-starter_plugin
+ * GitHub Plugin URI: https://github.com/DiscipleTools/disciple-tools-starter-plugin
  * Requires at least: 4.7.0
  * (Requires 4.7+ because of the integration of the REST API at 4.7 and the security requirements of this milestone version.)
  * Tested up to: 4.9
@@ -26,17 +26,17 @@
 
 /**
  * Refactoring (renaming) this plugin as your own:
- * 1. Refactor all occurences of the name DT_Starter_Plugin, dt_starter_plugin, and Starter Plugin with you're own plugin
+ * 1. Refactor all occurrences of the name DT_Starter_Plugin, dt_starter_plugin, and Starter Plugin with you're own plugin
  * name for the `disciple-tools-starter-plugin.php and admin-menu-and-tabs.php files.
  * 2. Update the README.md and LICENSE
  * 3. Update the default.pot file if you intend to make your plugin multilingual. Use a tool like POEdit
- * 4.
+ * 4. Change the translation domain to in the phpcs.xml your plugin's domain: @todo
  */
 
 /**
  * The starter plugin is equipped with:
  * 1. Wordpress style requirements
- * 2. Travis Continueous Integration
+ * 2. Travis Continuous Integration
  * 3. Disciple Tools Theme presence check
  * 4. Remote upgrade system for ongoing updates outside the Wordpress Directory
  * 5. Multilingual ready
