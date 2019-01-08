@@ -155,6 +155,10 @@ class DT_Starter_Plugin {
         // Admin and settings variables
         $this->token             = 'dt_starter_plugin';
         $this->version             = '0.1';
+
+        // sample rest api class
+        require_once( 'includes/rest-api.php' );
+        DT_Starter_Plugin_Endpoints::instance();
     }
 
     /**
