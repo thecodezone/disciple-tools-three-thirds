@@ -26,7 +26,7 @@
 
 /**
  * Refactoring (renaming) this plugin as your own:
- * 1. Refactor all occurrences of the name DT_Starter_Plugin, dt_starter_plugin, and Starter Plugin with you're own plugin
+ * 1. Refactor all occurrences of the name DT_Starter, dt_starter, and Starter Plugin with you're own
  * name for the `disciple-tools-starter-plugin.php and menu-and-tabs.php files.
  * 2. Update the README.md and LICENSE
  * 3. Update the default.pot file if you intend to make your plugin multilingual. Use a tool like POEdit

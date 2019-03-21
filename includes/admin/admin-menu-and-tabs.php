@@ -7,6 +7,7 @@
  * @since       0.1.0
  */
 
+//@todo Replace all instances if DT_Starter
 if ( ! defined( 'ABSPATH' ) ) { exit; // Exit if accessed directly
 }
 
