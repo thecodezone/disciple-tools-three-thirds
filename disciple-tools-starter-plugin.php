@@ -31,6 +31,7 @@
  * 2. Update the README.md and LICENSE
  * 3. Update the default.pot file if you intend to make your plugin multilingual. Use a tool like POEdit
  * 4. Change the translation domain to in the phpcs.xml your plugin's domain: @todo
+ * 5 Replace 'sample' in this and the rest-api.php files
  */
 
 /**
@@ -78,7 +79,7 @@ function dt_starter_plugin() {
      * Don't load the plugin on every rest request. Only those with the metrics namespace
      */
     $is_rest = dt_is_rest();
-    if ( !$is_rest || strpos( dt_get_url_path(), 'dt_starter' ) != false ){
+    if ( !$is_rest || strpos( dt_get_url_path(), 'sample' ) != false ){
         return DT_Starter_Plugin::get_instance();
     }
 }
@@ -306,9 +307,9 @@ function dt_starter_plugin_hook_admin_notice() {
     global $dt_starter_required_dt_theme_version;
     $wp_theme = wp_get_theme();
     $current_version = $wp_theme->version;
-    $message = __( "'Disciple Tools - Starter Plugin' plugin requires 'Disciple Tools' theme to work. Please activate 'Disciple Tools' theme or make sure it is latest version.", "dt_starter" );
+    $message = __( "'Disciple Tools - Starter Plugin' plugin requires 'Disciple Tools' theme to work. Please activate 'Disciple Tools' theme or make sure it is latest version.", "dt_starter_plugin" );
     if ( $wp_theme->get_template() === "disciple-tools-theme" ){
-        $message .= sprintf( esc_html__( 'Current Disciple Tools version: %1$s, required version: %2$s', 'dt_starter' ), esc_html( $current_version ), esc_html( $dt_starter_required_dt_theme_version ) );
+        $message .= sprintf( esc_html__( 'Current Disciple Tools version: %1$s, required version: %2$s', 'dt_starter_plugin' ), esc_html( $current_version ), esc_html( $dt_starter_required_dt_theme_version ) );
     }
     // Check if it's been dismissed...
     if ( ! get_option( 'dismissed-dt-starter', false ) ) { ?>
