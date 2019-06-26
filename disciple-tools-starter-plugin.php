@@ -76,7 +76,7 @@ function dt_starter_plugin() {
         require_once get_template_directory() . '/dt-core/global-functions.php';
     }
     /*
-     * Don't load the plugin on every rest request. Only those with the metrics namespace
+     * Don't load the plugin on every rest request. Only those with the 'sample' namespace
      */
     $is_rest = dt_is_rest();
     if ( !$is_rest || strpos( dt_get_url_path(), 'sample' ) != false ){
