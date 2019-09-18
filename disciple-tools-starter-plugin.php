@@ -84,7 +84,7 @@ function dt_starter_plugin() {
         return DT_Starter_Plugin::get_instance();
     }
 }
-add_action( 'plugins_loaded', 'dt_starter_plugin' );
+add_action( 'after_setup_theme', 'dt_starter_plugin' );
 
 /**
  * Singleton class for setting up the plugin.
