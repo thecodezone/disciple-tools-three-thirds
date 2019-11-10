@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/DiscipleTools/disciple-tools-starter-plugin.svg?branch=master)](https://travis-ci.com/DiscipleTools/disciple-tools-starter-plugin)
+[![Build Status](https://travis-ci.com/DiscipleTools/disciple-tools-starter-plugin-template.svg?branch=master)](https://travis-ci.com/DiscipleTools/disciple-tools-starter-plugin-template)
 
 # Disciple Tools Starter Plugin
 The Disciple Tools Starter Plugin is intended to accelerate integrations and extensions to the Disciple Tools system.
