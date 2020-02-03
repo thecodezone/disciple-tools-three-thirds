@@ -26,12 +26,12 @@
 
 /**
  * Refactoring (renaming) this plugin as your own:
- * 1. Refactor all occurrences of the name DT_Starter, dt_starter, dt-starter and Starter Plugin with you're own
+ * 1. @todo Refactor all occurrences of the name DT_Starter, dt_starter, dt-starter and Starter Plugin with you're own
  * name for the `disciple-tools-starter-plugin.php and menu-and-tabs.php files.
- * 2. Update the README.md and LICENSE
- * 3. Update the default.pot file if you intend to make your plugin multilingual. Use a tool like POEdit
- * 4. Change the translation domain to in the phpcs.xml your plugin's domain: @todo
- * 5 Replace 'sample' in this and the rest-api.php files
+ * 2. @todo Update the README.md and LICENSE
+ * 3. @todo Update the default.pot file if you intend to make your plugin multilingual. Use a tool like POEdit
+ * 4. @todo Change the translation domain to in the phpcs.xml your plugin's domain: @todo
+ * 5 @todo Replace the 'sample' namespace in this and the rest-api.php files
  */
 
 /**
@@ -80,6 +80,7 @@ function dt_starter_plugin() {
      * Don't load the plugin on every rest request. Only those with the 'sample' namespace
      */
     $is_rest = dt_is_rest();
+    //@todo change 'sample' if you want the plugin to be set up when using rest api calls other than ones with the 'sample' namespace
     if ( !$is_rest || strpos( dt_get_url_path(), 'sample' ) != false ){
         return DT_Starter_Plugin::get_instance();
     }
