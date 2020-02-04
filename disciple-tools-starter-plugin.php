@@ -55,7 +55,7 @@ $dt_starter_required_dt_theme_version = '0.19.0';
  *
  * @since  0.1
  * @access public
- * @return object
+ * @return object|bool
  */
 function dt_starter_plugin() {
     global $dt_starter_required_dt_theme_version;
@@ -66,9 +66,12 @@ function dt_starter_plugin() {
      */
     $is_theme_dt = strpos( $wp_theme->get_template(), "disciple-tools-theme" ) !== false || $wp_theme->name === "Disciple Tools";
     if ( !$is_theme_dt || version_compare( $version, $dt_starter_required_dt_theme_version, "<" ) ) {
-        add_action( 'admin_notices', 'dt_starter_plugin_hook_admin_notice' );
-        add_action( 'wp_ajax_dismissed_notice_handler', 'dt_hook_ajax_notice_handler' );
-        return new WP_Error( 'current_theme_not_dt', 'Disciple Tools Theme not active or not latest version.' );
+        if ( ! is_multisite() ) {
+            add_action('admin_notices', 'dt_starter_plugin_hook_admin_notice');
+            add_action('wp_ajax_dismissed_notice_handler', 'dt_hook_ajax_notice_handler');
+        }
+
+        return false;
     }
     /**
      * Load useful function from the theme
