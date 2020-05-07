@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Disciple Tools - Starter_Plugin\n"
-"POT-Creation-Date: 2020-05-07 10:30+0100\n"
+"POT-Creation-Date: 2020-05-07 10:44+0100\n"
 "PO-Revision-Date: 2018-01-29 05:53-0700\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -22,34 +22,29 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 "X-Poedit-SearchPathExcluded-1: */libraries/*\n"
 
-#: disciple-tools-starter-plugin.php:315
+#: disciple-tools-starter-plugin.php:316
 msgid ""
 "'Disciple Tools - Starter Plugin' plugin requires 'Disciple Tools' theme to "
 "work. Please activate 'Disciple Tools' theme or make sure it is latest "
 "version."
 msgstr ""
 
-#: disciple-tools-starter-plugin.php:317
+#: disciple-tools-starter-plugin.php:318
 #, php-format
 msgid "Current Disciple Tools version: %1$s, required version: %2$s"
 msgstr ""
 
-#: includes/admin/admin-menu-and-tabs.php:62
+#: includes/admin/admin-menu-and-tabs.php:61
 msgid "Extensions (DT)"
 msgstr ""
 
-#: includes/admin/admin-menu-and-tabs.php:63
-#: includes/admin/admin-menu-and-tabs.php:91
+#: includes/admin/admin-menu-and-tabs.php:62
+#: includes/admin/admin-menu-and-tabs.php:90
 msgid "Starter Plugin"
 msgstr ""
 
-#: includes/admin/admin-menu-and-tabs.php:78
+#: includes/admin/admin-menu-and-tabs.php:77
 msgid "You do not have sufficient permissions to access this page."
-msgstr ""
-
-#: includes/admin/admin-menu-and-tabs.php:93
-#: includes/admin/admin-menu-and-tabs.php:94
-msgid "nav-tab-active"
 msgstr ""
 
 #: includes/admin/admin-menu-and-tabs.php:93

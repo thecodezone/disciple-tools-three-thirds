@@ -291,13 +291,14 @@ class DT_Starter_Plugin {
     /**
      * Magic method to prevent a fatal error when calling a method that doesn't exist.
      *
+     * @param string $method
+     * @param array $args
+     * @return null
      * @since  0.1
      * @access public
-     * @return null
      */
     public function __call( $method = '', $args = array() ) {
-        // @codingStandardsIgnoreLine
-        _doing_it_wrong( "dt_starter_plugin::{$method}", 'Method does not exist.', '0.1' );
+        _doing_it_wrong( "dt_starter_plugin::" . esc_html( $method ), 'Method does not exist.', '0.1' );
         unset( $method, $args );
         return null;
     }

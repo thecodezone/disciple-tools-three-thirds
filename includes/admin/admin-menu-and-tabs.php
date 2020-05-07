@@ -7,7 +7,6 @@
  * @since       0.1.0
  */
 
-//@todo Replace all instances if DT_Starter
 if ( ! defined( 'ABSPATH' ) ) { exit; // Exit if accessed directly
 }
 
@@ -119,8 +118,7 @@ class DT_Starter_Plugin_Menu {
 /**
  * Class DT_Starter_Tab_General
  */
-class DT_Starter_Tab_General
-{
+class DT_Starter_Tab_General {
     public function content() {
         ?>
         <div class="wrap">
@@ -153,14 +151,16 @@ class DT_Starter_Tab_General
         <!-- Box -->
         <table class="widefat striped">
             <thead>
-            <th>Header</th>
+                <tr>
+                    <th>Header</th>
+                </tr>
             </thead>
             <tbody>
-            <tr>
-                <td>
-                    Content
-                </td>
-            </tr>
+                <tr>
+                    <td>
+                        Content
+                    </td>
+                </tr>
             </tbody>
         </table>
         <br>
@@ -173,7 +173,9 @@ class DT_Starter_Tab_General
         <!-- Box -->
         <table class="widefat striped">
             <thead>
-            <th>Information</th>
+                <tr>
+                    <th>Information</th>
+                </tr>
             </thead>
             <tbody>
             <tr>
@@ -193,8 +195,7 @@ class DT_Starter_Tab_General
 /**
  * Class DT_Starter_Tab_Second
  */
-class DT_Starter_Tab_Second
-{
+class DT_Starter_Tab_Second {
     public function content() {
         ?>
         <div class="wrap">
@@ -227,14 +228,16 @@ class DT_Starter_Tab_Second
         <!-- Box -->
         <table class="widefat striped">
             <thead>
-            <th>Header</th>
+                <tr>
+                    <th>Header</th>
+                </tr>
             </thead>
             <tbody>
-            <tr>
-                <td>
-                    Content
-                </td>
-            </tr>
+                <tr>
+                    <td>
+                        Content
+                    </td>
+                </tr>
             </tbody>
         </table>
         <br>
@@ -247,7 +250,9 @@ class DT_Starter_Tab_Second
         <!-- Box -->
         <table class="widefat striped">
             <thead>
-            <th>Information</th>
+                <tr>
+                    <th>Information</th>
+                </tr>
             </thead>
             <tbody>
             <tr>
