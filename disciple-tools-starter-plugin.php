@@ -212,7 +212,7 @@ class DT_Starter_Plugin {
         }
 
         // Internationalize the text strings used.
-        add_action( 'plugins_loaded', array( $this, 'i18n' ), 2 );
+        add_action( 'init', array( $this, 'i18n' ), 2 );
     }
 
     /**
@@ -274,7 +274,7 @@ class DT_Starter_Plugin {
      * @return void
      */
     public function __clone() {
-        _doing_it_wrong( __FUNCTION__, esc_html__( 'Whoah, partner!', 'dt_starter_plugin' ), '0.1' );
+        _doing_it_wrong( __FUNCTION__, 'Whoah, partner!', '0.1' );
     }
 
     /**
@@ -285,7 +285,7 @@ class DT_Starter_Plugin {
      * @return void
      */
     public function __wakeup() {
-        _doing_it_wrong( __FUNCTION__, esc_html__( 'Whoah, partner!', 'dt_starter_plugin' ), '0.1' );
+        _doing_it_wrong( __FUNCTION__, 'Whoah, partner!', '0.1' );
     }
 
     /**
@@ -297,7 +297,7 @@ class DT_Starter_Plugin {
      */
     public function __call( $method = '', $args = array() ) {
         // @codingStandardsIgnoreLine
-        _doing_it_wrong( "dt_starter_plugin::{$method}", esc_html__( 'Method does not exist.', 'dt_starter_plugin' ), '0.1' );
+        _doing_it_wrong( "dt_starter_plugin::{$method}", 'Method does not exist.', '0.1' );
         unset( $method, $args );
         return null;
     }

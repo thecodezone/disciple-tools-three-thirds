@@ -90,8 +90,9 @@ class DT_Starter_Plugin_Menu {
         <div class="wrap">
             <h2><?php esc_attr_e( 'Starter Plugin', 'dt_starter_plugin' ) ?></h2>
             <h2 class="nav-tab-wrapper">
-                <a href="<?php echo esc_attr( $link ) . 'general' ?>" class="nav-tab <?php ( $tab == 'general' || ! isset( $tab ) ) ? esc_attr_e( 'nav-tab-active', 'dt_starter_plugin' ) : print ''; ?>"><?php esc_attr_e( 'General', 'dt_starter_plugin' ) ?></a>
-                <a href="<?php echo esc_attr( $link ) . 'second' ?>" class="nav-tab <?php ( $tab == 'second' ) ? esc_attr_e( 'nav-tab-active', 'dt_starter_plugin' ) : print ''; ?>"><?php esc_attr_e( 'Second', 'dt_starter_plugin' ) ?></a>
+                <a href="<?php echo esc_attr( $link ) . 'general' ?>"
+                   class="nav-tab <?php echo esc_html( ( $tab == 'general' || !isset( $tab ) ) ? 'nav-tab-active' : '' ); ?>"><?php esc_attr_e( 'General', 'dt_starter_plugin' ) ?></a>
+                <a href="<?php echo esc_attr( $link ) . 'second' ?>" class="nav-tab <?php echo esc_html( ( $tab == 'second' || !isset( $tab ) ) ? 'nav-tab-active' : '' ); ?>"><?php esc_attr_e( 'Second', 'dt_starter_plugin' ) ?></a>
             </h2>
 
             <?php
