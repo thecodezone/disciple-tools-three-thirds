@@ -48,7 +48,7 @@
 if ( ! defined( 'ABSPATH' ) ) {
     exit; // Exit if accessed directly
 }
-$dt_starter_required_dt_theme_version = '0.19.0';
+$dt_starter_required_dt_theme_version = '0.28.0';
 
 /**
  * Gets the instance of the `DT_Starter_Plugin` class.
