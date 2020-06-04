@@ -9,7 +9,7 @@
  * GitHub Plugin URI: https://github.com/DiscipleTools/disciple-tools-starter-plugin
  * Requires at least: 4.7.0
  * (Requires 4.7+ because of the integration of the REST API at 4.7 and the security requirements of this milestone version.)
- * Tested up to: 4.9
+ * Tested up to: 5.4
  *
  * @package Disciple_Tools
  * @link    https://github.com/DiscipleTools
@@ -26,12 +26,12 @@
 
 /**
  * Refactoring (renaming) this plugin as your own:
- * 1. @todo Refactor all occurrences of the name DT_Starter, dt_starter, dt-starter and Starter Plugin with you're own
- * name for the `disciple-tools-starter-plugin.php and menu-and-tabs.php files.
- * 2. @todo Update the README.md and LICENSE
- * 3. @todo Update the default.pot file if you intend to make your plugin multilingual. Use a tool like POEdit
- * 4. @todo Change the translation domain to in the phpcs.xml your plugin's domain: @todo
- * 5 @todo Replace the 'sample' namespace in this and the rest-api.php files
+ * 1. @todo Refactor all occurrences of the name DT_Starter, dt_starter, dt-starter, starter-plugin and Starter Plugin
+ * 2. @todo Rename the `disciple-tools-starter-plugin.php and menu-and-tabs.php files.
+ * 3. @todo Update the README.md and LICENSE
+ * 4. @todo Update the default.pot file if you intend to make your plugin multilingual. Use a tool like POEdit
+ * 5. @todo Change the translation domain to in the phpcs.xml your plugin's domain: @todo
+ * 6. @todo Replace the 'sample' namespace in this and the rest-api.php files
  */
 
 /**
@@ -213,6 +213,34 @@ class DT_Starter_Plugin {
 
         // Internationalize the text strings used.
         add_action( 'init', array( $this, 'i18n' ), 2 );
+
+        if ( is_admin() ) {
+            // adds links to the plugin description area in the plugin admin list.
+            add_filter( 'plugin_row_meta', [ $this, 'plugin_description_links' ], 10, 4);
+        }
+    }
+
+    /**
+     * Filters the array of row meta for each/specific plugin in the Plugins list table.
+     * Appends additional links below each/specific plugin on the plugins page.
+     *
+     * @access  public
+     * @param   array       $links_array            An array of the plugin's metadata
+     * @param   string      $plugin_file_name       Path to the plugin file
+     * @param   array       $plugin_data            An array of plugin data
+     * @param   string      $status                 Status of the plugin
+     * @return  array       $links_array
+     */
+    public function plugin_description_links( $links_array, $plugin_file_name, $plugin_data, $status ) {
+        if ( strpos( $plugin_file_name, basename(__FILE__) ) ) {
+            // You can still use `array_unshift()` to add links at the beginning.
+
+            $links_array[] = '<a href="https://disciple.tools">Disciple.Tools Community</a>'; // @todo replace with your links.
+
+            // add other links here
+        }
+
+        return $links_array;
     }
 
     /**

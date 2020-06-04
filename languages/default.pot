@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
-"Project-Id-Version: Disciple Tools - Starter_Plugin\n"
+"Project-Id-Version: Disciple Tools - Starter Plugin\n"
 "POT-Creation-Date: 2020-05-07 10:44+0100\n"
 "PO-Revision-Date: 2018-01-29 05:53-0700\n"
 "Last-Translator: \n"
