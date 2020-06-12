@@ -33,7 +33,7 @@ class DT_Starter_Plugin_Endpoints
 
     //See https://github.com/DiscipleTools/disciple-tools-theme/wiki/Site-to-Site-Link for outside of wordpress authentication
     public function add_api_routes() {
-        $namespace = 'dt_starter/v1';
+        $namespace = 'dt_starter_plugin/v1';
 
         register_rest_route(
             $namespace, '/endpoint', [
