@@ -134,12 +134,6 @@ class DT_Starter_Post_Type {
                 "p2p_direction" => "from",
                 "p2p_key" => $this->post_type . "_to_peoplegroups"
             ];
-            $fields["post_type"] = [
-                'name' => $this->single,
-                'type' => 'text',
-                'default' => '',
-                'show_in_table' => false
-            ];
 
         }
         if ( $post_type === 'groups' ){
@@ -185,11 +179,6 @@ class DT_Starter_Post_Type {
             'name' => $this->post_type . '_to_peoplegroups',
             'from' => $this->post_type,
             'to' => 'peoplegroups'
-        ]);
-        p2p_register_connection_type([
-            'name' => $this->post_type . '_to_coaches',
-            'from' => $this->post_type,
-            'to' => 'contacts'
         ]);
     }
 
