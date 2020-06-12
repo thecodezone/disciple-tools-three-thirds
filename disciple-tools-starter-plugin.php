@@ -89,7 +89,7 @@ function dt_starter_plugin() {
         return DT_Starter_Plugin::get_instance();
     }
     // @todo remove this "else if", if not using rest-api.php
-    else if ( strpos( dt_get_url_path(), 'dt_starter' ) !== false ) {
+    else if ( strpos( dt_get_url_path(), 'dt_starter_plugin' ) !== false ) {
         return DT_Starter_Plugin::get_instance();
     }
     // @todo remove if not using a post type
@@ -189,9 +189,13 @@ class DT_Starter_Plugin {
 
         // sample rest api class
         require_once( 'includes/rest-api.php' );
-        DT_Starter_Plugin_Endpoints::instance();
 
+        // sample post type class
         require_once( 'includes/post-type.php' );
+
+        // custom site to site links
+        require_once( 'includes/custom-site-to-site-links.php' );
+
     }
 
     /**

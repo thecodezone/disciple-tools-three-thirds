@@ -56,3 +56,4 @@ class DT_Starter_Plugin_Endpoints
         return true;
     }
 }
+DT_Starter_Plugin_Endpoints::instance();
