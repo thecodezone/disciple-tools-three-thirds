@@ -26,7 +26,7 @@
 
 /**
  * Refactoring (renaming) this plugin as your own:
- * 1. @todo Refactor all occurrences of the name DT_Starter, dt_starter, dt-starter, starter-plugin and Starter Plugin
+ * 1. @todo Refactor all occurrences of the name DT_Starter, dt_starter, dt-starter, starter-plugin, starter_post_type, and Starter Plugin
  * 2. @todo Rename the `disciple-tools-starter-plugin.php and menu-and-tabs.php files.
  * 3. @todo Update the README.md and LICENSE
  * 4. @todo Update the default.pot file if you intend to make your plugin multilingual. Use a tool like POEdit
@@ -61,6 +61,7 @@ function dt_starter_plugin() {
     global $dt_starter_required_dt_theme_version;
     $wp_theme = wp_get_theme();
     $version = $wp_theme->version;
+
     /*
      * Check if the Disciple.Tools theme is loaded and is the latest required version
      */
@@ -84,7 +85,15 @@ function dt_starter_plugin() {
      */
     $is_rest = dt_is_rest();
     //@todo change 'sample' if you want the plugin to be set up when using rest api calls other than ones with the 'sample' namespace
-    if ( !$is_rest || strpos( dt_get_url_path(), 'sample' ) !== false ){
+    if ( ! $is_rest ){
+        return DT_Starter_Plugin::get_instance();
+    }
+    // @todo remove this "else if", if not using rest-api.php
+    else if ( strpos( dt_get_url_path(), 'dt_starter' ) !== false ) {
+        return DT_Starter_Plugin::get_instance();
+    }
+    // @todo remove if not using a post type
+    else if ( strpos( dt_get_url_path(), 'starter_post_type' ) !== false) {
         return DT_Starter_Plugin::get_instance();
     }
 }
@@ -176,9 +185,13 @@ class DT_Starter_Plugin {
         $this->token             = 'dt_starter_plugin';
         $this->version             = '0.1';
 
+
+
         // sample rest api class
         require_once( 'includes/rest-api.php' );
         DT_Starter_Plugin_Endpoints::instance();
+
+        require_once( 'includes/post-type.php' );
     }
 
     /**
