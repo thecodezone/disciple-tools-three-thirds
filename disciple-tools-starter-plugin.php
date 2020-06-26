@@ -218,14 +218,22 @@ class DT_Starter_Plugin {
              * a template.
              * Also, see the instructions for version updating to understand the steps involved.
              * @see https://github.com/DiscipleTools/disciple-tools-version-control/wiki/How-to-Update-the-Starter-Plugin
+             * @todo enable this section with your own hosted file
+             * @todo An example of this file can be found in /includes/admin/disciple-tools-starter-plugin-version-control.json
+             * @todo It is recommended to host this version control file outside the project itself. Github is a good option for delivering static json.
              */
-//            @todo enable this section with your own hosted file
-//            $hosted_json = "https://raw.githubusercontent.com/DiscipleTools/disciple-tools-version-control/master/disciple-tools-starter-plugin-version-control.json";
-//            Puc_v4_Factory::buildUpdateChecker(
-//                $hosted_json,
-//                __FILE__,
-//                'disciple-tools-starter-plugin'
-//            );
+
+            /***** @todo remove from here
+
+            $hosted_json = "https://raw.githubusercontent.com/DiscipleTools/disciple-tools-version-control/master/disciple-tools-starter-plugin-version-control.json"; // @todo change this url
+            Puc_v4_Factory::buildUpdateChecker(
+                $hosted_json,
+                __FILE__,
+                'disciple-tools-starter-plugin'
+            );
+
+            ********* @todo to here */
+
         }
 
         // Internationalize the text strings used.
