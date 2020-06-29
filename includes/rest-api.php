@@ -46,7 +46,7 @@ class DT_Starter_Plugin_Endpoints
     }
 
 
-    public function endpoint( WP_REST_Request $request ) {
+    public function private_endpoint( WP_REST_Request $request ) {
         if ( !$this->has_permission() ){
             return new WP_Error( "private_endpoint", "Missing Permissions", [ 'status' => 400 ] );
         }
