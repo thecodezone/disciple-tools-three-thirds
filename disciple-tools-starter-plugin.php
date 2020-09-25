@@ -26,7 +26,7 @@
 
 /**
  * Refactoring (renaming) this plugin as your own:
- * 1. @todo Refactor all occurrences of the name DT_Starter, dt_starter, dt-starter, starter-plugin, starter_post_type, and Starter Plugin
+ * 1. @todo Refactor all occurrences of the name DT_Starter, dt_starter, dt-starter, starter-plugin, starter-plugin-template, starter_post_type, and Starter Plugin
  * 2. @todo Rename the `disciple-tools-starter-plugin.php and menu-and-tabs.php files.
  * 3. @todo Update the README.md and LICENSE
  * 4. @todo Update the default.pot file if you intend to make your plugin multilingual. Use a tool like POEdit
@@ -227,7 +227,7 @@ class DT_Starter_Plugin {
 
             /***** @todo remove from here
 
-            $hosted_json = "https://raw.githubusercontent.com/DiscipleTools/disciple-tools-version-control/master/disciple-tools-starter-plugin-version-control.json"; // @todo change this url
+            $hosted_json = "https://raw.githubusercontent.com/DiscipleTools/disciple-tools-starter-plugin-template/master/includes/admin/version-control.json"; // @todo change this url
             Puc_v4_Factory::buildUpdateChecker(
                 $hosted_json,
                 __FILE__,
