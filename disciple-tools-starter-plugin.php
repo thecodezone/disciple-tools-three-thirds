@@ -48,7 +48,7 @@
 if ( ! defined( 'ABSPATH' ) ) {
     exit; // Exit if accessed directly
 }
-$dt_starter_required_dt_theme_version = '0.28.0';
+$dt_starter_required_dt_theme_version = '1.0';
 
 /**
  * Gets the instance of the `DT_Starter_Plugin` class.
@@ -96,6 +96,7 @@ function dt_starter_plugin() {
     else if ( strpos( dt_get_url_path(), 'starter_post_type' ) !== false) {
         return DT_Starter_Plugin::get_instance();
     }
+    return false;
 }
 add_action( 'after_setup_theme', 'dt_starter_plugin' );
 
@@ -107,27 +108,10 @@ add_action( 'after_setup_theme', 'dt_starter_plugin' );
  */
 class DT_Starter_Plugin {
 
-    /**
-     * Declares public variables
-     *
-     * @since  0.1
-     * @access public
-     * @return object
-     */
     public $token;
     public $version;
     public $dir_path = '';
     public $dir_uri = '';
-    public $img_uri = '';
-    public $includes_path;
-
-    /**
-     * Returns the instance.
-     *
-     * @since  0.1
-     * @access public
-     * @return object
-     */
     public static function get_instance() {
 
         static $instance = null;
@@ -135,117 +119,99 @@ class DT_Starter_Plugin {
         if ( is_null( $instance ) ) {
             $instance = new dt_starter_plugin();
             $instance->setup();
+            $instance->plugin_updater_setup();
             $instance->includes();
-            $instance->setup_actions();
+            $instance->admin_setup();
         }
+
         return $instance;
     }
+    private function __construct() {}
 
     /**
-     * Constructor method.
-     *
-     * @since  0.1
-     * @access private
-     * @return void
-     */
-    private function __construct() {
-    }
-
-    /**
-     * Loads files needed by the plugin.
-     *
-     * @since  0.1
-     * @access public
-     * @return void
-     */
-    private function includes() {
-        if ( is_admin() ) {
-            require_once( 'includes/admin/admin-menu-and-tabs.php' );
-        }
-    }
-
-    /**
-     * Sets up globals.
-     *
-     * @since  0.1
-     * @access public
-     * @return void
+     * Sets up variables and language translation
      */
     private function setup() {
-
-        // Main plugin directory path and URI.
-        $this->dir_path     = trailingslashit( plugin_dir_path( __FILE__ ) );
-        $this->dir_uri      = trailingslashit( plugin_dir_url( __FILE__ ) );
-
-        // Plugin directory paths.
-        $this->includes_path      = trailingslashit( $this->dir_path . 'includes' );
-
-        // Plugin directory URIs.
-        $this->img_uri      = trailingslashit( $this->dir_uri . 'img' );
 
         // Admin and settings variables
         $this->token             = 'dt_starter_plugin';
         $this->version             = '0.1';
 
+        // Main plugin directory path and URI.
+        $this->dir_path     = trailingslashit( plugin_dir_path( __FILE__ ) );
+        $this->dir_uri      = trailingslashit( plugin_dir_url( __FILE__ ) );
 
-
-        // sample rest api class
-        require_once( 'includes/rest-api.php' );
-
-        // sample post type class
-        require_once( 'includes/post-type.php' );
-
-        // custom site to site links
-        require_once( 'includes/custom-site-to-site-links.php' );
-
+        // Internationalize the text strings used.
+        add_action( 'init', array( $this, 'i18n' ), 2 );
     }
 
     /**
-     * Sets up main plugin actions and filters.
-     *
-     * @since  0.1
-     * @access public
-     * @return void
+     * Sets up plugin updater features
      */
-    private function setup_actions() {
+    private function plugin_updater_setup(){
+        /**
+         * Below is the publicly hosted .json file that carries the version information. This file can be hosted
+         * anywhere as long as it is publicly accessible. You can download the version file listed below and use it as
+         * a template.
+         * Also, see the instructions for version updating to understand the steps involved.
+         * @see https://github.com/DiscipleTools/disciple-tools-version-control/wiki/How-to-Update-the-Starter-Plugin
+         * @todo enable this section with your own hosted file
+         * @todo An example of this file can be found in /includes/admin/disciple-tools-starter-plugin-version-control.json
+         * @todo It is recommended to host this version control file outside the project itself. Github is a good option for delivering static json.
+         */
+
+        /***** @todo remove this line to enable
 
         if ( is_admin() ){
+
             // Check for plugin updates
             if ( ! class_exists( 'Puc_v4_Factory' ) ) {
                 require( get_template_directory() . '/dt-core/libraries/plugin-update-checker/plugin-update-checker.php' );
             }
-            /**
-             * Below is the publicly hosted .json file that carries the version information. This file can be hosted
-             * anywhere as long as it is publicly accessible. You can download the version file listed below and use it as
-             * a template.
-             * Also, see the instructions for version updating to understand the steps involved.
-             * @see https://github.com/DiscipleTools/disciple-tools-version-control/wiki/How-to-Update-the-Starter-Plugin
-             * @todo enable this section with your own hosted file
-             * @todo An example of this file can be found in /includes/admin/disciple-tools-starter-plugin-version-control.json
-             * @todo It is recommended to host this version control file outside the project itself. Github is a good option for delivering static json.
-             */
 
-            /***** @todo remove from here
-
-            $hosted_json = "https://raw.githubusercontent.com/DiscipleTools/disciple-tools-starter-plugin-template/master/includes/admin/version-control.json"; // @todo change this url
+            $hosted_json = "https://raw.githubusercontent.com/DiscipleTools/disciple-tools-starter-plugin-template/master/admin/version-control.json"; // change this url
             Puc_v4_Factory::buildUpdateChecker(
-                $hosted_json,
-                __FILE__,
-                'disciple-tools-starter-plugin'
+            $hosted_json,
+            __FILE__,
+            'disciple-tools-starter-plugin' // change this token
             );
-
-            ********* @todo to here */
 
         }
 
-        // Internationalize the text strings used.
-        add_action( 'init', array( $this, 'i18n' ), 2 );
+        ********* @todo remove this line to enable */
+    }
 
+    /**
+     * Sets up all file dependencies
+     */
+    private function includes() {
+
+        // adds starter rest api class
+        require_once( 'rest-api/rest-api.php' );
+
+        // add starter post type extension to Disciple Tools system
+        require_once( 'post-type/loader.php' );
+
+        // add site to site link class and capabilities
+        require_once( 'site-link/custom-site-to-site-links.php' );
+
+    }
+
+    /**
+     * Sets up admin area
+     */
+    private function admin_setup() {
         if ( is_admin() ) {
+
+            // adds starter admin page and section for plugin
+            require_once( 'admin/admin-menu-and-tabs.php' );
+
             // adds links to the plugin description area in the plugin admin list.
             add_filter( 'plugin_row_meta', [ $this, 'plugin_description_links' ], 10, 4 );
         }
     }
+
+
 
     /**
      * Filters the array of row meta for each/specific plugin in the Plugins list table.
@@ -263,7 +229,6 @@ class DT_Starter_Plugin {
             // You can still use `array_unshift()` to add links at the beginning.
 
             $links_array[] = '<a href="https://disciple.tools">Disciple.Tools Community</a>'; // @todo replace with your links.
-
             // add other links here
         }
 
@@ -278,14 +243,7 @@ class DT_Starter_Plugin {
      * @return void
      */
     public static function activation() {
-
-        // Confirm 'Administrator' has 'manage_dt' privilege. This is key in 'remote' configuration when
-        // Disciple Tools theme is not installed, otherwise this will already have been installed by the Disciple Tools Theme
-        $role = get_role( 'administrator' );
-        if ( !empty( $role ) ) {
-            $role->add_cap( 'manage_dt' ); // gives access to dt plugin options
-        }
-
+        // add elements here that need to fire on activation
     }
 
     /**
@@ -296,6 +254,8 @@ class DT_Starter_Plugin {
      * @return void
      */
     public static function deactivation() {
+        // add functions here that need to happen on deactivation
+
         delete_option( 'dismissed-dt-starter' );
     }
 
@@ -364,41 +324,42 @@ class DT_Starter_Plugin {
 register_activation_hook( __FILE__, [ 'DT_Starter_Plugin', 'activation' ] );
 register_deactivation_hook( __FILE__, [ 'DT_Starter_Plugin', 'deactivation' ] );
 
-function dt_starter_plugin_hook_admin_notice() {
-    global $dt_starter_required_dt_theme_version;
-    $wp_theme = wp_get_theme();
-    $current_version = $wp_theme->version;
-    $message = __( "'Disciple Tools - Starter Plugin' plugin requires 'Disciple Tools' theme to work. Please activate 'Disciple Tools' theme or make sure it is latest version.", "dt_starter_plugin" );
-    if ( $wp_theme->get_template() === "disciple-tools-theme" ){
-        $message .= sprintf( esc_html__( 'Current Disciple Tools version: %1$s, required version: %2$s', 'dt_starter_plugin' ), esc_html( $current_version ), esc_html( $dt_starter_required_dt_theme_version ) );
-    }
-    // Check if it's been dismissed...
-    if ( ! get_option( 'dismissed-dt-starter', false ) ) { ?>
-        <div class="notice notice-error notice-dt-starter is-dismissible" data-notice="dt-starter">
-            <p><?php echo esc_html( $message );?></p>
-        </div>
-        <script>
-            jQuery(function($) {
-                $( document ).on( 'click', '.notice-dt-starter .notice-dismiss', function () {
-                    $.ajax( ajaxurl, {
-                        type: 'POST',
-                        data: {
-                            action: 'dismissed_notice_handler',
-                            type: 'dt-starter',
-                            security: '<?php echo esc_html( wp_create_nonce( 'wp_rest_dismiss' ) ) ?>'
-                        }
-                    })
+if ( ! function_exists( 'dt_starter_plugin_hook_admin_notice' ) ) {
+    function dt_starter_plugin_hook_admin_notice() {
+        global $dt_starter_required_dt_theme_version;
+        $wp_theme = wp_get_theme();
+        $current_version = $wp_theme->version;
+        $message = __( "'Disciple Tools - Starter Plugin' plugin requires 'Disciple Tools' theme to work. Please activate 'Disciple Tools' theme or make sure it is latest version.", "dt_starter_plugin" );
+        if ( $wp_theme->get_template() === "disciple-tools-theme" ){
+            $message .= sprintf( esc_html__( 'Current Disciple Tools version: %1$s, required version: %2$s', 'dt_starter_plugin' ), esc_html( $current_version ), esc_html( $dt_starter_required_dt_theme_version ) );
+        }
+        // Check if it's been dismissed...
+        if ( ! get_option( 'dismissed-dt-starter', false ) ) { ?>
+            <div class="notice notice-error notice-dt-starter is-dismissible" data-notice="dt-starter">
+                <p><?php echo esc_html( $message );?></p>
+            </div>
+            <script>
+                jQuery(function($) {
+                    $( document ).on( 'click', '.notice-dt-starter .notice-dismiss', function () {
+                        $.ajax( ajaxurl, {
+                            type: 'POST',
+                            data: {
+                                action: 'dismissed_notice_handler',
+                                type: 'dt-starter',
+                                security: '<?php echo esc_html( wp_create_nonce( 'wp_rest_dismiss' ) ) ?>'
+                            }
+                        })
+                    });
                 });
-            });
-        </script>
-    <?php }
+            </script>
+        <?php }
+    }
 }
-
 
 /**
  * AJAX handler to store the state of dismissible notices.
  */
-if ( !function_exists( "dt_hook_ajax_notice_handler" )){
+if ( ! function_exists( "dt_hook_ajax_notice_handler" )){
     function dt_hook_ajax_notice_handler(){
         check_ajax_referer( 'wp_rest_dismiss', 'security' );
         if ( isset( $_POST["type"] ) ){
