@@ -4,7 +4,7 @@
  * Plugin URI: https://github.com/DiscipleTools/disciple-tools-starter-plugin
  * Description: Disciple Tools - Starter Plugin is intended to help developers and integrator jumpstart their extension
  * of the Disciple Tools system.
- * Version:  0.1.0
+ * Version:  0.2
  * Author URI: https://github.com/DiscipleTools
  * GitHub Plugin URI: https://github.com/DiscipleTools/disciple-tools-starter-plugin
  * Requires at least: 4.7.0
