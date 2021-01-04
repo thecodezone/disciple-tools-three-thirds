@@ -20,3 +20,21 @@ the Disciple Tools system.
 name for the `disciple-tools-starter-plugin.php and admin-menu-and-tabs.php files.
 1. Update the README.md and LICENSE
 1. Update the translation strings inside `default.pot` file with a multilingual software like POEdit, if you intend to make your plugin multilingual.
+
+### Installing Code Quality
+At your command line prompt, inside the plugin folder root:
+Run composer install. You will need composer installed into your system. The command below will install
+required composer elements that provide code quality tools (phpcs).
+```
+$ composer install
+```
+
+Once composer install has run, you can run the `phpcbf` function out of the new vendor folder.
+```
+$ vendor/bin/phpcbf
+```
+If the `phpcbf` utility cannot auto correct a style issue, then use `phpcs` to print the code style
+issues that need corrected.
+```
+$ vendor/bin/phpcs
+```

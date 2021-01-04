@@ -351,7 +351,7 @@ class DT_Starter_Base extends DT_Module_Base {
          */
         p2p_register_connection_type(
             [
-                'name'        =>  $this->post_type."_to_peoplegroups",
+                'name'        => $this->post_type."_to_peoplegroups",
                 'from'        => $this->post_type,
                 'to'          => 'peoplegroups',
                 'title'       => [
@@ -574,7 +574,6 @@ class DT_Starter_Base extends DT_Module_Base {
             if ( isset( $fields["status"] ) && empty( $fields["end_date"] ) && empty( $post_array["end_date"] ) && $fields["status"] === 'inactive' ){
                 $fields["end_date"] = time();
             }
-
         }
         return $fields;
     }
@@ -652,7 +651,7 @@ class DT_Starter_Base extends DT_Module_Base {
              */
             do_action( "dt_'.$this->post_type.'_created", $post_id, $initial_fields );
 
-            $post_array= DT_Posts::get_post( $this->post_type, $post_id, true, false );
+            $post_array = DT_Posts::get_post( $this->post_type, $post_id, true, false );
             if ( isset( $post_array["assigned_to"] )) {
                 if ( $post_array["assigned_to"]["id"] ) {
                     DT_Posts::add_shared( $this->post_type, $post_id, $post_array["assigned_to"]["id"], null, false, false, false );
@@ -874,12 +873,12 @@ class DT_Starter_Base extends DT_Module_Base {
     }
 
     public function scripts(){
-        if ( is_singular( $this->post_type ) ){
+//        if ( is_singular( $this->post_type ) ){
 //            wp_enqueue_script( 'dt_groups', get_template_directory_uri() . '/dt-groups/groups.js', [
 //                'jquery',
 //                'details'
 //            ], filemtime( get_theme_file_path() . '/dt-groups/groups.js' ), true );
-        }
+//        }
     }
 }
 
