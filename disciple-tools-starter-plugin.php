@@ -4,7 +4,7 @@
  * Plugin URI: https://github.com/DiscipleTools/disciple-tools-starter-plugin
  * Description: Disciple Tools - Starter Plugin is intended to help developers and integrator jumpstart their extension
  * of the Disciple Tools system.
- * Version:  0.2
+ * Version:  1.0
  * Author URI: https://github.com/DiscipleTools
  * GitHub Plugin URI: https://github.com/DiscipleTools/disciple-tools-starter-plugin
  * Requires at least: 4.7.0
@@ -135,7 +135,7 @@ class DT_Starter_Plugin {
 
         // Admin and settings variables
         $this->token             = 'dt_starter_plugin';
-        $this->version             = '0.1';
+        $this->version             = '2.0';
 
         // Main plugin directory path and URI.
         $this->dir_path     = trailingslashit( plugin_dir_path( __FILE__ ) );
