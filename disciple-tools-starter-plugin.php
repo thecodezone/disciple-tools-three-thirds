@@ -135,7 +135,7 @@ class DT_Starter_Plugin {
 
         // Admin and settings variables
         $this->token             = 'dt_starter_plugin';
-        $this->version             = '2.0';
+        $this->version             = '1.0';
 
         // Main plugin directory path and URI.
         $this->dir_path     = trailingslashit( plugin_dir_path( __FILE__ ) );
