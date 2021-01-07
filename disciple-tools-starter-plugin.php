@@ -142,7 +142,7 @@ class DT_Starter_Plugin {
         $this->dir_uri      = trailingslashit( plugin_dir_url( __FILE__ ) );
 
         // Internationalize the text strings used.
-        add_action( 'init', array( $this, 'i18n' ), 2 );
+        add_action( 'plugins_loaded', array( $this, 'i18n' ), 2 );
     }
 
     /**
@@ -267,7 +267,20 @@ class DT_Starter_Plugin {
      * @return void
      */
     public function i18n() {
-        load_plugin_textdomain( 'dt_starter_plugin', false, trailingslashit( dirname( plugin_basename( __FILE__ ) ) ). 'languages' );
+        //Take from loadTextDomain() in /disciple-tools-theme/dt-core/libraries/plugin-update-checker/Puc/v4p5/UpdateChecker.php
+        $domain = 'dt_starter_plugin';
+        $locale = apply_filters(
+            'plugin_locale',
+            ( is_admin() && function_exists( 'get_user_locale' ) ) ? get_user_locale() : get_locale(),
+            $domain
+        );
+
+        $mo_file = $domain . '-' . $locale . '.mo';
+        $path = realpath( dirname( __FILE__ ) . '/languages' );
+
+        if ($path && file_exists( $path )) {
+            load_textdomain( $domain, $path . '/' . $mo_file );
+        }
     }
 
     /**
