@@ -2,8 +2,9 @@
 /**
  * Plugin Name: Disciple Tools - Starter Plugin
  * Plugin URI: https://github.com/DiscipleTools/disciple-tools-starter-plugin
- * Description: Disciple Tools - Starter Plugin is intended to help developers and integrator jumpstart their extension
- * of the Disciple Tools system.
+ * Description: Disciple Tools - Starter Plugin is intended to help developers and integrator jumpstart their extension of the Disciple Tools system.
+ * Text Domain: disciple-tools-starter-plugin-template
+ * Domain Path: /languages
  * Version:  1.0
  * Author URI: https://github.com/DiscipleTools
  * GitHub Plugin URI: https://github.com/DiscipleTools/disciple-tools-starter-plugin
@@ -98,7 +99,7 @@ function dt_starter_plugin() {
     }
     return false;
 }
-add_action( 'after_setup_theme', 'dt_starter_plugin' );
+add_action( 'after_setup_theme', 'dt_starter_plugin', 20 );
 
 /**
  * Singleton class for setting up the plugin.
@@ -142,7 +143,7 @@ class DT_Starter_Plugin {
         $this->dir_uri      = trailingslashit( plugin_dir_url( __FILE__ ) );
 
         // Internationalize the text strings used.
-        add_action( 'plugins_loaded', array( $this, 'i18n' ), 2 );
+        add_action( 'after_setup_theme', array( $this, 'i18n' ), 51 );
     }
 
     /**
@@ -268,7 +269,8 @@ class DT_Starter_Plugin {
      */
     public function i18n() {
         //Take from loadTextDomain() in /disciple-tools-theme/dt-core/libraries/plugin-update-checker/Puc/v4p5/UpdateChecker.php
-        $domain = 'dt_starter_plugin';
+        // @link
+        $domain = 'disciple-tools-starter-plugin-template'; // this must be the same as the slug for the plugin
         $locale = apply_filters(
             'plugin_locale',
             ( is_admin() && function_exists( 'get_user_locale' ) ) ? get_user_locale() : get_locale(),
@@ -291,7 +293,7 @@ class DT_Starter_Plugin {
      * @return string
      */
     public function __toString() {
-        return 'dt_starter_plugin';
+        return 'disciple-tools-starter-plugin-template';
     }
 
     /**
@@ -342,9 +344,9 @@ if ( ! function_exists( 'dt_starter_plugin_hook_admin_notice' ) ) {
         global $dt_starter_required_dt_theme_version;
         $wp_theme = wp_get_theme();
         $current_version = $wp_theme->version;
-        $message = __( "'Disciple Tools - Starter Plugin' plugin requires 'Disciple Tools' theme to work. Please activate 'Disciple Tools' theme or make sure it is latest version.", "dt_starter_plugin" );
+        $message = "'Disciple Tools - Starter Plugin' plugin requires 'Disciple Tools' theme to work. Please activate 'Disciple Tools' theme or make sure it is latest version.";
         if ( $wp_theme->get_template() === "disciple-tools-theme" ){
-            $message .= ' ' . sprintf( esc_html__( 'Current Disciple Tools version: %1$s, required version: %2$s', 'dt_starter_plugin' ), esc_html( $current_version ), esc_html( $dt_starter_required_dt_theme_version ) );
+            $message .= ' ' . sprintf( esc_html( 'Current Disciple Tools version: %1$s, required version: %2$s' ), esc_html( $current_version ), esc_html( $dt_starter_required_dt_theme_version ) );
         }
         // Check if it's been dismissed...
         if ( ! get_option( 'dismissed-dt-starter', false ) ) { ?>
