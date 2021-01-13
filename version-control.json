@@ -1,0 +1,29 @@
+{
+  "name": "Disciple Tools - Starter Plugin Template",
+  "version": "0.2",
+  "last_updated": "2021-01",
+  "author": "Disciple Tools",
+  "author_homepage": "https://disciple.tools",
+  "git_owner": "DiscipleTools",
+  "git_repo": "disciple-tools-starter-plugin-template",
+  "download_url": "https://github.com/DiscipleTools/disciple-tools-starter-plugin-template/releases/latest/download/disciple-tools-starter-plugin-template.zip",
+  "homepage": "https://github.com/DiscipleTools/disciple-tools-starter-plugin-template",
+  "issues_url": "https://github.com/DiscipleTools/disciple-tools-starter-plugin-template/issues",
+  "projects_url": "https://github.com/DiscipleTools/disciple-tools-starter-plugin-template/projects",
+  "discussions_url": "https://github.com/DiscipleTools/disciple-tools-starter-plugin-template/discussions",
+  "wiki_url": "https://github.com/DiscipleTools/disciple-tools-starter-plugin-template/wiki",
+  "license_url": "https://raw.githubusercontent.com/DiscipleTools/disciple-tools-starter-plugin-template/master/LICENSE",
+  "readme_url": "https://raw.githubusercontent.com/DiscipleTools/disciple-tools-starter-plugin-template/master/README.md",
+  "requires": "4.7",
+  "tested": "5.6",
+  "upgrade_notice": "Here's why you should upgrade...",
+  "banners": {
+    "low": "https://raw.githubusercontent.com/DiscipleTools/disciple-tools-version-control/master/images/dt-placeholder-772x250.jpg",
+    "high": "https://raw.githubusercontent.com/DiscipleTools/disciple-tools-version-control/master/images/dt-placeholder-1544x500.jpg"
+  },
+  "sections": {
+    "description": "Disciple Tools - Starter Plugin Template",
+    "installation": "(Required) You must have Disciple.Tools Theme installed before using this plugin. Once Disciple.Tools is installed, you can use the normal Plugin system to install the plugin.",
+    "changelog": ""
+  }
+}

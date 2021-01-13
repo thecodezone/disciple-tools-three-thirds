@@ -1,8 +1,8 @@
 <?php
 /**
- * Plugin Name: Disciple Tools - Starter Plugin
+ * Plugin Name: Disciple Tools - Starter Plugin Template
  * Plugin URI: https://github.com/DiscipleTools/disciple-tools-starter-plugin
- * Description: Disciple Tools - Starter Plugin is intended to help developers and integrator jumpstart their extension of the Disciple Tools system.
+ * Description: Disciple Tools - Starter Plugin Template is intended to help developers and integrator jumpstart their extension of the Disciple Tools system.
  * Text Domain: disciple-tools-starter-plugin-template
  * Domain Path: /languages
  * Version:  1.0
@@ -170,7 +170,7 @@ class DT_Starter_Plugin {
                 require( get_template_directory() . '/dt-core/libraries/plugin-update-checker/plugin-update-checker.php' );
             }
 
-            $hosted_json = "https://raw.githubusercontent.com/DiscipleTools/disciple-tools-starter-plugin-template/master/admin/version-control.json"; // change this url
+            $hosted_json = "https://raw.githubusercontent.com/DiscipleTools/disciple-tools-starter-plugin-template/master/version-control.json"; // change this url
             Puc_v4_Factory::buildUpdateChecker(
             $hosted_json,
             __FILE__,
