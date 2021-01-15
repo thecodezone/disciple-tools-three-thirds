@@ -81,12 +81,18 @@ function dt_starter_plugin() {
     if ( !defined( 'DT_FUNCTIONS_READY' ) ){
         require_once get_template_directory() . '/dt-core/global-functions.php';
     }
+
+
     /*
      * Don't load the plugin on every rest request. Only those with the 'sample' namespace
      */
     $is_rest = dt_is_rest();
     //@todo change 'sample' if you want the plugin to be set up when using rest api calls other than ones with the 'sample' namespace
     if ( ! $is_rest ){
+        return DT_Starter_Plugin::get_instance();
+    }
+    // @todo remove this "else if", if you are not building the chart section
+    else if ( strpos( dt_get_url_path(), 'metrics' ) !== false || ( $is_rest && strpos( dt_get_url_path(), 'dt-starter-metrics' ) !== false ) ){
         return DT_Starter_Plugin::get_instance();
     }
     // @todo remove this "else if", if not using rest-api.php
@@ -195,6 +201,9 @@ class DT_Starter_Plugin {
 
         // add site to site link class and capabilities
         require_once( 'site-link/custom-site-to-site-links.php' );
+
+        // add custom charts to the metrics area
+        require_once( 'charts/charts-loader.php' );
 
     }
 

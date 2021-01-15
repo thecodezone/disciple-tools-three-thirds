@@ -1,9 +1,51 @@
 [![Build Status](https://travis-ci.com/DiscipleTools/disciple-tools-starter-plugin-template.svg?branch=master)](https://travis-ci.com/DiscipleTools/disciple-tools-starter-plugin-template)
 
-# Disciple Tools Starter Plugin
-The Disciple Tools Starter Plugin is intended to accelerate integrations and extensions to the Disciple Tools system.
-This basic plugin starter has some of the basic elements to quickly launch and extension project in the pattern of
-the Disciple Tools system.
+# Disciple Tools - Starter Plugin Template
+
+__Kick start your Disciple.Tools plugin project with this Disciple Tools plugin template!__
+
+We have included starter code for a new post-type, a new REST API endpoint, a new admin page, or a new metrics chart.
+The template also provides code quality and code style tools, Travis-CI integration, multi-language support, activation and
+deactivation functions, and more. In truth it's likely more than your project needs, so we'll
+guide you through removing the elements your project does not need.)
+
+__This plugin is for developers__ who want to extend the Disciple Tools system for their movement effort.
+
+## Usage
+
+#### Can Do
+
+ - __Launch a new category of data inside Disciple Tools and cross reference it to other things like Contacts and Groups.__
+ (For example: If you need to announce a training to a small group of leaders. Then you can make the custom list for
+ those leaders, then use the export bcc link and the plugin will gather all the emails in the list and make them
+ available for quickly creating a new email in your email client, and write your message.)
+
+#### Can't Do
+
+- __Does not facilitate integrations to other systems.__
+
+####
+
+## Installing
+
+Installs as a standard plugin in the WP Admin area of the Disciple Tools system. Requires the role of Administrator.
+
+## Requirements
+
+- __Map feature requires__ the installation of the free Mapbox key in the Disciple Tools mapping section.
+- Disciple Tools System
+
+
+## Contribution
+
+Contributions welcome. You can report issues and bugs in the
+[Issues](https://github.com/DiscipleTools/disciple-tools-list-exports/issues) section of the repo. You can present ideas
+in the [Discussions](https://github.com/DiscipleTools/disciple-tools-list-exports/discussions) section of the repo. And
+code contributions are welcome using the [Pull Request](https://github.com/DiscipleTools/disciple-tools-list-exports/pulls)
+system for git. For a more details on contribution see the [contribution guidelines](https://github.com/DiscipleTools/disciple-tools-list-exports/blob/master/CONTRIBUTING.md).
+
+
+## Screenshots
 
 
 ### The starter plugin is equipped with:
