@@ -269,7 +269,6 @@ class DT_Starter_Plugin {
      */
     public function i18n() {
         //Take from loadTextDomain() in /disciple-tools-theme/dt-core/libraries/plugin-update-checker/Puc/v4p5/UpdateChecker.php
-        // @link
         $domain = 'disciple-tools-starter-plugin-template'; // this must be the same as the slug for the plugin
         $locale = apply_filters(
             'plugin_locale',
