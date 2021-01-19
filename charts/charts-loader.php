@@ -1,4 +1,5 @@
 <?php
+if ( !defined( 'ABSPATH' ) ) { exit; } // Exit if accessed directly.
 
 class DT_Starter_Charts
 {
@@ -11,10 +12,13 @@ class DT_Starter_Charts
     } // End instance()
 
     public function __construct(){
-        // Load required files
-        require_once( 'one-page-chart-template.php' );
 
+        require_once( 'one-page-chart-template.php' );
         new DT_Starter_Chart_Template();
+
+        /**
+         * @todo add other charts like the pattern above here
+         */
 
     } // End __construct
 }

@@ -1,19 +1,5 @@
 <?php
-/**
- * DT_Starter_Plugin_Menu class for the admin page
- *
- * @class       DT_Starter_Plugin_Menu
- * @version     0.1.0
- * @since       0.1.0
- */
-
-if ( ! defined( 'ABSPATH' ) ) { exit; // Exit if accessed directly
-}
-
-/**
- * Initialize menu class
- */
-DT_Starter_Plugin_Menu::instance();
+if ( ! defined( 'ABSPATH' ) ) { exit; } // Exit if accessed directly
 
 /**
  * Class DT_Starter_Plugin_Menu
@@ -58,8 +44,8 @@ class DT_Starter_Plugin_Menu {
      * @since 0.1
      */
     public function register_menu() {
-        add_menu_page( __( 'Extensions (DT)', 'disciple_tools' ), __( 'Extensions (DT)', 'disciple_tools' ), 'manage_dt', 'dt_extensions', [ $this, 'extensions_menu' ], 'dashicons-admin-generic', 59 );
-        add_submenu_page( 'dt_extensions', __( 'Starter Plugin', 'dt_starter_plugin' ), __( 'Starter Plugin', 'dt_starter_plugin' ), 'manage_dt', $this->token, [ $this, 'content' ] );
+        add_menu_page( 'Extensions (DT)', 'Extensions (DT)', 'manage_dt', 'dt_extensions', [ $this, 'extensions_menu' ], 'dashicons-admin-generic', 59 );
+        add_submenu_page( 'dt_extensions', 'Starter Plugin', 'Starter Plugin', 'manage_dt', $this->token, [ $this, 'content' ] );
     }
 
     /**
@@ -74,7 +60,7 @@ class DT_Starter_Plugin_Menu {
     public function content() {
 
         if ( !current_user_can( 'manage_dt' ) ) { // manage dt is a permission that is specific to Disciple Tools and allows admins, strategists and dispatchers into the wp-admin
-            wp_die( esc_attr__( 'You do not have sufficient permissions to access this page.' ) );
+            wp_die( 'You do not have sufficient permissions to access this page.' );
         }
 
         if ( isset( $_GET["tab"] ) ) {
@@ -87,11 +73,11 @@ class DT_Starter_Plugin_Menu {
 
         ?>
         <div class="wrap">
-            <h2><?php esc_attr_e( 'Starter Plugin', 'dt_starter_plugin' ) ?></h2>
+            <h2>Starter Plugin</h2>
             <h2 class="nav-tab-wrapper">
                 <a href="<?php echo esc_attr( $link ) . 'general' ?>"
-                   class="nav-tab <?php echo esc_html( ( $tab == 'general' || !isset( $tab ) ) ? 'nav-tab-active' : '' ); ?>"><?php esc_attr_e( 'General', 'dt_starter_plugin' ) ?></a>
-                <a href="<?php echo esc_attr( $link ) . 'second' ?>" class="nav-tab <?php echo esc_html( ( $tab == 'second' || !isset( $tab ) ) ? 'nav-tab-active' : '' ); ?>"><?php esc_attr_e( 'Second', 'dt_starter_plugin' ) ?></a>
+                   class="nav-tab <?php echo esc_html( ( $tab == 'general' || !isset( $tab ) ) ? 'nav-tab-active' : '' ); ?>">General</a>
+                <a href="<?php echo esc_attr( $link ) . 'second' ?>" class="nav-tab <?php echo esc_html( ( $tab == 'second' || !isset( $tab ) ) ? 'nav-tab-active' : '' ); ?>">Second</a>
             </h2>
 
             <?php
@@ -189,8 +175,8 @@ class DT_Starter_Tab_General {
         <!-- End Box -->
         <?php
     }
-
 }
+
 
 /**
  * Class DT_Starter_Tab_Second

@@ -10,7 +10,7 @@
  * GitHub Plugin URI: https://github.com/DiscipleTools/disciple-tools-starter-plugin
  * Requires at least: 4.7.0
  * (Requires 4.7+ because of the integration of the REST API at 4.7 and the security requirements of this milestone version.)
- * Tested up to: 5.4
+ * Tested up to: 5.6
  *
  * @package Disciple_Tools
  * @link    https://github.com/DiscipleTools
@@ -18,32 +18,14 @@
  *          https://www.gnu.org/licenses/gpl-2.0.html
  */
 
-/*******************************************************************
- * Using the Starter Plugin
- * The Disciple Tools starter plugin is intended to accelerate integrations and extensions to the Disciple Tools system.
- * This basic plugin starter has some of the basic elements to quickly launch and extension project in the pattern of
- * the Disciple Tools system.
- */
-
 /**
  * Refactoring (renaming) this plugin as your own:
  * 1. @todo Refactor all occurrences of the name DT_Starter, dt_starter, dt-starter, starter-plugin, starter-plugin-template, starter_post_type, and Starter Plugin
- * 2. @todo Rename the `disciple-tools-starter-plugin.php and menu-and-tabs.php files.
+ * 2. @todo Rename the `disciple-tools-starter-template.php and menu-and-tabs.php files.
  * 3. @todo Update the README.md and LICENSE
  * 4. @todo Update the default.pot file if you intend to make your plugin multilingual. Use a tool like POEdit
  * 5. @todo Change the translation domain to in the phpcs.xml your plugin's domain: @todo
  * 6. @todo Replace the 'sample' namespace in this and the rest-api.php files
- */
-
-/**
- * The starter plugin is equipped with:
- * 1. Wordpress style requirements
- * 2. Travis Continuous Integration
- * 3. Disciple Tools Theme presence check
- * 4. Remote upgrade system for ongoing updates outside the Wordpress Directory
- * 5. Multilingual ready
- * 6. PHP Code Sniffer support (composer) @use /vendor/bin/phpcs and /vendor/bin/phpcbf
- * 7. Starter Admin menu and options page with tabs.
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -82,7 +64,6 @@ function dt_starter_plugin() {
         require_once get_template_directory() . '/dt-core/global-functions.php';
     }
 
-
     /*
      * Don't load the plugin on every rest request. Only those with the 'sample' namespace
      */
@@ -96,7 +77,7 @@ function dt_starter_plugin() {
         return DT_Starter_Plugin::get_instance();
     }
     // @todo remove this "else if", if not using rest-api.php
-    else if ( strpos( dt_get_url_path(), 'dt_starter_plugin' ) !== false ) {
+    else if ( strpos( dt_get_url_path(), 'dt_starter_plugin_template' ) !== false ) {
         return DT_Starter_Plugin::get_instance();
     }
     // @todo remove if not using a post type
@@ -115,83 +96,15 @@ add_action( 'after_setup_theme', 'dt_starter_plugin', 20 );
  */
 class DT_Starter_Plugin {
 
-    public $token;
-    public $version;
-    public $dir_path = '';
-    public $dir_uri = '';
-    public static function get_instance() {
-
-        static $instance = null;
-
-        if ( is_null( $instance ) ) {
-            $instance = new dt_starter_plugin();
-            $instance->setup();
-            $instance->plugin_updater_setup();
-            $instance->includes();
-            $instance->admin_setup();
+    private static $_instance = null;
+    public static function instance() {
+        if ( is_null( self::$_instance ) ) {
+            self::$_instance = new self();
         }
-
-        return $instance;
-    }
-    private function __construct() {}
-
-    /**
-     * Sets up variables and language translation
-     */
-    private function setup() {
-
-        // Admin and settings variables
-        $this->token             = 'dt_starter_plugin';
-        $this->version             = '1.0';
-
-        // Main plugin directory path and URI.
-        $this->dir_path     = trailingslashit( plugin_dir_path( __FILE__ ) );
-        $this->dir_uri      = trailingslashit( plugin_dir_url( __FILE__ ) );
-
-        // Internationalize the text strings used.
-        add_action( 'after_setup_theme', array( $this, 'i18n' ), 51 );
+        return self::$_instance;
     }
 
-    /**
-     * Sets up plugin updater features
-     */
-    private function plugin_updater_setup(){
-        /**
-         * Below is the publicly hosted .json file that carries the version information. This file can be hosted
-         * anywhere as long as it is publicly accessible. You can download the version file listed below and use it as
-         * a template.
-         * Also, see the instructions for version updating to understand the steps involved.
-         * @see https://github.com/DiscipleTools/disciple-tools-version-control/wiki/How-to-Update-the-Starter-Plugin
-         * @todo enable this section with your own hosted file
-         * @todo An example of this file can be found in /includes/admin/disciple-tools-starter-plugin-version-control.json
-         * @todo It is recommended to host this version control file outside the project itself. Github is a good option for delivering static json.
-         */
-
-        /***** @todo remove this line to enable
-
-        if ( is_admin() ){
-
-            // Check for plugin updates
-            if ( ! class_exists( 'Puc_v4_Factory' ) ) {
-                require( get_template_directory() . '/dt-core/libraries/plugin-update-checker/plugin-update-checker.php' );
-            }
-
-            $hosted_json = "https://raw.githubusercontent.com/DiscipleTools/disciple-tools-starter-plugin-template/master/version-control.json"; // change this url
-            Puc_v4_Factory::buildUpdateChecker(
-            $hosted_json,
-            __FILE__,
-            'disciple-tools-starter-plugin' // change this token
-            );
-
-        }
-
-        ********* @todo remove this line to enable */
-    }
-
-    /**
-     * Sets up all file dependencies
-     */
-    private function includes() {
+    private function __construct() {
 
         // adds starter rest api class
         require_once( 'rest-api/rest-api.php' );
@@ -205,41 +118,57 @@ class DT_Starter_Plugin {
         // add custom charts to the metrics area
         require_once( 'charts/charts-loader.php' );
 
-    }
 
-    /**
-     * Sets up admin area
-     */
-    private function admin_setup() {
+        // adds starter admin page and section for plugin
         if ( is_admin() ) {
-
-            // adds starter admin page and section for plugin
             require_once( 'admin/admin-menu-and-tabs.php' );
+        }
 
-            // adds links to the plugin description area in the plugin admin list.
+        /**
+         * Below is the publicly hosted .json file that carries the version information. This file can be hosted
+         * anywhere as long as it is publicly accessible.
+         *
+         * Also, see the instructions for version updating to understand the steps involved.
+         * @see https://github.com/DiscipleTools/disciple-tools-starter-plugin-template/wiki/Configuring-Remote-Updating-System
+         *
+         * @todo Enable this section with your own hosted file
+         * @todo An example of this file can be found in (version-control.json)
+         * @todo Github is a good option for delivering static json.
+         */
+        if ( is_admin() ){
+            if ( ! class_exists( 'Puc_v4_Factory' ) ) {
+                require( get_template_directory() . '/dt-core/libraries/plugin-update-checker/plugin-update-checker.php' );
+            }
+
+            // @todo change this url
+            $hosted_json = "https://raw.githubusercontent.com/DiscipleTools/disciple-tools-starter-plugin-template/master/version-control.json";
+
+            Puc_v4_Factory::buildUpdateChecker(
+                $hosted_json,
+                __FILE__,
+                'disciple-tools-starter-plugin' // change this token
+            );
+        }
+
+        // adds links to the plugin description area in the plugin admin list.
+        if ( is_admin() ) {
             add_filter( 'plugin_row_meta', [ $this, 'plugin_description_links' ], 10, 4 );
         }
+
+        // adds internationalize the text strings used.
+        add_action( 'after_setup_theme', array( $this, 'i18n' ), 51 );
     }
-
-
 
     /**
      * Filters the array of row meta for each/specific plugin in the Plugins list table.
      * Appends additional links below each/specific plugin on the plugins page.
-     *
-     * @access  public
-     * @param   array       $links_array            An array of the plugin's metadata
-     * @param   string      $plugin_file_name       Path to the plugin file
-     * @param   array       $plugin_data            An array of plugin data
-     * @param   string      $status                 Status of the plugin
-     * @return  array       $links_array
      */
     public function plugin_description_links( $links_array, $plugin_file_name, $plugin_data, $status ) {
         if ( strpos( $plugin_file_name, basename( __FILE__ ) ) ) {
             // You can still use `array_unshift()` to add links at the beginning.
 
             $links_array[] = '<a href="https://disciple.tools">Disciple.Tools Community</a>'; // @todo replace with your links.
-            // add other links here
+            // @todo add other links here
         }
 
         return $links_array;
@@ -253,7 +182,7 @@ class DT_Starter_Plugin {
      * @return void
      */
     public static function activation() {
-        // add elements here that need to fire on activation
+        // @todo add elements here that need to fire on activation
     }
 
     /**
@@ -264,8 +193,7 @@ class DT_Starter_Plugin {
      * @return void
      */
     public static function deactivation() {
-        // add functions here that need to happen on deactivation
-
+        // @todo add functions here that need to happen on deactivation
         delete_option( 'dismissed-dt-starter' );
     }
 
@@ -341,11 +269,12 @@ class DT_Starter_Plugin {
         return null;
     }
 }
-// end main plugin class
+
 
 // Register activation hook.
 register_activation_hook( __FILE__, [ 'DT_Starter_Plugin', 'activation' ] );
 register_deactivation_hook( __FILE__, [ 'DT_Starter_Plugin', 'deactivation' ] );
+
 
 if ( ! function_exists( 'dt_starter_plugin_hook_admin_notice' ) ) {
     function dt_starter_plugin_hook_admin_notice() {

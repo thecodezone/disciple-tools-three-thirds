@@ -1,8 +1,5 @@
 <?php
-if ( !defined( 'ABSPATH' ) ) {
-    exit;
-} // Exit if accessed directly.
-
+if ( !defined( 'ABSPATH' ) ) { exit; } // Exit if accessed directly.
 
 /**
  * Class DT_Starter_Base
@@ -12,6 +9,7 @@ class DT_Starter_Base extends DT_Module_Base {
 
     /**
      * Define post type variables
+     * @todo update these variables with your post_type, module key, and names.
      * @var string
      */
     public $post_type = "starter_post_type";
@@ -22,17 +20,14 @@ class DT_Starter_Base extends DT_Module_Base {
         return 'starter_post_type';
     }
 
-    /**
-     * Singleton
-     * @var null
-     */
     private static $_instance = null;
     public static function instance() {
         if ( is_null( self::$_instance ) ) {
             self::$_instance = new self();
         }
         return self::$_instance;
-    } // End instance()
+    }
+
     public function __construct() {
         parent::__construct();
         if ( !self::check_enabled_and_prerequisites() ){
@@ -103,8 +98,8 @@ class DT_Starter_Base extends DT_Module_Base {
     public function dt_custom_fields_settings( $fields, $post_type ){
         if ( $post_type === $this->post_type ){
             /**
-             * Basic Framework Fields
-             *
+             * Basic framework fields used by post-type base
+             * recommended to leave these alone
              */
             $fields['tags'] = [
                 'name'        => __( 'Tags', 'disciple_tools' ),
@@ -152,6 +147,13 @@ class DT_Starter_Base extends DT_Module_Base {
                 'type'        => 'boolean',
                 'default'     => false,
             ];
+            // end basic framework fields
+
+
+            /**
+             * @todo configure status appropriate to your post type
+             * @todo modify strings and add elements to default array
+             */
             $fields['status'] = [
                 'name'        => __( 'Status', 'disciple_tools' ),
                 'description' => _x( 'Set the current status.', 'field description', 'disciple_tools' ),
@@ -175,6 +177,7 @@ class DT_Starter_Base extends DT_Module_Base {
             ];
 
 
+
             /**
              * Common and recommended fields
              */
@@ -196,7 +199,10 @@ class DT_Starter_Base extends DT_Module_Base {
             ];
 
 
-            // location
+            /**
+             * @todo this section adds location support to this post type. remove if not needed.
+             * location elements
+             */
             $fields['location_grid'] = [
                 'name'        => __( 'Locations', 'disciple_tools' ),
                 'description' => _x( 'The general location where this contact is located.', 'Optional Documentation', 'disciple_tools' ),
@@ -228,13 +234,11 @@ class DT_Starter_Base extends DT_Module_Base {
                 $fields["location_grid"]["mapbox"] = true;
                 $fields["location_grid_meta"]["mapbox"] = true;
             }
-
-
-
-
+            // end locations
 
             /**
-             * Generation and peer connection fields
+             * @todo this adds generational support to this post type. remove if not needed.
+             * generation and peer connection fields
              */
             $fields["parents"] = [
                 "name" => __( 'Parents', 'disciple_tools' ),
@@ -269,9 +273,10 @@ class DT_Starter_Base extends DT_Module_Base {
                 'icon' => get_template_directory_uri() . '/dt-assets/images/group-child.svg',
                 'create-icon' => get_template_directory_uri() . '/dt-assets/images/add-group.svg',
             ];
-
+            // end generations
 
             /**
+             * @todo this adds people groups support to this post type. remove if not needed.
              * Connections to other post types
              */
             $fields["peoplegroups"] = [
@@ -282,12 +287,10 @@ class DT_Starter_Base extends DT_Module_Base {
                 "p2p_direction" => "to",
                 "p2p_key" => $this->post_type."_to_peoplegroups"
             ];
-
-
         }
 
         /**
-         * Modify fields for connected post types
+         * @todo this adds connection to contacts. remove if not needed.
          */
         if ( $post_type === "contacts" ){
             $fields[$this->post_type] = [
@@ -297,6 +300,24 @@ class DT_Starter_Base extends DT_Module_Base {
                 "post_type" => $this->post_type,
                 "p2p_direction" => "from",
                 "p2p_key" => $this->post_type."_to_contacts",
+                "tile" => "other",
+                'icon' => get_template_directory_uri() . "/dt-assets/images/group-type.svg",
+                'create-icon' => get_template_directory_uri() . "/dt-assets/images/add-group.svg",
+                "show_in_table" => 35
+            ];
+        }
+
+        /**
+         * @todo this adds connection to groups. remove if not needed.
+         */
+        if ( $post_type === "groups" ){
+            $fields[$this->post_type] = [
+                "name" => $this->plural_name,
+                "description" => '',
+                "type" => "connection",
+                "post_type" => $this->post_type,
+                "p2p_direction" => "from",
+                "p2p_key" => $this->post_type."_to_groups",
                 "tile" => "other",
                 'icon' => get_template_directory_uri() . "/dt-assets/images/group-type.svg",
                 'create-icon' => get_template_directory_uri() . "/dt-assets/images/add-group.svg",
@@ -491,99 +512,47 @@ class DT_Starter_Base extends DT_Module_Base {
         <?php }
     }
 
-
-
-
     //action when a post connection is added during create or update
     public function post_connection_added( $post_type, $post_id, $field_key, $value ){
         if ( $post_type === $this->post_type ){
             if ( $field_key === "members" ){
-                // share the group with the owner of the contact when a member is added to a group
-                $assigned_to = get_post_meta( $value, "assigned_to", true );
-                if ( $assigned_to && strpos( $assigned_to, "-" ) !== false ){
-                    $user_id = explode( "-", $assigned_to )[1];
-                    if ( $user_id ){
-                        DT_Posts::add_shared( $post_type, $post_id, $user_id, null, false, false );
-                    }
-                }
-                self::update_group_member_count( $post_id );
+                // @todo change 'members'
+                // execute your code here, if field key match
+                dt_write_log( __METHOD__ . ' and field_key = members' );
             }
             if ( $field_key === "coaches" ){
-                // share the group with the coach when a coach is added.
-                $user_id = get_post_meta( $value, "corresponds_to_user", true );
-                if ( $user_id ){
-                    DT_Posts::add_shared( $this->post_type, $post_id, $user_id, null, false, false, false );
-                }
+                // @todo change 'coaches'
+                // execute your code here, if field key match
+                dt_write_log( __METHOD__ . ' and field_key = coaches' );
             }
         }
         if ( $post_type === "contacts" && $field_key === $this->post_type ){
-            self::update_group_member_count( $value );
-            // share the group with the owner of the contact.
-            $assigned_to = get_post_meta( $post_id, "assigned_to", true );
-            if ( $assigned_to && strpos( $assigned_to, "-" ) !== false ){
-                $user_id = explode( "-", $assigned_to )[1];
-                if ( $user_id ){
-                    DT_Posts::add_shared( $this->post_type, $value, $user_id, null, false, false );
-                }
-            }
+            // execute your code here, if a change is made in contacts and a field key is matched
+            dt_write_log( __METHOD__ . ' and post_type = contacts & field_key = coaches' );
         }
     }
 
     //action when a post connection is removed during create or update
     public function post_connection_removed( $post_type, $post_id, $field_key, $value ){
         if ( $post_type === $this->post_type ){
-            if ( $field_key === "members" ){
-                self::update_group_member_count( $post_id, "removed" );
-            }
-        }
-        if ( $post_type === "contacts" && $field_key === $this->post_type ){
-            self::update_group_member_count( $value, "removed" );
+            // execute your code here, if connection removed
+            dt_write_log( __METHOD__ );
         }
     }
 
     //filter at the start of post update
     public function dt_post_update_fields( $fields, $post_type, $post_id ){
         if ( $post_type === $this->post_type ){
-            /**
-             * Look for specific fields and do additional processing
-             */
-
-            // process assigned to field
-            if ( isset( $fields["assigned_to"] ) ) {
-                if ( filter_var( $fields["assigned_to"], FILTER_VALIDATE_EMAIL ) ){
-                    $user = get_user_by( "email", $fields["assigned_to"] );
-                    if ( $user ) {
-                        $fields["assigned_to"] = $user->ID;
-                    } else {
-                        return new WP_Error( __FUNCTION__, "Unrecognized user", $fields["assigned_to"] );
-                    }
-                }
-                //make sure the assigned to is in the right format (user-1)
-                if ( is_numeric( $fields["assigned_to"] ) ||
-                    strpos( $fields["assigned_to"], "user" ) === false ){
-                    $fields["assigned_to"] = "user-" . $fields["assigned_to"];
-                }
-                $user_id = explode( '-', $fields["assigned_to"] )[1];
-                if ( $user_id ){
-                    DT_Posts::add_shared( $this->post_type, $post_id, $user_id, null, false, true, false );
-                }
-            }
-
-            // process end date if post is set to inactive
-            $post_array = DT_Posts::get_post( $this->post_type, $post_id, true, false );
-            if ( isset( $fields["status"] ) && empty( $fields["end_date"] ) && empty( $post_array["end_date"] ) && $fields["status"] === 'inactive' ){
-                $fields["end_date"] = time();
-            }
+            // execute your code here
+            dt_write_log( __METHOD__ );
         }
         return $fields;
     }
-
 
     //check to see if the group is marked as needing an update
     //if yes: mark as updated
     private static function check_requires_update( $record_id ){
         if ( get_current_user_id() ){
-
             $requires_update = get_post_meta( $record_id, "requires_update", true );
             if ( $requires_update == "yes" || $requires_update == true || $requires_update == "1"){
                 //don't remove update needed if the user is a dispatcher (and not assigned to the groups.)
@@ -611,7 +580,7 @@ class DT_Starter_Base extends DT_Module_Base {
     public function dt_post_create_fields( $fields, $post_type ){
         if ( $post_type === $this->post_type ) {
             /**
-             * These set the initial value for fields if no value is given.
+             * @todo These set the initial value for fields if no value is given.
              */
             if ( !isset( $fields["status"] ) ) {
                 $fields["status"] = "active";
@@ -619,10 +588,6 @@ class DT_Starter_Base extends DT_Module_Base {
             if ( !isset( $fields["assigned_to"] ) ) {
                 $fields["assigned_to"] = sprintf( "user-%d", get_current_user_id() );
             }
-            if ( !isset( $fields["start_date"] ) ) {
-                $fields["start_date"] = time();
-            }
-
             if ( isset( $fields["assigned_to"] ) ) {
                 if ( filter_var( $fields["assigned_to"], FILTER_VALIDATE_EMAIL ) ){
                     $user = get_user_by( "email", $fields["assigned_to"] );
@@ -645,9 +610,8 @@ class DT_Starter_Base extends DT_Module_Base {
     //action when a post has been created
     public function dt_post_created( $post_type, $post_id, $initial_fields ){
         if ( $post_type === $this->post_type ){
-
             /**
-             * Action to hook for additional processing after a new record is created by the post type.
+             * @todo action to hook for additional processing after a new record is created by the post type.
              */
             do_action( "dt_'.$this->post_type.'_created", $post_id, $initial_fields );
 
@@ -660,9 +624,11 @@ class DT_Starter_Base extends DT_Module_Base {
         }
     }
 
-
     //list page filters function
     private static function get_my_status(){
+        /**
+         * @todo adjust query to return count for update needed
+         */
         global $wpdb;
         $post_type = self::post_type();
         $current_user = get_current_user_id();
@@ -684,6 +650,9 @@ class DT_Starter_Base extends DT_Module_Base {
 
     //list page filters function
     private static function get_all_status_types(){
+        /**
+         * @todo adjust query to return count for update needed
+         */
         global $wpdb;
         if ( current_user_can( 'view_any_'.self::post_type() ) ){
             $results = $wpdb->get_results($wpdb->prepare( "
@@ -713,6 +682,9 @@ class DT_Starter_Base extends DT_Module_Base {
 
     //build list page filters
     public static function dt_user_list_filters( $filters, $post_type ){
+        /**
+         * @todo process and build filter lists
+         */
         if ( $post_type === self::post_type() ){
             $counts = self::get_my_status();
             $fields = DT_Posts::get_post_field_settings( $post_type );
@@ -863,6 +835,7 @@ class DT_Starter_Base extends DT_Module_Base {
         return $filters;
     }
 
+    // access permission
     public static function dt_filter_access_permissions( $permissions, $post_type ){
         if ( $post_type === self::post_type() ){
             if ( DT_Posts::can_view_all( $post_type ) ){
@@ -872,13 +845,12 @@ class DT_Starter_Base extends DT_Module_Base {
         return $permissions;
     }
 
+    // scripts
     public function scripts(){
-//        if ( is_singular( $this->post_type ) ){
-//            wp_enqueue_script( 'dt_groups', get_template_directory_uri() . '/dt-groups/groups.js', [
-//                'jquery',
-//                'details'
-//            ], filemtime( get_theme_file_path() . '/dt-groups/groups.js' ), true );
-//        }
+        if ( is_singular( $this->post_type ) ){
+            // @todo add enqueue scripts
+            dt_write_log( __METHOD__ );
+        }
     }
 }
 

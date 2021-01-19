@@ -1,8 +1,5 @@
 <?php
-/**
- * Rest API example class
- */
-
+if ( !defined( 'ABSPATH' ) ) { exit; } // Exit if accessed directly.
 
 class DT_Starter_Plugin_Endpoints
 {
