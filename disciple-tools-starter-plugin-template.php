@@ -31,7 +31,6 @@
 if ( ! defined( 'ABSPATH' ) ) {
     exit; // Exit if accessed directly
 }
-$dt_starter_required_dt_theme_version = '1.0';
 
 /**
  * Gets the instance of the `DT_Starter_Plugin` class.
@@ -41,7 +40,7 @@ $dt_starter_required_dt_theme_version = '1.0';
  * @return object|bool
  */
 function dt_starter_plugin() {
-    global $dt_starter_required_dt_theme_version;
+    $dt_starter_required_dt_theme_version = '1.0';
     $wp_theme = wp_get_theme();
     $version = $wp_theme->version;
 
@@ -70,19 +69,19 @@ function dt_starter_plugin() {
     $is_rest = dt_is_rest();
     //@todo change 'sample' if you want the plugin to be set up when using rest api calls other than ones with the 'sample' namespace
     if ( ! $is_rest ){
-        return DT_Starter_Plugin::get_instance();
+        return DT_Starter_Plugin::instance();
     }
     // @todo remove this "else if", if you are not building the chart section
     else if ( strpos( dt_get_url_path(), 'metrics' ) !== false || ( $is_rest && strpos( dt_get_url_path(), 'dt-starter-metrics' ) !== false ) ){
-        return DT_Starter_Plugin::get_instance();
+        return DT_Starter_Plugin::instance();
     }
     // @todo remove this "else if", if not using rest-api.php
     else if ( strpos( dt_get_url_path(), 'dt_starter_plugin_template' ) !== false ) {
-        return DT_Starter_Plugin::get_instance();
+        return DT_Starter_Plugin::instance();
     }
     // @todo remove if not using a post type
     else if ( strpos( dt_get_url_path(), 'starter_post_type' ) !== false) {
-        return DT_Starter_Plugin::get_instance();
+        return DT_Starter_Plugin::instance();
     }
     return false;
 }
