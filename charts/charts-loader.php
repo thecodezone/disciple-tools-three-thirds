@@ -1,7 +1,7 @@
 <?php
 if ( !defined( 'ABSPATH' ) ) { exit; } // Exit if accessed directly.
 
-class DT_Starter_Charts
+class DT_Plugin_Starter_Charts
 {
     private static $_instance = null;
     public static function instance(){
@@ -14,7 +14,7 @@ class DT_Starter_Charts
     public function __construct(){
 
         require_once( 'one-page-chart-template.php' );
-        new DT_Starter_Chart_Template();
+        new DT_Plugin_Starter_Chart_Template();
 
         /**
          * @todo add other charts like the pattern above here
@@ -22,4 +22,4 @@ class DT_Starter_Charts
 
     } // End __construct
 }
-DT_Starter_Charts::instance();
+DT_Plugin_Starter_Charts::instance();

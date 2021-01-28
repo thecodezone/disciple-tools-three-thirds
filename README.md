@@ -1,6 +1,6 @@
-[![Build Status](https://travis-ci.com/DiscipleTools/disciple-tools-starter-plugin-template.svg?branch=master)](https://travis-ci.com/DiscipleTools/disciple-tools-starter-plugin-template)
+[![Build Status](https://travis-ci.com/DiscipleTools/disciple-tools-plugin-starter-template.svg?branch=master)](https://travis-ci.com/DiscipleTools/disciple-tools-plugin-starter-template)
 
-# Disciple Tools - Starter Plugin Template
+# Disciple Tools - Plugin Starter Template
 
 __Kick start your Disciple.Tools plugin project with this template!__
 
@@ -30,7 +30,7 @@ __This plugin is for developers__ who want to extend the Disciple.Tools system f
  1. Wordpress code style requirements. ```phpcs.xml```
  1. PHP Code Sniffer support (composer) @use ```/vendor/bin/phpcs``` and ```/vendor/bin/phpcbf```
  1. Travis Continuous Integration ([travis-ci.com](https://travis-ci.com)). ```travis.yml```
- 1. Disciple.Tools Theme presence check. ```dt_starter_plugin()```
+ 1. Disciple.Tools Theme presence check. ```dt_plugin_starter()```
  1. Remote upgrade system for ongoing updates outside the Wordpress Directory.
  1. Multilingual support. ```/languages``` & ```default.pot```
 
@@ -41,6 +41,7 @@ __This plugin is for developers__ who want to extend the Disciple.Tools system f
  1. Sample metrics chart, javascript, and REST api.
  1. Sample REST api.
  1. Sample site-to-site link hooks.
+ 1. Sample custom tile code.
 
 ## Recommended
 
@@ -50,11 +51,11 @@ __This plugin is for developers__ who want to extend the Disciple.Tools system f
 ## Contribution
 
 Contributions welcome. You can report issues and bugs in the
-[Issues](https://github.com/DiscipleTools/disciple-tools-starter-plugin-template/issues) section of the repo. You can present ideas
-in the [Discussions](https://github.com/DiscipleTools/disciple-tools-starter-plugin-template/discussions) section of the repo. And
-code contributions are welcome using the [Pull Request](https://github.com/DiscipleTools/disciple-tools-starter-plugin-template/pulls)
+[Issues](https://github.com/DiscipleTools/disciple-tools-plugin-starter-template/issues) section of the repo. You can present ideas
+in the [Discussions](https://github.com/DiscipleTools/disciple-tools-plugin-starter-template/discussions) section of the repo. And
+code contributions are welcome using the [Pull Request](https://github.com/DiscipleTools/disciple-tools-plugin-starter-template/pulls)
 system for git. For a more details on contribution see the
-[contribution guidelines](https://github.com/DiscipleTools/disciple-tools-starter-plugin-template/blob/master/CONTRIBUTING.md).
+[contribution guidelines](https://github.com/DiscipleTools/disciple-tools-plugin-starter-template/blob/master/CONTRIBUTING.md).
 
 ## Screenshots
 

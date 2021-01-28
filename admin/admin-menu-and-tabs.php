@@ -2,22 +2,22 @@
 if ( ! defined( 'ABSPATH' ) ) { exit; } // Exit if accessed directly
 
 /**
- * Class DT_Starter_Plugin_Menu
+ * Class DT_Plugin_Starter_Menu
  */
-class DT_Starter_Plugin_Menu {
+class DT_Plugin_Starter_Menu {
 
-    public $token = 'dt_starter_plugin';
+    public $token = 'dt_plugin_starter';
 
     private static $_instance = null;
 
     /**
-     * DT_Starter_Plugin_Menu Instance
+     * DT_Plugin_Starter_Menu Instance
      *
-     * Ensures only one instance of DT_Starter_Plugin_Menu is loaded or can be loaded.
+     * Ensures only one instance of DT_Plugin_Starter_Menu is loaded or can be loaded.
      *
      * @since 0.1.0
      * @static
-     * @return DT_Starter_Plugin_Menu instance
+     * @return DT_Plugin_Starter_Menu instance
      */
     public static function instance() {
         if ( is_null( self::$_instance ) ) {
@@ -45,7 +45,7 @@ class DT_Starter_Plugin_Menu {
      */
     public function register_menu() {
         add_menu_page( 'Extensions (DT)', 'Extensions (DT)', 'manage_dt', 'dt_extensions', [ $this, 'extensions_menu' ], 'dashicons-admin-generic', 59 );
-        add_submenu_page( 'dt_extensions', 'Starter Plugin', 'Starter Plugin', 'manage_dt', $this->token, [ $this, 'content' ] );
+        add_submenu_page( 'dt_extensions', 'Plugin Starter', 'Plugin Starter', 'manage_dt', $this->token, [ $this, 'content' ] );
     }
 
     /**
@@ -73,7 +73,7 @@ class DT_Starter_Plugin_Menu {
 
         ?>
         <div class="wrap">
-            <h2>Starter Plugin</h2>
+            <h2>Plugin Starter</h2>
             <h2 class="nav-tab-wrapper">
                 <a href="<?php echo esc_attr( $link ) . 'general' ?>"
                    class="nav-tab <?php echo esc_html( ( $tab == 'general' || !isset( $tab ) ) ? 'nav-tab-active' : '' ); ?>">General</a>
@@ -83,11 +83,11 @@ class DT_Starter_Plugin_Menu {
             <?php
             switch ($tab) {
                 case "general":
-                    $object = new DT_Starter_Tab_General();
+                    $object = new DT_Plugin_Starter_Tab_General();
                     $object->content();
                     break;
                 case "second":
-                    $object = new DT_Starter_Tab_Second();
+                    $object = new DT_Plugin_Starter_Tab_Second();
                     $object->content();
                     break;
                 default:
@@ -100,11 +100,12 @@ class DT_Starter_Plugin_Menu {
         <?php
     }
 }
+DT_Plugin_Starter_Menu::instance();
 
 /**
- * Class DT_Starter_Tab_General
+ * Class DT_Plugin_Starter_Tab_General
  */
-class DT_Starter_Tab_General {
+class DT_Plugin_Starter_Tab_General {
     public function content() {
         ?>
         <div class="wrap">
@@ -179,9 +180,9 @@ class DT_Starter_Tab_General {
 
 
 /**
- * Class DT_Starter_Tab_Second
+ * Class DT_Plugin_Starter_Tab_Second
  */
-class DT_Starter_Tab_Second {
+class DT_Plugin_Starter_Tab_Second {
     public function content() {
         ?>
         <div class="wrap">

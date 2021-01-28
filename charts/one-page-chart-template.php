@@ -6,10 +6,10 @@ if ( !defined( 'ABSPATH' ) ) { exit; } // Exit if accessed directly.
  * @todo also rename in charts-loader.php
  */
 
-class DT_Starter_Chart_Template extends DT_Metrics_Chart_Base
+class DT_Plugin_Starter_Chart_Template extends DT_Metrics_Chart_Base
 {
-    public $base_slug = 'dt-starter-metrics'; // lowercase
-    public $base_title = "Starter Plugin Metrics";
+    public $base_slug = 'dt-plugin-starter-metrics'; // lowercase
+    public $base_title = "Plugin Starter Metrics";
 
     public $title = 'Template';
     public $slug = 'template'; // lowercase

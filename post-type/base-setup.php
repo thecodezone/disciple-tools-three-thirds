@@ -2,10 +2,10 @@
 if ( !defined( 'ABSPATH' ) ) { exit; } // Exit if accessed directly.
 
 /**
- * Class DT_Starter_Base
+ * Class DT_Plugin_Starter_Base
  * Load the core post type hooks into the Disciple Tools system
  */
-class DT_Starter_Base extends DT_Module_Base {
+class DT_Plugin_Starter_Base extends DT_Module_Base {
 
     /**
      * Define post type variables

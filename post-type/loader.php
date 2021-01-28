@@ -31,7 +31,7 @@ add_filter( 'dt_post_type_modules', function( $modules ){
 }, 20, 1 );
 
 require_once 'base-setup.php';
-DT_Starter_Base::instance();
+DT_Plugin_Starter_Base::instance();
 
 /**
  * @todo require_once and load additional modules
