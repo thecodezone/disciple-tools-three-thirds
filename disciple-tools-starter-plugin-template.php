@@ -5,7 +5,7 @@
  * Description: Disciple Tools - Starter Plugin Template is intended to help developers and integrator jumpstart their extension of the Disciple Tools system.
  * Text Domain: disciple-tools-starter-plugin-template
  * Domain Path: /languages
- * Version:  1.2
+ * Version:  1.3
  * Author URI: https://github.com/DiscipleTools
  * GitHub Plugin URI: https://github.com/DiscipleTools/disciple-tools-starter-plugin
  * Requires at least: 4.7.0
