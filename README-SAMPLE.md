@@ -47,4 +47,4 @@ system for git. For a more details on contribution see the
 
 ## Screenshots
 
-![spinner](https://via.placeholder.com/150)
+![screenshot](https://via.placeholder.com/600x150)

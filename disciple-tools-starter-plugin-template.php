@@ -105,30 +105,58 @@ class DT_Starter_Plugin {
 
     private function __construct() {
 
-        // adds starter rest api class
-        require_once( 'rest-api/rest-api.php' );
+        /**
+         * @todo Decide if you want to use the REST API example
+         * To remove: delete this following line and remove the folder named /rest-api
+         */
+        require_once( 'rest-api/rest-api.php' ); // adds starter rest api class
 
-        // add starter post type extension to Disciple Tools system
-        require_once( 'post-type/loader.php' );
+        /**
+         * @todo Decide if you want to create a new post type
+         * To remove: delete the line below and remove the folder named /post-type
+         */
+        require_once( 'post-type/loader.php' ); // add starter post type extension to Disciple Tools system
 
-        // add site to site link class and capabilities
-        require_once( 'site-link/custom-site-to-site-links.php' );
+        /**
+         * @todo Decide if you want to create a custom site-to-site link
+         * To remove: delete the line below and remove the folder named /site-link
+         */
+        require_once( 'site-link/custom-site-to-site-links.php' ); // add site to site link class and capabilities
 
-        // add custom charts to the metrics area
-        require_once( 'charts/charts-loader.php' );
+        /**
+         * @todo Decide if you want to add new charts to the metrics section
+         * To remove: delete the line below and remove the folder named /charts
+         */
+        require_once( 'charts/charts-loader.php' );  // add custom charts to the metrics area
 
+        /**
+         * @todo Decide if you want to add a custom tile
+         * To remove: delete the line below and remove the folder named /tile
+         */
+        require_once( 'tile/custom-tile.php' ); // add custom tile
 
-        // adds starter admin page and section for plugin
+        /**
+         * @todo Decide if you want to add a custom admin page in the admin area
+         * To remove: delete the 3 lines below and remove the folder named /admin
+         */
         if ( is_admin() ) {
-            require_once( 'admin/admin-menu-and-tabs.php' );
+            require_once( 'admin/admin-menu-and-tabs.php' ); // adds starter admin page and section for plugin
         }
 
         /**
-         * Below is the publicly hosted .json file that carries the version information. This file can be hosted
-         * anywhere as long as it is publicly accessible.
+         * @todo Decide if you want to support localization of your plugin
+         * To remove: delete the line below and remove the folder named /languages
+         */
+        add_action( 'after_setup_theme', array( $this, 'i18n' ), 51 ); // adds internationalize the text strings used.
+
+        /**
+         * @todo Decide if you want to support remote plugin updating with new versions of your plugin
+         * To remove: delete the section of code below and delete the file called version-control.json in the plugin root
          *
-         * Also, see the instructions for version updating to understand the steps involved.
-         * @see https://github.com/DiscipleTools/disciple-tools-starter-plugin-template/wiki/Configuring-Remote-Updating-System
+         * This section runs the remote plugin updating service, so you can issue distributed updates to your plugin
+         *
+         * @note See the instructions for version updating to understand the steps involved.
+         * @link https://github.com/DiscipleTools/disciple-tools-starter-plugin-template/wiki/Configuring-Remote-Updating-System
          *
          * @todo Enable this section with your own hosted file
          * @todo An example of this file can be found in (version-control.json)
@@ -149,13 +177,14 @@ class DT_Starter_Plugin {
             );
         }
 
-        // adds links to the plugin description area in the plugin admin list.
-        if ( is_admin() ) {
+        /**
+         * @todo Decide if you want to customize links for your plugin in the plugin admin area
+         * To remove: delete the lines below and remove the function named
+         */
+        if ( is_admin() ) { // adds links to the plugin description area in the plugin admin list.
             add_filter( 'plugin_row_meta', [ $this, 'plugin_description_links' ], 10, 4 );
         }
 
-        // adds internationalize the text strings used.
-        add_action( 'after_setup_theme', array( $this, 'i18n' ), 51 );
     }
 
     /**
