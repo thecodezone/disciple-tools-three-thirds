@@ -3,7 +3,7 @@ if ( !defined( 'ABSPATH' ) ) { exit; } // Exit if accessed directly.
 
 class DT_Plugin_Starter_Endpoints
 {
-    public $permissions = [ 'view_any_contacts', 'view_project_metrics' ];
+    public $permissions = [ 'access_contacts', 'dt_all_access_contacts', 'view_project_metrics' ];
 
     private static $_instance = null;
     public static function instance() {
@@ -34,19 +34,17 @@ class DT_Plugin_Starter_Endpoints
 
         register_rest_route(
             $namespace, '/endpoint', [
-                [
-                    'methods'  => WP_REST_Server::CREATABLE,
-                    'callback' => [ $this, 'private_endpoint' ],
-                ],
+                'methods'  => WP_REST_Server::CREATABLE,
+                'callback' => [ $this, 'private_endpoint' ],
+                'permission_callback' => function( WP_REST_Request $request ) {
+                    return $this->has_permission();
+                },
             ]
         );
     }
 
 
     public function private_endpoint( WP_REST_Request $request ) {
-        if ( !$this->has_permission() ){
-            return new WP_Error( "private_endpoint", "Missing Permissions", [ 'status' => 400 ] );
-        }
 
         // run your function here
 

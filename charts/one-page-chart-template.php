@@ -77,14 +77,14 @@ class DT_Plugin_Starter_Chart_Template extends DT_Metrics_Chart_Base
             $namespace, '/sample', [
                 'methods'  => 'POST',
                 'callback' => [ $this, 'sample' ],
+                'permission_callback' => function( WP_REST_Request $request ) {
+                    return $this->has_permission();
+                },
             ]
         );
     }
 
     public function sample( WP_REST_Request $request ) {
-        if ( !$this->has_permission() ){
-            return new WP_Error( __METHOD__, 'Missing auth.' );
-        }
         $params = $request->get_params();
         if ( isset( $params['button_data'] ) ) {
             // Do something
