@@ -64,6 +64,12 @@ class DT_Plugin_Starter_Base extends DT_Module_Base {
             new Disciple_Tools_Post_Type_Template( $this->post_type, $this->single_name, $this->plural_name );
         }
     }
+
+    /**
+     * @todo define the permissions for the roles
+     * Documentation
+     * @link https://github.com/DiscipleTools/Documentation/blob/master/Theme-Core/roles-permissions.md#rolesd
+     */
     public function dt_set_roles_and_permissions( $expected_roles ){
 
         if ( !isset( $expected_roles["multiplier"] ) ){
@@ -94,7 +100,11 @@ class DT_Plugin_Starter_Base extends DT_Module_Base {
         return $expected_roles;
     }
 
-
+    /**
+     * @todo define fields
+     * Documentation
+     * @link https://github.com/DiscipleTools/Documentation/blob/master/Theme-Core/fields.md
+     */
     public function dt_custom_fields_settings( $fields, $post_type ){
         if ( $post_type === $this->post_type ){
             /**
@@ -327,6 +337,11 @@ class DT_Plugin_Starter_Base extends DT_Module_Base {
         return $fields;
     }
 
+    /**
+     * @todo define connections to other post types
+     * Documentation
+     * @link https://github.com/DiscipleTools/Documentation/blob/master/Theme-Core/fields.md#declaring-connection-fields
+     */
     public function p2p_init(){
         /**
          * Group members field
@@ -383,6 +398,10 @@ class DT_Plugin_Starter_Base extends DT_Module_Base {
         );
     }
 
+    /**
+     * @todo define tiles
+     * @link https://github.com/DiscipleTools/Documentation/blob/master/Theme-Core/field-and-tiles.md
+     */
     public function dt_details_additional_tiles( $tiles, $post_type = "" ){
         if ( $post_type === $this->post_type ){
             $tiles["connections"] = [ "label" => __( "Connections", 'disciple_tools' ) ];
@@ -391,6 +410,11 @@ class DT_Plugin_Starter_Base extends DT_Module_Base {
         return $tiles;
     }
 
+    /**
+     * @todo define additional section content
+     * Documentation
+     * @link https://github.com/DiscipleTools/Documentation/blob/master/Theme-Core/field-and-tiles.md#add-custom-content
+     */
     public function dt_details_additional_section( $section, $post_type ){
         if ( $post_type === $this->post_type && $section === "status" ){
             $record = DT_Posts::get_post( $post_type, get_the_ID() );
@@ -512,7 +536,12 @@ class DT_Plugin_Starter_Base extends DT_Module_Base {
         <?php }
     }
 
-    //action when a post connection is added during create or update
+    /**
+     * action when a post connection is added during create or update
+     * @todo catch field changes and do additional processing
+     *
+     * The next three functions are added, removed, and updated of the same field concept
+     */
     public function post_connection_added( $post_type, $post_id, $field_key, $value ){
         if ( $post_type === $this->post_type ){
             if ( $field_key === "members" ){
@@ -625,6 +654,12 @@ class DT_Plugin_Starter_Base extends DT_Module_Base {
     }
 
     //list page filters function
+
+    /**
+     * @todo adjust queries to support list counts
+     * Documentation
+     * @link https://github.com/DiscipleTools/Documentation/blob/master/Theme-Core/list-query.md
+     */
     private static function get_my_status(){
         /**
          * @todo adjust query to return count for update needed
