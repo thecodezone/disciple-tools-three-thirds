@@ -44,7 +44,6 @@ class DT_Plugin_Starter_Menu {
      * @since 0.1
      */
     public function register_menu() {
-        add_menu_page( 'Extensions (DT)', 'Extensions (DT)', 'manage_dt', 'dt_extensions', [ $this, 'extensions_menu' ], 'dashicons-admin-generic', 59 );
         add_submenu_page( 'dt_extensions', 'Plugin Starter', 'Plugin Starter', 'manage_dt', $this->token, [ $this, 'content' ] );
     }
 
