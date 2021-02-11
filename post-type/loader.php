@@ -30,7 +30,7 @@ add_filter( 'dt_post_type_modules', function( $modules ){
     return $modules;
 }, 20, 1 );
 
-require_once 'base-setup.php';
+require_once 'module-base.php';
 DT_Plugin_Starter_Base::instance();
 
 /**
