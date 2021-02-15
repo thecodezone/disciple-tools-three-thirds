@@ -31,7 +31,7 @@ add_filter( 'dt_post_type_modules', function( $modules ){
 }, 20, 1 );
 
 require_once 'module-base.php';
-DT_Plugin_Starter_Base::instance();
+Disciple_Tools_Plugin_Starter_Template_Base::instance();
 
 /**
  * @todo require_once and load additional modules

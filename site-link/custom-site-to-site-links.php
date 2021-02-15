@@ -4,8 +4,8 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } // Exit if accessed directly
  * Configures the site link system for the network reporting
  */
 
-class DT_Plugin_Starter_Site_Links {
-    public $type = 'dt_plugin_starter';
+class Disciple_Tools_Plugin_Starter_Template_Site_Links {
+    public $type = 'disciple_tools_plugin_starter_template';
 
     private static $_instance = null;
     public static function instance() {
@@ -33,9 +33,9 @@ class DT_Plugin_Starter_Site_Links {
     }
 
     public function site_link_type( $type ) {
-        $type[$this->type] = __( 'Plugin Starter' );
+        $type[$this->type] = __( 'Plugin Starter Template' );
         return $type;
     }
 }
-DT_Plugin_Starter_Site_Links::instance();
+Disciple_Tools_Plugin_Starter_Template_Site_Links::instance();
 

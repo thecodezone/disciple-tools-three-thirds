@@ -30,7 +30,7 @@ __This plugin is for developers__ who want to extend the Disciple.Tools system f
  1. Wordpress code style requirements. ```phpcs.xml```
  1. PHP Code Sniffer support (composer) @use ```/vendor/bin/phpcs``` and ```/vendor/bin/phpcbf```
  1. Travis Continuous Integration ([travis-ci.com](https://travis-ci.com)). ```travis.yml```
- 1. Disciple.Tools Theme presence check. ```dt_plugin_starter()```
+ 1. Disciple.Tools Theme presence check. ```disciple_tools_plugin_starter_template()```
  1. Remote upgrade system for ongoing updates outside the Wordpress Directory.
  1. Multilingual support. ```/languages``` & ```default.pot```
 
