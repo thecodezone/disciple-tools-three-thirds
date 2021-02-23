@@ -790,64 +790,65 @@ class Disciple_Tools_Plugin_Starter_Template_Base extends DT_Module_Base {
                 }
             }
 
-            $counts = self::get_all_status_types();
-            $active_counts = [];
-            $update_needed = 0;
-            $status_counts = [];
-            $total_all = 0;
-            foreach ( $counts as $count ){
-                $total_all += $count["count"];
-                dt_increment( $status_counts[$count["status"]], $count["count"] );
-                if ( $count["status"] === "active" ){
-                    if ( isset( $count["update_needed"] ) ) {
-                        $update_needed += (int) $count["update_needed"];
-                    }
-                    dt_increment( $active_counts[$count["status"]], $count["count"] );
-                }
-            }
-            $filters["tabs"][] = [
-                "key" => "all",
-                "label" => _x( "All", 'List Filters', 'disciple_tools' ),
-                "count" => $total_all,
-                "order" => 10
-            ];
-            // add assigned to me filters
-            $filters["filters"][] = [
-                'ID' => 'all',
-                'tab' => 'all',
-                'name' => _x( "All", 'List Filters', 'disciple_tools' ),
-                'query' => [
-                    'sort' => '-post_date'
-                ],
-                "count" => $total_all
-            ];
-
-            foreach ( $fields["status"]["default"] as $status_key => $status_value ) {
-                if ( isset( $status_counts[$status_key] ) ){
-                    $filters["filters"][] = [
-                        "ID" => 'all_' . $status_key,
-                        "tab" => 'all',
-                        "name" => $status_value["label"],
-                        "query" => [
-                            'status' => [ $status_key ],
-                            'sort' => '-post_date'
-                        ],
-                        "count" => $status_counts[$status_key]
-                    ];
-                    if ( $status_key === "active" ){
-                        if ( $update_needed > 0 ){
-                            $filters["filters"][] = [
-                                "ID" => 'all_update_needed',
-                                "tab" => 'all',
-                                "name" => $fields["requires_update"]["name"],
-                                "query" => [
-                                    'status' => [ 'active' ],
-                                    'requires_update' => [ true ],
-                                ],
-                                "count" => $update_needed,
-                                'subfilter' => true
-                            ];
+            if ( current_user_can('view_all_' . self::post_type() ) ) {
+                $counts = self::get_all_status_types();
+                $active_counts = [];
+                $update_needed = 0;
+                $status_counts = [];
+                $total_all = 0;
+                foreach ( $counts as $count ){
+                    $total_all += $count["count"];
+                    dt_increment( $status_counts[$count["status"]], $count["count"] );
+                    if ( $count["status"] === "active" ){
+                        if ( isset( $count["update_needed"] ) ) {
+                            $update_needed += (int) $count["update_needed"];
                         }
+                        dt_increment( $active_counts[$count["status"]], $count["count"] );
+                    }
+                }
+                $filters["tabs"][] = [
+                    "key" => "all",
+                    "label" => _x( "All", 'List Filters', 'disciple_tools' ),
+                    "count" => $total_all,
+                    "order" => 10
+                ];
+                // add assigned to me filters
+                $filters["filters"][] = [
+                    'ID' => 'all',
+                    'tab' => 'all',
+                    'name' => _x( "All", 'List Filters', 'disciple_tools' ),
+                    'query' => [
+                        'sort' => '-post_date'
+                    ],
+                    "count" => $total_all
+                ];
+
+                foreach ( $fields["status"]["default"] as $status_key => $status_value ) {
+                    if ( isset( $status_counts[$status_key] ) ){
+                        $filters["filters"][] = [
+                            "ID" => 'all_' . $status_key,
+                            "tab" => 'all',
+                            "name" => $status_value["label"],
+                            "query" => [
+                                'status' => [ $status_key ],
+                                'sort' => '-post_date'
+                            ],
+                            "count" => $status_counts[$status_key]
+                        ];
+                        if ( $status_key === "active" ){
+                            if ( $update_needed > 0 ){
+                                $filters["filters"][] = [
+                                    "ID" => 'all_update_needed',
+                                    "tab" => 'all',
+                                    "name" => $fields["requires_update"]["name"],
+                                    "query" => [
+                                        'status' => [ 'active' ],
+                                        'requires_update' => [ true ],
+                                    ],
+                                    "count" => $update_needed,
+                                    'subfilter' => true
+                                ];
+                            }
 //                        foreach ( $fields["type"]["default"] as $type_key => $type_value ) {
 //                            if ( isset( $active_counts[$type_key] ) ) {
 //                                $filters["filters"][] = [
@@ -863,6 +864,7 @@ class Disciple_Tools_Plugin_Starter_Template_Base extends DT_Module_Base {
 //                                ];
 //                            }
 //                        }
+                        }
                     }
                 }
             }
