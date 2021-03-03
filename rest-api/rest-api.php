@@ -13,7 +13,7 @@ class Disciple_Tools_Plugin_Starter_Template_Endpoints
 
     /**
      * @todo define the name of the $namespace
-     * @todo define the name of the rest rout
+     * @todo define the name of the rest route
      * @todo defne method (CREATABLE, READABLE)
      * @todo apply permission strategy. '__return_true' essentially skips the permission check.
      */
