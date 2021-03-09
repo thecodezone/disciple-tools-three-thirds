@@ -790,7 +790,7 @@ class Disciple_Tools_Plugin_Starter_Template_Base extends DT_Module_Base {
                 }
             }
 
-            if ( current_user_can('view_all_' . self::post_type() ) ) {
+            if ( current_user_can( 'view_all_' . self::post_type() ) ){
                 $counts = self::get_all_status_types();
                 $active_counts = [];
                 $update_needed = 0;
