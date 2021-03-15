@@ -642,7 +642,6 @@ class Disciple_Tools_Plugin_Starter_Template_Base extends DT_Module_Base {
             /**
              * @todo action to hook for additional processing after a new record is created by the post type.
              */
-            do_action( "dt_'.$this->post_type.'_created", $post_id, $initial_fields );
 
             $post_array = DT_Posts::get_post( $this->post_type, $post_id, true, false );
             if ( isset( $post_array["assigned_to"] )) {
