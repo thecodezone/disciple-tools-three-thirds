@@ -136,11 +136,6 @@ class Disciple_Tools_Plugin_Starter_Template_Base extends DT_Module_Base {
                 'name' => __( 'Tasks', 'disciple_tools' ),
                 'type' => 'post_user_meta',
             ];
-            $fields["duplicate_data"] = [
-                "name" => 'Duplicates', //system string does not need translation
-                'type' => 'array',
-                'default' => [],
-            ];
             $fields['assigned_to'] = [
                 'name'        => __( 'Assigned To', 'disciple_tools' ),
                 'description' => __( "Select the main person who is responsible for reporting on this record.", 'disciple_tools' ),
@@ -150,12 +145,6 @@ class Disciple_Tools_Plugin_Starter_Template_Base extends DT_Module_Base {
                 'icon' => get_template_directory_uri() . '/dt-assets/images/assigned-to.svg',
                 "show_in_table" => 16,
                 'custom_display' => true,
-            ];
-            $fields["requires_update"] = [
-                'name'        => __( 'Requires Update', 'disciple_tools' ),
-                'description' => '',
-                'type'        => 'boolean',
-                'default'     => false,
             ];
             // end basic framework fields
 
