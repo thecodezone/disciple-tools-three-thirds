@@ -344,20 +344,23 @@ class Disciple_Tools_Plugin_Starter_Template_Base extends DT_Module_Base {
      */
     public function p2p_init(){
         /**
-         * Group members field
+         * Connection to contacts
          */
         p2p_register_connection_type(
             [
                 'name'           => $this->post_type."_to_contacts",
                 'from'           => 'contacts',
-                'to'             => $this->post_type,
-                'admin_box' => [
-                    'show' => false,
-                ],
-                'title'          => [
-                    'from' => __( 'Contacts', 'disciple_tools' ),
-                    'to'   => $this->plural_name,
-                ]
+                'to'             => $this->post_type
+            ]
+        );
+        /**
+         * Connection to groups
+         */
+        p2p_register_connection_type(
+            [
+                'name'           => $this->post_type."_to_groups",
+                'from'           => 'groups',
+                'to'             => $this->post_type
             ]
         );
         /**
@@ -367,11 +370,7 @@ class Disciple_Tools_Plugin_Starter_Template_Base extends DT_Module_Base {
             [
                 'name'         => $this->post_type."_to_".$this->post_type,
                 'from'         => $this->post_type,
-                'to'           => $this->post_type,
-                'title'        => [
-                    'from' => $this->plural_name . ' by',
-                    'to'   => $this->plural_name,
-                ],
+                'to'           => $this->post_type
             ]
         );
         /**
@@ -380,7 +379,7 @@ class Disciple_Tools_Plugin_Starter_Template_Base extends DT_Module_Base {
         p2p_register_connection_type( [
             'name'         => $this->post_type."_to_peers",
             'from'         => $this->post_type,
-            'to'           => $this->post_type,
+            'to'           => $this->post_type
         ] );
         /**
          * Group People Groups field
@@ -389,11 +388,7 @@ class Disciple_Tools_Plugin_Starter_Template_Base extends DT_Module_Base {
             [
                 'name'        => $this->post_type."_to_peoplegroups",
                 'from'        => $this->post_type,
-                'to'          => 'peoplegroups',
-                'title'       => [
-                    'from' => __( 'People Groups', 'disciple_tools' ),
-                    'to'   => $this->plural_name,
-                ]
+                'to'          => 'peoplegroups'
             ]
         );
     }
