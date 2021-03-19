@@ -7,4 +7,4 @@ If you discover a security vulnerability in these WordPress plugins and/or theme
 ## Supported Versions
 
 Our development is forward focused. Although we are writing with backward compatibility in mind, due to resources and time, our security patching and upgrades
-are focused on the most currently released version. All plugin users are strongly encourages to upgrade when new releases or published.
+are focused on the most currently released version. All plugin users are strongly encouraged to upgrade when new releases or published.
