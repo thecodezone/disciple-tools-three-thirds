@@ -5,7 +5,7 @@ class Disciple_Tools_Plugin_Starter_Template_Endpoints
 {
     /**
      * @todo Set the permissions your endpoint needs
-     * @link https://github.com/DiscipleTools/Documentation/blob/master/Theme-Core/capabilities.md
+     * @link https://github.com/DiscipleTools/Documentation/blob/master/theme-core/capabilities.md
      * @var string[]
      */
     public $permissions = [ 'access_contacts', 'dt_all_access_contacts', 'view_project_metrics' ];

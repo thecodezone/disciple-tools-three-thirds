@@ -136,11 +136,6 @@ class Disciple_Tools_Plugin_Starter_Template_Base extends DT_Module_Base {
                 'name' => __( 'Tasks', 'disciple_tools' ),
                 'type' => 'post_user_meta',
             ];
-            $fields["duplicate_data"] = [
-                "name" => 'Duplicates', //system string does not need translation
-                'type' => 'array',
-                'default' => [],
-            ];
             $fields['assigned_to'] = [
                 'name'        => __( 'Assigned To', 'disciple_tools' ),
                 'description' => __( "Select the main person who is responsible for reporting on this record.", 'disciple_tools' ),
@@ -150,12 +145,6 @@ class Disciple_Tools_Plugin_Starter_Template_Base extends DT_Module_Base {
                 'icon' => get_template_directory_uri() . '/dt-assets/images/assigned-to.svg',
                 "show_in_table" => 16,
                 'custom_display' => true,
-            ];
-            $fields["requires_update"] = [
-                'name'        => __( 'Requires Update', 'disciple_tools' ),
-                'description' => '',
-                'type'        => 'boolean',
-                'default'     => false,
             ];
             // end basic framework fields
 
@@ -239,10 +228,13 @@ class Disciple_Tools_Plugin_Starter_Template_Base extends DT_Module_Base {
                 "customizable" => false
             ];
             if ( DT_Mapbox_API::get_key() ){
-                $fields["contact_address"]["hidden"] = true;
+                $fields["contact_address"]["custom_display"] = true;
                 $fields["contact_address"]["mapbox"] = true;
+                unset( $fields["contact_address"]["tile"] );
                 $fields["location_grid"]["mapbox"] = true;
                 $fields["location_grid_meta"]["mapbox"] = true;
+                $fields["location_grid"]["hidden"] = true;
+                $fields["location_grid_meta"]["hidden"] = false;
             }
             // end locations
 
@@ -345,20 +337,23 @@ class Disciple_Tools_Plugin_Starter_Template_Base extends DT_Module_Base {
      */
     public function p2p_init(){
         /**
-         * Group members field
+         * Connection to contacts
          */
         p2p_register_connection_type(
             [
                 'name'           => $this->post_type."_to_contacts",
                 'from'           => 'contacts',
-                'to'             => $this->post_type,
-                'admin_box' => [
-                    'show' => false,
-                ],
-                'title'          => [
-                    'from' => __( 'Contacts', 'disciple_tools' ),
-                    'to'   => $this->plural_name,
-                ]
+                'to'             => $this->post_type
+            ]
+        );
+        /**
+         * Connection to groups
+         */
+        p2p_register_connection_type(
+            [
+                'name'           => $this->post_type."_to_groups",
+                'from'           => 'groups',
+                'to'             => $this->post_type
             ]
         );
         /**
@@ -368,11 +363,7 @@ class Disciple_Tools_Plugin_Starter_Template_Base extends DT_Module_Base {
             [
                 'name'         => $this->post_type."_to_".$this->post_type,
                 'from'         => $this->post_type,
-                'to'           => $this->post_type,
-                'title'        => [
-                    'from' => $this->plural_name . ' by',
-                    'to'   => $this->plural_name,
-                ],
+                'to'           => $this->post_type
             ]
         );
         /**
@@ -381,7 +372,7 @@ class Disciple_Tools_Plugin_Starter_Template_Base extends DT_Module_Base {
         p2p_register_connection_type( [
             'name'         => $this->post_type."_to_peers",
             'from'         => $this->post_type,
-            'to'           => $this->post_type,
+            'to'           => $this->post_type
         ] );
         /**
          * Group People Groups field
@@ -390,11 +381,7 @@ class Disciple_Tools_Plugin_Starter_Template_Base extends DT_Module_Base {
             [
                 'name'        => $this->post_type."_to_peoplegroups",
                 'from'        => $this->post_type,
-                'to'          => 'peoplegroups',
-                'title'       => [
-                    'from' => __( 'People Groups', 'disciple_tools' ),
-                    'to'   => $this->plural_name,
-                ]
+                'to'          => 'peoplegroups'
             ]
         );
     }
@@ -643,7 +630,6 @@ class Disciple_Tools_Plugin_Starter_Template_Base extends DT_Module_Base {
             /**
              * @todo action to hook for additional processing after a new record is created by the post type.
              */
-            do_action( "dt_'.$this->post_type.'_created", $post_id, $initial_fields );
 
             $post_array = DT_Posts::get_post( $this->post_type, $post_id, true, false );
             if ( isset( $post_array["assigned_to"] )) {
