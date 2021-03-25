@@ -287,7 +287,8 @@ class Disciple_Tools_Plugin_Starter_Template_Base extends DT_Module_Base {
                 "type" => "connection",
                 "post_type" => $this->post_type,
                 "p2p_direction" => "to",
-                "p2p_key" => $this->post_type."_to_peoplegroups"
+                "p2p_key" => $this->post_type."_to_peoplegroups",
+                'icon' => get_template_directory_uri() . "/dt-assets/images/people-group.svg",
             ];
         }
 

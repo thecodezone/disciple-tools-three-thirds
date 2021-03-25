@@ -21,7 +21,7 @@
 /**
  * Refactoring (renaming) this plugin as your own:
  * 1. @todo Refactor all occurrences of the name Disciple_Tools_Plugin_Starter_Template, disciple_tools_plugin_starter_template, disciple-tools-plugin-starter-template, starter_post_type, and "Plugin Starter Template"
- * 2. @todo Rename the `disciple-tools-plugin-starter-template.php and menu-and-tabs.php files.
+ * 2. @todo Rename the `disciple-tools-plugin-starter-template.php file.
  * 3. @todo Update the README.md and LICENSE
  * 4. @todo Update the default.pot file if you intend to make your plugin multilingual. Use a tool like POEdit
  */
@@ -325,9 +325,9 @@ if ( ! function_exists( "dt_hook_ajax_notice_handler" )){
 //        }
 //        if ( class_exists( 'Puc_v4_Factory' ) ){
 //            Puc_v4_Factory::buildUpdateChecker(
-//                'https://raw.githubusercontent.com/DiscipleTools/disciple-tools-facebook/master/version-control.json',
+//                'https://raw.githubusercontent.com/DiscipleTools/disciple-tools-plugin-starter-template/master/version-control.json',
 //                __FILE__,
-//                'disciple-tools-facebook'
+//                'disciple-tools-plugin-starter-template'
 //            );
 //
 //        }
