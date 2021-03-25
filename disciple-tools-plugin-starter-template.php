@@ -88,7 +88,7 @@ class Disciple_Tools_Plugin_Starter_Template {
          * @todo Decide if you want to use the REST API example
          * To remove: delete this following line and remove the folder named /rest-api
          */
-        if ( strpos( dt_get_url_path(), 'disciple_tools_plugin_starter_template_template' ) !== false ) {
+        if ( $is_rest && strpos( dt_get_url_path(), 'disciple_tools_plugin_starter_template_template' ) !== false ) {
             require_once( 'rest-api/rest-api.php' ); // adds starter rest api class
         }
 
