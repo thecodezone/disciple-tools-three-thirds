@@ -2,7 +2,7 @@
 
   "name": "Disciple Tools - Plugin Starter Template",
   "version": "0.1",
-  "last_updated": "2021-01",
+  "last_updated": "2021-03",
   "author": "Disciple Tools",
   "author_homepage": "https://disciple.tools",
   "git_owner": "DiscipleTools",
@@ -16,11 +16,11 @@
   "license_url": "https://raw.githubusercontent.com/DiscipleTools/disciple-tools-plugin-starter-template/master/LICENSE",
   "readme_url": "https://raw.githubusercontent.com/DiscipleTools/disciple-tools-plugin-starter-template/master/README.md",
   "requires": "4.7",
-  "tested": "5.6",
+  "tested": "5.7",
   "upgrade_notice": "Upgrade to get the latest features.",
   "banners": {
-    "low": "https://raw.githubusercontent.com/DiscipleTools/disciple-tools-version-control/master/images/dt-placeholder-772x250.jpg",
-    "high": "https://raw.githubusercontent.com/DiscipleTools/disciple-tools-version-control/master/images/dt-placeholder-1544x500.jpg"
+    "low": "https://raw.githubusercontent.com/DiscipleTools/disciple-tools-plugin-starter-template/master/documentation/banner.png",
+    "high": "https://raw.githubusercontent.com/DiscipleTools/disciple-tools-plugin-starter-template/master/documentation/banner.png"
   },
   "sections": {
     "description": "Kick start your Disciple.Tools plugin project with this template! This plugin is a collection of our best practices and code bases for creating Disciple.Tools plugins. ",

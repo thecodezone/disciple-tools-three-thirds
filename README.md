@@ -1,52 +1,39 @@
 [![Build Status](https://travis-ci.com/DiscipleTools/disciple-tools-plugin-starter-template.svg?branch=master)](https://travis-ci.com/DiscipleTools/disciple-tools-plugin-starter-template)
 
-# Disciple Tools - Plugin Starter Template
+# Disciple Tools - Name
 
-__Kick start your Disciple.Tools plugin project with this template!__
-
-__This plugin is a collection of our best practices and code bases for creating Disciple.Tools plugins.__
+Description Description Description Description Description Description Description
+Description Description Description Description Description Description Description
 
 ## Purpose
 
-A team, organization, or movement effort might love Disciple.Tools, but __wish it had one more thing.__
+Purpose purpose purpose purpose purpose purpose purpose purpose purpose purpose purpose
+Purpose purpose purpose purpose purpose purpose purpose purpose purpose purpose purpose
 
-We know that even though we have a common commission to make disciples of all nations, yet our assignments
-on how to do that differ greatly or even if we share similar values our stages in movement differ. Either way,
-we know we can't create everything everyone needs.
+Purpose purpose purpose purpose purpose purpose purpose purpose purpose purpose purpose
+Purpose purpose purpose purpose purpose purpose purpose purpose purpose purpose purpose
 
-Instead of waiting for us, you can run ahead on your own. This
-plugin includes all our best practices and starter codes for the most commonly developed extensions.
+## Usage
 
-We have included starter code for a new post-type, a new REST API endpoint, a new admin page, or a new metrics chart.
-The template also provides code quality and code style tools, Travis-CI integration, multi-language support, activation and
-deactivation functions, and more. In truth it's likely more than your project needs, so we'll
-guide you through removing the elements your project does not need.)
+#### Will Do
 
-__This plugin is for developers__ who want to extend the Disciple.Tools system for their movement effort.
+- Item
+- Item
+- Item
 
-## Included
-#### Framework
+#### Will Not Do
 
- 1. Wordpress code style requirements. ```phpcs.xml```
- 1. PHP Code Sniffer support (composer) @use ```/vendor/bin/phpcs``` and ```/vendor/bin/phpcbf```
- 1. Travis Continuous Integration ([travis-ci.com](https://travis-ci.com)). ```travis.yml```
- 1. Disciple.Tools Theme presence check. ```disciple_tools_plugin_starter_template()```
- 1. Remote upgrade system for ongoing updates outside the Wordpress Directory.
- 1. Multilingual support. ```/languages``` & ```default.pot```
+- Item
+- Item
 
-#### Components
+## Requirements
 
- 1. Sample admin menu and admin page with starter tabs component.
- 1. Sample post-type class and hooks.
- 1. Sample metrics chart, javascript, and REST api.
- 1. Sample REST api.
- 1. Sample site-to-site link hooks.
- 1. Sample custom tile code.
+- Disciple Tools Theme installed on a Wordpress Server
 
-## Recommended
+## Installing
 
-- [Composer](https://getcomposer.org/download/).
-- Disciple Tools Theme installed on a local Wordpress Server ([localwp.com](https://localwp.com) or [MAMP](https://www.mamp.info)).
+- Install as a standard Disciple.Tools/Wordpress plugin in the system Admin/Plugins area.
+- Requires the user role of Administrator.
 
 ## Contribution
 
@@ -57,6 +44,7 @@ code contributions are welcome using the [Pull Request](https://github.com/Disci
 system for git. For a more details on contribution see the
 [contribution guidelines](https://github.com/DiscipleTools/disciple-tools-plugin-starter-template/blob/master/CONTRIBUTING.md).
 
+
 ## Screenshots
 
-![screenshot](https://via.placeholder.com/600x150)
+![screenshot](documentation/community/starter-banners/banner-blue-green.png)
