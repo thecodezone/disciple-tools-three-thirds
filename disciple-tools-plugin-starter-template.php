@@ -119,6 +119,12 @@ class Disciple_Tools_Plugin_Starter_Template {
         require_once( 'tile/custom-tile.php' ); // add custom tile
 
         /**
+         * @todo Decide if you want to create a magic link
+         * To remove: delete the line below and remove the folder named /magic-link
+         */
+        require_once( 'magic-link/magic-link.php' );
+
+        /**
          * @todo Decide if you want to add a custom admin page in the admin area
          * To remove: delete the 3 lines below and remove the folder named /admin
          */
