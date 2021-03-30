@@ -84,17 +84,17 @@ class Disciple_Tools_Plugin_Starter_Template_Base extends DT_Module_Base {
             if ( isset( $expected_roles[$role]["permissions"]['access_contacts'] ) && $expected_roles[$role]["permissions"]['access_contacts'] ){
                 $expected_roles[$role]["permissions"]['access_' . $this->post_type ] = true;
                 $expected_roles[$role]["permissions"]['create_' . $this->post_type] = true;
+                $expected_roles[$role]["permissions"]['update_' . $this->post_type] = true; //@todo?
             }
         }
 
         if ( isset( $expected_roles["administrator"] ) ){
             $expected_roles["administrator"]["permissions"]['view_any_'.$this->post_type ] = true;
-        }
-        if ( isset( $expected_roles["dispatcher"] ) ){
-            $expected_roles["dispatcher"]["permissions"]['view_any_'.$this->post_type ] = true;
+            $expected_roles["administrator"]["permissions"]['update_any_'.$this->post_type ] = true;
         }
         if ( isset( $expected_roles["dt_admin"] ) ){
             $expected_roles["dt_admin"]["permissions"]['view_any_'.$this->post_type ] = true;
+            $expected_roles["dt_admin"]["permissions"]['update_any_'.$this->post_type ] = true;
         }
 
         return $expected_roles;
@@ -566,78 +566,18 @@ class Disciple_Tools_Plugin_Starter_Template_Base extends DT_Module_Base {
         return $fields;
     }
 
-    //check to see if the group is marked as needing an update
-    //if yes: mark as updated
-    private static function check_requires_update( $record_id ){
-        if ( get_current_user_id() ){
-            $requires_update = get_post_meta( $record_id, "requires_update", true );
-            if ( $requires_update == "yes" || $requires_update == true || $requires_update == "1"){
-                //don't remove update needed if the user is a dispatcher (and not assigned to the groups.)
-                if ( DT_Posts::can_view_all( self::post_type() ) ){
-                    if ( dt_get_user_id_from_assigned_to( get_post_meta( $record_id, "assigned_to", true ) ) === get_current_user_id() ){
-                        update_post_meta( $record_id, "requires_update", false );
-                    }
-                } else {
-                    update_post_meta( $record_id, "requires_update", false );
-                }
-            }
-        }
-    }
 
     //filter when a comment is created
     public function dt_comment_created( $post_type, $post_id, $comment_id, $type ){
-        if ( $post_type === $this->post_type ){
-            if ( $type === "comment" ){
-                self::check_requires_update( $post_id );
-            }
-        }
     }
 
     // filter at the start of post creation
     public function dt_post_create_fields( $fields, $post_type ){
-        if ( $post_type === $this->post_type ) {
-            /**
-             * @todo These set the initial value for fields if no value is given.
-             */
-            if ( !isset( $fields["status"] ) ) {
-                $fields["status"] = "active";
-            }
-            if ( !isset( $fields["assigned_to"] ) ) {
-                $fields["assigned_to"] = sprintf( "user-%d", get_current_user_id() );
-            }
-            if ( isset( $fields["assigned_to"] ) ) {
-                if ( filter_var( $fields["assigned_to"], FILTER_VALIDATE_EMAIL ) ){
-                    $user = get_user_by( "email", $fields["assigned_to"] );
-                    if ( $user ) {
-                        $fields["assigned_to"] = $user->ID;
-                    } else {
-                        return new WP_Error( __FUNCTION__, "Unrecognized user", $fields["assigned_to"] );
-                    }
-                }
-                //make sure the assigned to is in the right format (user-1)
-                if ( is_numeric( $fields["assigned_to"] ) ||
-                    strpos( $fields["assigned_to"], "user" ) === false ){
-                    $fields["assigned_to"] = "user-" . $fields["assigned_to"];
-                }
-            }
-        }
         return $fields;
     }
 
     //action when a post has been created
     public function dt_post_created( $post_type, $post_id, $initial_fields ){
-        if ( $post_type === $this->post_type ){
-            /**
-             * @todo action to hook for additional processing after a new record is created by the post type.
-             */
-
-            $post_array = DT_Posts::get_post( $this->post_type, $post_id, true, false );
-            if ( isset( $post_array["assigned_to"] )) {
-                if ( $post_array["assigned_to"]["id"] ) {
-                    DT_Posts::add_shared( $this->post_type, $post_id, $post_array["assigned_to"]["id"], null, false, false, false );
-                }
-            }
-        }
     }
 
     //list page filters function
