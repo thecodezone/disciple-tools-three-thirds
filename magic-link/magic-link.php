@@ -10,6 +10,7 @@ class Disciple_Tools_Plugin_Starter_Magic_Link
 
     public $magic = false;
     public $parts = false;
+    public $title = 'Magic';
     public $root = "magic_app"; // @todo define the root of the url {yoursite}/root/type/key/action
     public $type = 'magic_type'; // @todo define the type
     public $post_type = 'contacts'; // @todo set the post type this magic link connects with.
@@ -83,7 +84,7 @@ class Disciple_Tools_Plugin_Starter_Magic_Link
             $types[$this->root] = [];
         }
         $types[$this->root][$this->type] = [
-            'name' => 'Magic',
+            'name' => $this->title,
             'root' => $this->root,
             'type' => $this->type,
             'meta_key' => 'public_key',
