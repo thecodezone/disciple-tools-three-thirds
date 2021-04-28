@@ -114,10 +114,9 @@ class Disciple_Tools_Plugin_Starter_Template_Base extends DT_Module_Base {
             $fields['tags'] = [
                 'name'        => __( 'Tags', 'disciple_tools' ),
                 'description' => _x( 'A useful way to group related items.', 'Optional Documentation', 'disciple_tools' ),
-                'type'        => 'multi_select',
+                'type'        => 'tags',
                 'default'     => [],
-                'tile'        => 'other',
-                'custom_display' => true,
+                'tile'        => 'other'
             ];
             $fields["follow"] = [
                 'name'        => __( 'Follow', 'disciple_tools' ),
@@ -445,36 +444,6 @@ class Disciple_Tools_Plugin_Starter_Template_Base extends DT_Module_Base {
                 <?php render_field_for_display( "coaches", $record_fields, $record, true ); ?>
             </div>
         <?php }
-
-
-        if ( $post_type === $this->post_type && $section === "other" ) :
-            $fields = DT_Posts::get_post_field_settings( $post_type );
-            ?>
-            <div class="section-subheader">
-                <?php echo esc_html( $fields["tags"]["name"] ) ?>
-            </div>
-            <div class="tags">
-                <var id="tags-result-container" class="result-container"></var>
-                <div id="tags_t" name="form-tags" class="scrollable-typeahead typeahead-margin-when-active">
-                    <div class="typeahead__container">
-                        <div class="typeahead__field">
-                            <span class="typeahead__query">
-                                <input class="js-typeahead-tags input-height"
-                                       name="tags[query]"
-                                       placeholder="<?php echo esc_html( sprintf( _x( "Search %s", "Search 'something'", 'disciple_tools' ), $fields["tags"]['name'] ) )?>"
-                                       autocomplete="off">
-                            </span>
-                            <span class="typeahead__button">
-                                <button type="button" data-open="create-tag-modal" class="create-new-tag typeahead__image_button input-height">
-                                    <img src="<?php echo esc_html( get_template_directory_uri() . '/dt-assets/images/tag-add.svg' ) ?>"/>
-                                </button>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        <?php endif;
-
 
 
         if ( $post_type === $this->post_type && $section === "relationships" ) {
