@@ -128,6 +128,7 @@ class Disciple_Tools_Plugin_Starter_Template_Tile
                 ],
                 'icon' => get_template_directory_uri() . '/dt-assets/images/edit.svg',
                 "default_color" => "#366184",
+                "select_cannot_be_empty" => true
             ];
         }
         return $fields;
