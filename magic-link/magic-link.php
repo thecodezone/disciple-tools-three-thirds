@@ -87,9 +87,9 @@ class Disciple_Tools_Plugin_Starter_Magic_Link extends DT_Magic_Url_Base {
     public function _header(){
         wp_head();
         $this->header_style();
-        $this->header_javascript();
     }
     public function _footer(){
+        $this->footer_javascript();
         wp_footer();
     }
 
@@ -103,7 +103,7 @@ class Disciple_Tools_Plugin_Starter_Magic_Link extends DT_Magic_Url_Base {
         </style>
         <?php
     }
-    public function header_javascript(){
+    public function footer_javascript(){
         ?>
         <script>
             let jsObject = [<?php echo json_encode([
@@ -122,8 +122,8 @@ class Disciple_Tools_Plugin_Starter_Magic_Link extends DT_Magic_Url_Base {
 
             window.get_magic = () => {
                 jQuery.ajax({
-                    type: "POST",
-                    data: JSON.stringify({ action: 'get', parts: jsObject.parts }),
+                    type: "GET",
+                    data: { action: 'get', parts: jsObject.parts },
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     url: jsObject.root + jsObject.parts.root + '/v1/' + jsObject.parts.type,
@@ -131,31 +131,67 @@ class Disciple_Tools_Plugin_Starter_Magic_Link extends DT_Magic_Url_Base {
                         xhr.setRequestHeader('X-WP-Nonce', jsObject.nonce )
                     }
                 })
-                    .done(function(data){
-                        window.load_magic( data )
-                    })
-                    .fail(function(e) {
-                        console.log(e)
-                        jQuery('#error').html(e)
-                    })
+                .done(function(data){
+                    window.load_magic( data )
+                })
+                .fail(function(e) {
+                    console.log(e)
+                    jQuery('#error').html(e)
+                })
             }
 
             window.load_magic = ( data ) => {
-                let content = jQuery('#content')
+                let content = jQuery('#api-content')
                 let spinner = jQuery('.loading-spinner')
 
                 content.empty()
-                jQuery.each(data, function(i,v){
-                    content.prepend(`
+                let html = ``
+                data.forEach(v=>{
+                    html += `
                          <div class="cell">
-                             ${v.name}
+                             ${window.lodash.escape(v.name)}
                          </div>
-                     `)
+                     `
                 })
+                content.html(html)
 
                 spinner.removeClass('active')
 
             }
+
+            window.get_magic()
+
+
+            $('.dt_date_picker').datepicker({
+                constrainInput: false,
+                dateFormat: 'yy-mm-dd',
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "1900:2050",
+            }).each(function() {
+                if (this.value && moment.unix(this.value).isValid()) {
+                    this.value = window.SHAREDFUNCTIONS.formatDate(this.value);
+                }
+            })
+
+
+            $('#submit-form').on("click", function (){
+                $(this).addClass("loading")
+                let start_date = $('#start_date').val()
+                let comment = $('#comment-input').val()
+                let update = {
+                    start_date,
+                    comment
+                }
+
+                window.makeRequest( "POST", jsObject.parts.type, { parts: jsObject.parts, update }, jsObject.parts.root + '/v1/' ).done(function(data){
+                    window.location.reload()
+                })
+                .fail(function(e) {
+                    console.log(e)
+                    jQuery('#error').html(e)
+                })
+            })
         </script>
         <?php
         return true;
@@ -173,13 +209,40 @@ class Disciple_Tools_Plugin_Starter_Magic_Link extends DT_Magic_Url_Base {
                 </div>
             </div>
             <hr>
-            <div class="grid-x" id="content"><span class="loading-spinner active"></span><!-- javascript container --></div>
+            <div id="content">
+                <h3>List From API</h3>
+                <div class="grid-x" id="api-content">
+                    <!-- javascript container -->
+                    <span class="loading-spinner active"></span>
+                </div>
+
+                <br>
+                <br>
+                <br>
+                <h3>Form</h3>
+                <div class="grid-x" id="form-content">
+                    <?php
+                    $post_id = $this->parts["post_id"];
+
+                    // get the past. Make sure to only display the needed pieces on the front end as this link does net require auth
+                    $post = DT_Posts::get_post( $this->post_type, $post_id, true, false );
+                    if ( is_wp_error( $post ) ){
+                        return;
+                    }
+                    $fields = DT_Posts::get_post_field_settings( $this->post_type );
+                    render_field_for_display( "start_date", $fields, $post );
+                    ?>
+
+                    <label style="width: 100%">
+                        <strong>Comment</strong>
+                        <textarea name="comment" id="comment-input"></textarea>
+                    </label>
+
+                    <button type="button" class="button loader" id="submit-form">Submit Update</button>
+                </div>
+            </div>
+
         </div>
-        <script>
-            jQuery(document).ready(function($){
-                window.get_magic()
-            })
-        </script>
         <?php
     }
 
@@ -192,8 +255,20 @@ class Disciple_Tools_Plugin_Starter_Magic_Link extends DT_Magic_Url_Base {
         register_rest_route(
             $namespace, '/'.$this->type, [
                 [
+                    'methods'  => "GET",
+                    'callback' => [ $this, 'endpoint_get' ],
+                    'permission_callback' => function( WP_REST_Request $request ){
+                        $magic = new DT_Magic_URL( $this->root );
+                        return $magic->verify_rest_endpoint_permissions_on_post( $request );
+                    },
+                ],
+            ]
+        );
+        register_rest_route(
+            $namespace, '/'.$this->type, [
+                [
                     'methods'  => "POST",
-                    'callback' => [ $this, 'endpoint' ],
+                    'callback' => [ $this, 'update_record' ],
                     'permission_callback' => function( WP_REST_Request $request ){
                         $magic = new DT_Magic_URL( $this->root );
                         return $magic->verify_rest_endpoint_permissions_on_post( $request );
@@ -203,29 +278,44 @@ class Disciple_Tools_Plugin_Starter_Magic_Link extends DT_Magic_Url_Base {
         );
     }
 
-    public function endpoint( WP_REST_Request $request ) {
+    public function update_record( WP_REST_Request $request ) {
         $params = $request->get_params();
+        $params = dt_recursive_sanitize_array( $params );
 
+        $post_id = $params["parts"]["post_id"]; //has been verified in verify_rest_endpoint_permissions_on_post()
+
+        $args = [];
+        if ( !is_user_logged_in() ){
+            $args["comment_author"] = "Magic Link Submission";
+            wp_set_current_user( 0 );
+            $current_user = wp_get_current_user();
+            $current_user->add_cap( "magic_link" );
+            $current_user->display_name = "Magic Link Submission";
+        }
+
+        if ( isset( $params["update"]["comment"] ) && !empty( $params["update"]["comment"] ) ){
+            $update = DT_Posts::add_post_comment( $this->post_type, $post_id, $params["update"]["comment"], "comment", $args, false );
+            if ( is_wp_error( $update ) ){
+                return $update;
+            }
+        }
+
+        if ( isset( $params["update"]["start_date"] ) && !empty( $params["update"]["start_date"] ) ){
+            $update = DT_Posts::update_post( $this->post_type, $post_id, [ "start_date" => $params["update"]["start_date"] ], false, false );
+            if ( is_wp_error( $update ) ){
+                return $update;
+            }
+        }
+
+        return true;
+    }
+
+    public function endpoint_get( WP_REST_Request $request ) {
+        $params = $request->get_params();
         if ( ! isset( $params['parts'], $params['action'] ) ) {
             return new WP_Error( __METHOD__, "Missing parameters", [ 'status' => 400 ] );
         }
 
-        $params = dt_recursive_sanitize_array( $params );
-        $action = sanitize_text_field( wp_unslash( $params['action'] ) );
-        $post_id = $params["parts"]["post_id"];
-
-        switch ( $action ) {
-            case 'get':
-                return $this->endpoint_get();
-
-            // add other cases
-
-            default:
-                return new WP_Error( __METHOD__, "Missing valid action", [ 'status' => 400 ] );
-        }
-    }
-
-    public function endpoint_get() {
         $data = [];
 
         $data[] = [ 'name' => 'List item' ]; // @todo remove example
