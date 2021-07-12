@@ -113,10 +113,13 @@ class Disciple_Tools_Plugin_Starter_Template {
         }
 
         /**
-         * @todo Decide if you want to add a custom tile
-         * To remove: delete the line below and remove the folder named /tile
+         * @todo Decide if you want to add a custom tile or settings page tile
+         * To remove: delete the lines below and remove the folder named /tile
          */
         require_once( 'tile/custom-tile.php' ); // add custom tile
+        if ( 'settings' === dt_get_url_path() && ! $is_rest ) {
+            require_once( 'tile/settings-tile.php' ); // add custom settings page tile
+        }
 
         /**
          * @todo Decide if you want to create a magic link
