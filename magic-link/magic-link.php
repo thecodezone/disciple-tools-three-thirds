@@ -1,9 +1,9 @@
 <?php
 if ( !defined( 'ABSPATH' ) ) { exit; } // Exit if accessed directly.
 
-Disciple_Tools_Plugin_Starter_Magic_Link::instance();
+Disciple_Tools_Plugin_Starter_Template_Magic_Link::instance();
 
-class Disciple_Tools_Plugin_Starter_Magic_Link extends DT_Magic_Url_Base {
+class Disciple_Tools_Plugin_Starter_Template_Magic_Link extends DT_Magic_Url_Base {
 
 
     public $magic = false;
