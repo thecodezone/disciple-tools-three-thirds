@@ -1,10 +1,11 @@
 <?php
 if ( !defined( 'ABSPATH' ) ) { exit; } // Exit if accessed directly.
 
-Disciple_Tools_Plugin_Starter_Template_Magic_Link::instance();
 
+/**
+ * Class Disciple_Tools_Plugin_Starter_Template_Magic_Link
+ */
 class Disciple_Tools_Plugin_Starter_Template_Magic_Link extends DT_Magic_Url_Base {
-
 
     public $magic = false;
     public $parts = false;
@@ -13,6 +14,10 @@ class Disciple_Tools_Plugin_Starter_Template_Magic_Link extends DT_Magic_Url_Bas
     public $type = 'magic_type'; // @todo define the type
     public $post_type = 'starter_post_type'; // @todo set the post type this magic link connects with.
     private $meta_key = '';
+
+    // @see DT_Magic_Url_Base()->$allowed_scripts
+    public $allowed_scripts = [ 'lodash', 'lodash-core', 'site-js', 'shared-functions', 'moment', 'datepicker']; // @todo reduce or add new enqueued scripts. jquery is default.
+    public $allowed_styles = [ 'foundation-css', 'site-css', 'datepicker-css'];
 
     private static $_instance = null;
     public static function instance() {
@@ -33,27 +38,31 @@ class Disciple_Tools_Plugin_Starter_Template_Magic_Link extends DT_Magic_Url_Bas
         add_filter( 'dt_details_additional_tiles', [ $this, 'dt_details_additional_tiles' ], 10, 2 );
         add_action( 'rest_api_init', [ $this, 'add_endpoints' ] );
 
-        /**
-         * Magic Url Section
-         */
-        //don't load the magic link page for other urls
-        if ( !$this->check_parts_match() ){
-            return;
-        }
 
-        // fail if not valid url
+        /**
+         * tests if other URL
+         */
         $url = dt_get_url_path();
         if ( strpos( $url, $this->root . '/' . $this->type ) === false ) {
             return;
         }
+        /**
+         * tests magic link parts are registered and have valid elements
+         */
+        if ( !$this->check_parts_match() ){
+            return;
+        }
 
         // load if valid url
-        add_action( 'dt_blank_head', [ $this, '_header' ] );
-        add_action( 'dt_blank_footer', [ $this, '_footer' ] );
+        add_action( 'dt_blank_head', [ $this, '_header' ] ); // loaded from DT_Magic_Url_Base, if not overwritten. do not remove
+        add_action( 'dt_blank_footer', [ $this, '_footer' ] ); // loaded from DT_Magic_Url_Base, if not overwritten. do not remove
         add_action( 'dt_blank_body', [ $this, 'body' ] ); // body for no post key
 
     }
 
+    /**
+     * Post Type Tile Examples
+     */
     public function dt_details_additional_tiles( $tiles, $post_type = "" ) {
         if ( $post_type === $this->post_type ){
             $tiles["dt_starters_magic_url"] = [
@@ -83,16 +92,12 @@ class Disciple_Tools_Plugin_Starter_Template_Magic_Link extends DT_Magic_Url_Bas
         }
     }
 
-
-    public function _header(){
-        wp_head();
-        $this->header_style();
-    }
-    public function _footer(){
-        $this->footer_javascript();
-        wp_footer();
-    }
-
+    /**
+     * Writes custom styles to header
+     *
+     * @see DT_Magic_Url_Base()->header_style() for default state
+     * @todo remove if not needed
+     */
     public function header_style(){
         ?>
         <style>
@@ -103,9 +108,32 @@ class Disciple_Tools_Plugin_Starter_Template_Magic_Link extends DT_Magic_Url_Bas
         </style>
         <?php
     }
+
+    /**
+     * Writes javascript to the header
+     *
+     * @see DT_Magic_Url_Base()->header_javascript() for default state
+     * @todo remove if not needed
+     */
+    public function header_javascript(){
+        ?>
+        <script>
+            console.log('insert header_javascript')
+        </script>
+        <?php
+    }
+
+    /**
+     * Writes javascript to the footer
+     *
+     * @see DT_Magic_Url_Base()->footer_javascript() for default state
+     * @todo remove if not needed
+     */
     public function footer_javascript(){
         ?>
         <script>
+            console.log('insert footer_javascript')
+
             let jsObject = [<?php echo json_encode([
                 'map_key' => DT_Mapbox_API::get_key(),
                 'root' => esc_url_raw( rest_url() ),
@@ -324,4 +352,4 @@ class Disciple_Tools_Plugin_Starter_Template_Magic_Link extends DT_Magic_Url_Bas
         return $data;
     }
 }
-
+Disciple_Tools_Plugin_Starter_Template_Magic_Link::instance();
