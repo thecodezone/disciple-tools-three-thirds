@@ -29,7 +29,7 @@ class Disciple_Tools_Plugin_Starter_Template_Magic_User_App extends DT_Magic_Url
         /**
          * user_app and module section
          */
-        add_filter('dt_settings_apps_list', [ $this, 'dt_settings_apps_list' ], 10, 1 );
+        add_filter( 'dt_settings_apps_list', [ $this, 'dt_settings_apps_list' ], 10, 1 );
         add_action( 'rest_api_init', [ $this, 'add_endpoints' ] );
 
         /**
@@ -42,14 +42,14 @@ class Disciple_Tools_Plugin_Starter_Template_Magic_User_App extends DT_Magic_Url
         /**
          * tests magic link parts are registered and have valid elements
          */
-        if ( !$this->check_parts_match( ) ){
+        if ( !$this->check_parts_match() ){
             return;
         }
 
         // load if valid url
         add_action( 'dt_blank_body', [ $this, 'body' ] );
-        add_filter( 'dt_magic_url_base_allowed_css', [ $this, 'dt_magic_url_base_allowed_css'], 10, 1 );
-        add_filter( 'dt_magic_url_base_allowed_js', [ $this, 'dt_magic_url_base_allowed_js'], 10, 1 );
+        add_filter( 'dt_magic_url_base_allowed_css', [ $this, 'dt_magic_url_base_allowed_css' ], 10, 1 );
+        add_filter( 'dt_magic_url_base_allowed_js', [ $this, 'dt_magic_url_base_allowed_js' ], 10, 1 );
 
     }
 
@@ -228,7 +228,7 @@ class Disciple_Tools_Plugin_Starter_Template_Magic_User_App extends DT_Magic_Url
                 <br>
                 <h3>Form</h3>
                 <div class="grid-x" id="form-content">
-                    
+
                 </div>
             </div>
 
