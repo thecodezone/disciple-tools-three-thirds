@@ -15,10 +15,6 @@ class Disciple_Tools_Plugin_Starter_Template_Magic_Link extends DT_Magic_Url_Bas
     public $post_type = 'starter_post_type'; // @todo set the post type this magic link connects with.
     private $meta_key = '';
 
-    // @see DT_Magic_Url_Base()->$allowed_scripts
-    public $allowed_scripts = [ 'lodash', 'lodash-core', 'site-js', 'shared-functions', 'moment', 'datepicker']; // @todo reduce or add new enqueued scripts. jquery is default.
-    public $allowed_styles = [ 'foundation-css', 'site-css', 'datepicker-css'];
-
     private static $_instance = null;
     public static function instance() {
         if ( is_null( self::$_instance ) ) {
@@ -54,10 +50,20 @@ class Disciple_Tools_Plugin_Starter_Template_Magic_Link extends DT_Magic_Url_Bas
         }
 
         // load if valid url
-        add_action( 'dt_blank_head', [ $this, '_header' ] ); // loaded from DT_Magic_Url_Base, if not overwritten. do not remove
-        add_action( 'dt_blank_footer', [ $this, '_footer' ] ); // loaded from DT_Magic_Url_Base, if not overwritten. do not remove
         add_action( 'dt_blank_body', [ $this, 'body' ] ); // body for no post key
+        add_filter( 'dt_magic_url_base_allowed_css', [ $this, 'dt_magic_url_base_allowed_css' ], 10, 1 );
+        add_filter( 'dt_magic_url_base_allowed_js', [ $this, 'dt_magic_url_base_allowed_js' ], 10, 1 );
 
+    }
+
+    public function dt_magic_url_base_allowed_js( $allowed_js ) {
+        // @todo add or remove js files with this filter
+        return $allowed_js;
+    }
+
+    public function dt_magic_url_base_allowed_css( $allowed_css ) {
+        // @todo add or remove js files with this filter
+        return $allowed_css;
     }
 
     /**
@@ -167,6 +173,7 @@ class Disciple_Tools_Plugin_Starter_Template_Magic_Link extends DT_Magic_Url_Bas
                     jQuery('#error').html(e)
                 })
             }
+            window.get_magic()
 
             window.load_magic = ( data ) => {
                 let content = jQuery('#api-content')
@@ -186,9 +193,6 @@ class Disciple_Tools_Plugin_Starter_Template_Magic_Link extends DT_Magic_Url_Bas
                 spinner.removeClass('active')
 
             }
-
-            window.get_magic()
-
 
             $('.dt_date_picker').datepicker({
                 constrainInput: false,
@@ -224,8 +228,6 @@ class Disciple_Tools_Plugin_Starter_Template_Magic_Link extends DT_Magic_Url_Bas
         <?php
         return true;
     }
-
-
 
     public function body(){
         ?>

@@ -75,6 +75,7 @@ class Disciple_Tools_Plugin_Starter_Template_Base extends DT_Module_Base {
         if ( !isset( $expected_roles["multiplier"] ) ){
             $expected_roles["multiplier"] = [
                 "label" => __( 'Multiplier', 'disciple_tools' ),
+                "description" => "Interacts with Contacts and Groups",
                 "permissions" => []
             ];
         }

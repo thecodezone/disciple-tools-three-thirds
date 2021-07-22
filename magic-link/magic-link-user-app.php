@@ -29,7 +29,7 @@ class Disciple_Tools_Plugin_Starter_Template_Magic_User_App extends DT_Magic_Url
         /**
          * user_app and module section
          */
-        add_filter('dt_settings_apps_list', [ $this, 'dt_settings_apps_list' ], 10, 1 );
+        add_filter( 'dt_settings_apps_list', [ $this, 'dt_settings_apps_list' ], 10, 1 );
         add_action( 'rest_api_init', [ $this, 'add_endpoints' ] );
 
         /**
@@ -42,15 +42,25 @@ class Disciple_Tools_Plugin_Starter_Template_Magic_User_App extends DT_Magic_Url
         /**
          * tests magic link parts are registered and have valid elements
          */
-        if ( !$this->check_parts_match( ) ){
+        if ( !$this->check_parts_match() ){
             return;
         }
 
         // load if valid url
-        add_action( 'dt_blank_head', [ $this, '_header' ] ); // loaded from DT_Magic_Url_Base, if not overwritten. do not remove
-        add_action( 'dt_blank_footer', [ $this, '_footer' ] ); // loaded from DT_Magic_Url_Base, if not overwritten. do not remove
-        add_action( 'dt_blank_body', [ $this, 'body' ] ); // body for no post key
+        add_action( 'dt_blank_body', [ $this, 'body' ] );
+        add_filter( 'dt_magic_url_base_allowed_css', [ $this, 'dt_magic_url_base_allowed_css' ], 10, 1 );
+        add_filter( 'dt_magic_url_base_allowed_js', [ $this, 'dt_magic_url_base_allowed_js' ], 10, 1 );
 
+    }
+
+    public function dt_magic_url_base_allowed_js( $allowed_js ) {
+        // @todo add or remove js files with this filter
+        return $allowed_js;
+    }
+
+    public function dt_magic_url_base_allowed_css( $allowed_css ) {
+        // @todo add or remove js files with this filter
+        return $allowed_css;
     }
 
     public function dt_settings_apps_list( $apps_list ) {
@@ -218,24 +228,7 @@ class Disciple_Tools_Plugin_Starter_Template_Magic_User_App extends DT_Magic_Url
                 <br>
                 <h3>Form</h3>
                 <div class="grid-x" id="form-content">
-                    <?php
-                    $post_id = $this->parts["post_id"];
 
-                    // get the past. Make sure to only display the needed pieces on the front end as this link does net require auth
-//                    $post = DT_Posts::get_post( $this->post_type, $post_id, true, false );
-//                    if ( is_wp_error( $post ) ){
-//                        return;
-//                    }
-//                    $fields = DT_Posts::get_post_field_settings( $this->post_type );
-//                    render_field_for_display( "start_date", $fields, $post );
-                    ?>
-
-                    <label style="width: 100%">
-                        <strong>Comment</strong>
-                        <textarea name="comment" id="comment-input"></textarea>
-                    </label>
-
-                    <button type="button" class="button loader" id="submit-form">Submit Update</button>
                 </div>
             </div>
 
