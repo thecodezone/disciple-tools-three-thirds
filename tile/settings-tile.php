@@ -40,7 +40,7 @@ class Disciple_Tools_Plugin_Starter_Template_Settings_Tile
      */
     public function dt_profile_settings_page_menu( $dt_user, $dt_user_meta, $dt_user_contact_id, $contact_fields ) {
         ?>
-        <li><a href="#disciple_tools_plugin_starter_template_settings_id"><?php esc_html_e( 'Custom Settings Section', 'disciple_tools' )?></a></li>
+        <li><a href="#disciple_tools_plugin_starter_template_settings_id"><?php esc_html_e( 'Custom Settings Section', 'disciple-tools-plugin-starter-template' )?></a></li>
         <?php
     }
 
@@ -58,7 +58,7 @@ class Disciple_Tools_Plugin_Starter_Template_Settings_Tile
             <button class="help-button float-right" data-section="disciple-tools-plugin-starter-template-help-text">
                 <img class="help-icon" src="<?php echo esc_html( get_template_directory_uri() . '/dt-assets/images/help.svg' ) ?>"/>
             </button>
-            <span class="section-header"><?php esc_html_e( 'Custom Settings Section', 'disciple_tools' )?></span>
+            <span class="section-header"><?php esc_html_e( 'Custom Settings Section', 'disciple-tools-plugin-starter-template' )?></span>
             <hr/>
 
             <!-- replace with your custom content -->
@@ -74,8 +74,8 @@ class Disciple_Tools_Plugin_Starter_Template_Settings_Tile
     public function dt_modal_help_text(){
         ?>
         <div class="help-section" id="disciple-tools-plugin-starter-template-help-text" style="display: none">
-            <h3><?php echo esc_html_x( "Custom Settings Section", 'Optional Documentation', 'disciple_tools' ) ?></h3>
-            <p><?php echo esc_html_x( "Add your own help information into this modal.", 'Optional Documentation', 'disciple_tools' ) ?></p>
+            <h3><?php echo esc_html_x( "Custom Settings Section", 'Optional Documentation', 'disciple-tools-plugin-starter-template' ) ?></h3>
+            <p><?php echo esc_html_x( "Add your own help information into this modal.", 'Optional Documentation', 'disciple-tools-plugin-starter-template' ) ?></p>
         </div>
         <?php
     }

@@ -1,11 +1,9 @@
-#, fuzzy
 msgid ""
 msgstr ""
-"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "Project-Id-Version: Disciple Tools - Plugin Starter Template\n"
 "POT-Creation-Date: 2021-08-03 12:04-0400\n"
-"PO-Revision-Date: 2018-01-29 05:53-0700\n"
-"Last-Translator: \n"
+"PO-Revision-Date: 2021-08-03 12:04-0400\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -18,6 +16,8 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
 "esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
 "_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"Last-Translator: \n"
+"Language: fr_FR\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 "X-Poedit-SearchPathExcluded-1: */libraries/*\n"
@@ -30,7 +30,8 @@ msgstr ""
 msgid "Magic Url"
 msgstr ""
 
-#: magic-link/magic-link-post-type.php:149 magic-link/magic-link-user-app.php:124
+#: magic-link/magic-link-post-type.php:149
+#: magic-link/magic-link-user-app.php:124
 msgid "Add Magic"
 msgstr ""
 
@@ -173,8 +174,8 @@ msgstr ""
 #: post-type/module-base.php:476
 msgctxt "Add members modal"
 msgid ""
-"In the 'Member List' field, type the name of an existing contact to add them to this "
-"group."
+"In the 'Member List' field, type the name of an existing contact to add them "
+"to this group."
 msgstr ""
 
 #: post-type/module-base.php:485
@@ -283,8 +284,8 @@ msgstr ""
 #: tile/custom-tile.php:120
 msgctxt "Training Status field description"
 msgid ""
-"This contact is currently on hold. It has potential of getting scheduled in the "
-"future."
+"This contact is currently on hold. It has potential of getting scheduled in "
+"the future."
 msgstr ""
 
 #: tile/custom-tile.php:124

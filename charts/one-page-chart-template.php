@@ -65,7 +65,7 @@ class Disciple_Tools_Plugin_Starter_Template_Chart_Template extends DT_Metrics_C
                 ],
                 'translations' => [
                     "title" => $this->title,
-                    "Sample API Call" => __( "Sample API Call" )
+                    "Sample API Call" => __( "Sample API Call", 'disciple-tools-plugin-starter-template' )
                 ]
             ]
         );

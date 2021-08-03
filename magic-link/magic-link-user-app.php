@@ -121,7 +121,7 @@ class Disciple_Tools_Plugin_Starter_Template_Magic_User_App extends DT_Magic_Url
                 'nonce' => wp_create_nonce( 'wp_rest' ),
                 'parts' => $this->parts,
                 'translations' => [
-                    'add' => __( 'Add Magic', 'disciple_tools' ),
+                    'add' => __( 'Add Magic', 'disciple-tools-plugin-starter-template' ),
                 ],
             ]) ?>][0]
 
