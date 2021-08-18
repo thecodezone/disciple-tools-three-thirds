@@ -125,10 +125,6 @@ class Disciple_Tools_Plugin_Starter_Template_Magic_User_App extends DT_Magic_Url
                 ],
             ]) ?>][0]
 
-            jQuery(document).ready(function(){
-                clearInterval(window.fiveMinuteTimer)
-            })
-
             window.get_magic = () => {
                 jQuery.ajax({
                     type: "GET",
