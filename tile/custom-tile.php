@@ -28,8 +28,8 @@ class Disciple_Tools_Plugin_Starter_Template_Tile
      * @return mixed
      */
     public function dt_details_additional_tiles( $tiles, $post_type = "" ) {
-        if ( $post_type === "contacts" ){
-            $tiles["disciple_tools_plugin_starter_template"] = [ "label" => __( "Plugin Starter Template", 'disciple_tools' ) ];
+        if ( $post_type === "contacts" || $post_type === "starter_post_type" ){
+            $tiles["disciple_tools_plugin_starter_template"] = [ "label" => __( "Plugin Starter Template", 'disciple-tools-plugin-starter-template' ) ];
         }
         return $tiles;
     }
@@ -43,7 +43,7 @@ class Disciple_Tools_Plugin_Starter_Template_Tile
         /**
          * @todo set the post type
          */
-        if ( $post_type === "contacts" ){
+        if ( $post_type === "contacts" || $post_type === "starter_post_type"){
             /**
              * @todo Add the fields that you want to include in your tile.
              *
@@ -59,8 +59,8 @@ class Disciple_Tools_Plugin_Starter_Template_Tile
              * This is an example of a text field
              */
             $fields['disciple_tools_plugin_starter_template_text'] = [
-                'name'        => __( 'Text', 'disciple_tools' ),
-                'description' => _x( 'Text', 'Optional Documentation', 'disciple_tools' ),
+                'name'        => __( 'Text', 'disciple-tools-plugin-starter-template' ),
+                'description' => _x( 'Text', 'Optional Documentation', 'disciple-tools-plugin-starter-template' ),
                 'type'        => 'text',
                 'default'     => '',
                 'tile' => 'disciple_tools_plugin_starter_template',
@@ -70,12 +70,12 @@ class Disciple_Tools_Plugin_Starter_Template_Tile
              * This is an example of a multiselect field
              */
             $fields["disciple_tools_plugin_starter_template_multiselect"] = [
-                "name" => __( 'Multiselect', 'disciple_tools' ),
+                "name" => __( 'Multiselect', 'disciple-tools-plugin-starter-template' ),
                 "default" => [
-                    "one" => [ "label" => __( "One", 'disciple_tools' ) ],
-                    "two" => [ "label" => __( "Two", 'disciple_tools' ) ],
-                    "three" => [ "label" => __( "Three", 'disciple_tools' ) ],
-                    "four" => [ "label" => __( "Four", 'disciple_tools' ) ],
+                    "one" => [ "label" => __( "One", 'disciple-tools-plugin-starter-template' ) ],
+                    "two" => [ "label" => __( "Two", 'disciple-tools-plugin-starter-template' ) ],
+                    "three" => [ "label" => __( "Three", 'disciple-tools-plugin-starter-template' ) ],
+                    "four" => [ "label" => __( "Four", 'disciple-tools-plugin-starter-template' ) ],
                 ],
                 "tile" => "disciple_tools_plugin_starter_template",
                 "type" => "multi_select",
@@ -90,40 +90,20 @@ class Disciple_Tools_Plugin_Starter_Template_Tile
                 'type' => 'key_select',
                 "tile" => "disciple_tools_plugin_starter_template",
                 'default' => [
-                    'new'   => [
-                        "label" => _x( 'New', 'Training Status label', 'disciple_tools' ),
-                        "description" => _x( "New training added to the system", "Training Status field description", 'disciple_tools' ),
+                    'first'   => [
+                        "label" => _x( 'First', 'Key Select Label', 'disciple-tools-plugin-starter-template' ),
+                        "description" => _x( "First Key Description", "Training Status field description", 'disciple-tools-plugin-starter-template' ),
                         'color' => "#ff9800"
                     ],
-                    'proposed'   => [
-                        "label" => _x( 'Proposed', 'Training Status label', 'disciple_tools' ),
-                        "description" => _x( "This training has been proposed and is in initial conversations", "Training Status field description", 'disciple_tools' ),
-                        'color' => "#ff9800"
-                    ],
-                    'scheduled' => [
-                        "label" => _x( 'Scheduled', 'Training Status label', 'disciple_tools' ),
-                        "description" => _x( "This training is confirmed, on the calendar.", "Training Status field description", 'disciple_tools' ),
+                    'second'   => [
+                        "label" => _x( 'Second', 'Key Select Label', 'disciple-tools-plugin-starter-template' ),
+                        "description" => _x( "Second Key Description", "Training Status field description", 'disciple-tools-plugin-starter-template' ),
                         'color' => "#4CAF50"
                     ],
-                    'in_progress' => [
-                        "label" => _x( 'In Progress', 'Training Status label', 'disciple_tools' ),
-                        "description" => _x( "This training is confirmed, on the calendar, or currently active.", "Training Status field description", 'disciple_tools' ),
-                        'color' => "#4CAF50"
-                    ],
-                    'complete'     => [
-                        "label" => _x( "Complete", 'Training Status label', 'disciple_tools' ),
-                        "description" => _x( "This training has successfully completed", "Training Status field description", 'disciple_tools' ),
-                        'color' => "#4CAF50"
-                    ],
-                    'paused'       => [
-                        "label" => _x( 'Paused', 'Training Status label', 'disciple_tools' ),
-                        "description" => _x( "This contact is currently on hold. It has potential of getting scheduled in the future.", "Training Status field description", 'disciple_tools' ),
-                        'color' => "#ff9800"
-                    ],
-                    'closed'       => [
-                        "label" => _x( 'Closed', 'Training Status label', 'disciple_tools' ),
-                        "description" => _x( "This training is no longer going to happen.", "Training Status field description", 'disciple_tools' ),
-                        "color" => "#366184",
+                    'third'   => [
+                        "label" => _x( 'Third', 'Key Select Label', 'disciple-tools-plugin-starter-template' ),
+                        "description" => _x( "Third Key Description", "Training Status field description", 'disciple-tools-plugin-starter-template' ),
+                        'color' => "#366184"
                     ],
                 ],
                 'icon' => get_template_directory_uri() . '/dt-assets/images/edit.svg',
@@ -138,7 +118,7 @@ class Disciple_Tools_Plugin_Starter_Template_Tile
         /**
          * @todo set the post type and the section key that you created in the dt_details_additional_tiles() function
          */
-        if ( $post_type === "contacts" && $section === "disciple_tools_plugin_starter_template" ){
+        if ( ( $post_type === "contacts" || $post_type === "starter_post_type" ) && $section === "disciple_tools_plugin_starter_template" ){
             /**
              * These are two sets of key data:
              * $this_post is the details for this specific post
@@ -157,8 +137,7 @@ class Disciple_Tools_Plugin_Starter_Template_Tile
             <div class="cell small-12 medium-4">
                 <!-- @todo remove this notes section-->
                 <strong>You can do a number of customizations here.</strong><br><br>
-                All the post-type fields: ( <?php echo '<code>' . esc_html( implode( ', ', array_keys( $post_type_fields ) ) ) . '</code>' ?> )<br><br>
-                All the fields for this post: ( <?php echo '<code>' . esc_html( implode( ', ', array_keys( $this_post ) ) ) . '</code>' ?> )<br><br>
+                See post types and field keys and values: <a href="<?php echo esc_html( admin_url( "admin.php?page=dt_utilities&tab=fields" ) ); ?>" target="_blank">click here</a>
             </div>
 
         <?php }
