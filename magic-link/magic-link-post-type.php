@@ -58,11 +58,13 @@ class Disciple_Tools_Plugin_Starter_Template_Magic_Link extends DT_Magic_Url_Bas
 
     public function dt_magic_url_base_allowed_js( $allowed_js ) {
         // @todo add or remove js files with this filter
+        // example: $allowed_js[] = 'your-enqueue-handle';
         return $allowed_js;
     }
 
     public function dt_magic_url_base_allowed_css( $allowed_css ) {
         // @todo add or remove js files with this filter
+        // example: $allowed_css[] = 'your-enqueue-handle';
         return $allowed_css;
     }
 
