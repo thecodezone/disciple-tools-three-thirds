@@ -1,5 +1,13 @@
 [![Build Status](https://travis-ci.com/DiscipleTools/disciple-tools-plugin-starter-template.svg?branch=master)](https://travis-ci.com/DiscipleTools/disciple-tools-plugin-starter-template)
 
+## Dev notes, delete me:
+This is a starter plugin to jumstart your work with Disciple.Tools.  
+See instructions for refactoring and getting started in the [wiki](https://github.com/DiscipleTools/disciple-tools-plugin-starter-template/wiki)  
+See instruction for creating releases and publishing your plugin: [wiki](https://github.com/DiscipleTools/disciple-tools-plugin-starter-template/wiki)
+
+
+## readme format:
+
 # Disciple Tools - Name
 
 Description Description Description Description Description Description Description
