@@ -2,6 +2,7 @@
 
 ## Dev notes, delete me:
 This is a starter plugin to jumstart your work with Disciple.Tools.  
+Click the "Use this template" button above.  
 See instructions for refactoring and getting started in the [wiki](https://github.com/DiscipleTools/disciple-tools-plugin-starter-template/wiki)  
 See instruction for creating releases and publishing your plugin: [wiki](https://github.com/DiscipleTools/disciple-tools-plugin-starter-template/wiki)
 
