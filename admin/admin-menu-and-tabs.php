@@ -7,6 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } // Exit if accessed directly
 class Disciple_Tools_Plugin_Starter_Template_Menu {
 
     public $token = 'disciple_tools_plugin_starter_template';
+    public $page_title = 'Plugin Starter Template';
 
     private static $_instance = null;
 
@@ -44,7 +45,7 @@ class Disciple_Tools_Plugin_Starter_Template_Menu {
      * @since 0.1
      */
     public function register_menu() {
-        add_submenu_page( 'dt_extensions', 'Plugin Starter Template', 'Plugin Starter Template', 'manage_dt', $this->token, [ $this, 'content' ] );
+        add_submenu_page( 'dt_extensions', $this->page_title, $this->page_title, 'manage_dt', $this->token, [ $this, 'content' ] );
     }
 
     /**
