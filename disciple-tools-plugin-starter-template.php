@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: Disciple Tools - Plugin Starter Template
+ *Plugin Name: Disciple.Tools - Plugin Starter Template
  * Plugin URI: https://github.com/DiscipleTools/disciple-tools-plugin-starter-template
  * Description: Disciple Tools - Plugin Starter Template is intended to help developers and integrator jumpstart their extension of the Disciple Tools system.
  * Text Domain: disciple-tools-plugin-starter-template
