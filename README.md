@@ -9,7 +9,7 @@ See instruction for creating releases and publishing your plugin: [wiki](https:/
 
 ## readme format:
 
-![Starter Plugin](https://raw.githubusercontent.com/DiscipleTools/disciple-tools-plugin-starter-template/master/documentation/starter-plugin-banner.png)
+![Starter Plugin](https://raw.githubusercontent.com/DiscipleTools/disciple-tools-plugin-starter-template/master/documentation/banner.png)
 # Disciple.Tools - Name
 
 Description Description Description Description Description Description Description
