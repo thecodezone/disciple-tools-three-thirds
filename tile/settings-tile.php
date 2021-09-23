@@ -4,7 +4,7 @@ if ( !defined( 'ABSPATH' ) ) { exit; } // Exit if accessed directly.
 /**
  * Class Disciple_Tools_Plugin_Starter_Template_Settings_Tile
  *
- * This class will add navigation and a custom section to the Settings page in Disciple Tools.
+ * This class will add navigation and a custom section to the Settings page in Disciple.Tools.
  * The dt_profile_settings_page_menu function adds a navigation link to the bottom of the nav section in Settings.
  * The dt_profile_settings_page_sections function adds a custom content tile to the bottom of the page.
  *

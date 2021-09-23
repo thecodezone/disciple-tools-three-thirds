@@ -2,7 +2,7 @@
 /**
  *Plugin Name: Disciple.Tools - Plugin Starter Template
  * Plugin URI: https://github.com/DiscipleTools/disciple-tools-plugin-starter-template
- * Description: Disciple Tools - Plugin Starter Template is intended to help developers and integrator jumpstart their extension of the Disciple Tools system.
+ * Description: Disciple.Tools - Plugin Starter Template is intended to help developers and integrator jumpstart their extension of the Disciple.Tools system.
  * Text Domain: disciple-tools-plugin-starter-template
  * Domain Path: /languages
  * Version:  0.1
@@ -96,7 +96,7 @@ class Disciple_Tools_Plugin_Starter_Template {
          * @todo Decide if you want to create a new post type
          * To remove: delete the line below and remove the folder named /post-type
          */
-        require_once( 'post-type/loader.php' ); // add starter post type extension to Disciple Tools system
+        require_once( 'post-type/loader.php' ); // add starter post type extension to Disciple.Tools system
 
         /**
          * @todo Decide if you want to create a custom site-to-site link
@@ -262,9 +262,9 @@ if ( ! function_exists( 'disciple_tools_plugin_starter_template_hook_admin_notic
         global $disciple_tools_plugin_starter_template_required_dt_theme_version;
         $wp_theme = wp_get_theme();
         $current_version = $wp_theme->version;
-        $message = "'Disciple Tools - Plugin Starter Template' plugin requires 'Disciple Tools' theme to work. Please activate 'Disciple Tools' theme or make sure it is latest version.";
+        $message = "'Disciple.Tools - Plugin Starter Template' plugin requires 'Disciple.Tools' theme to work. Please activate 'Disciple.Tools' theme or make sure it is latest version.";
         if ( $wp_theme->get_template() === "disciple-tools-theme" ){
-            $message .= ' ' . sprintf( esc_html( 'Current Disciple Tools version: %1$s, required version: %2$s' ), esc_html( $current_version ), esc_html( $disciple_tools_plugin_starter_template_required_dt_theme_version ) );
+            $message .= ' ' . sprintf( esc_html( 'Current Disciple.Tools version: %1$s, required version: %2$s' ), esc_html( $current_version ), esc_html( $disciple_tools_plugin_starter_template_required_dt_theme_version ) );
         }
         // Check if it's been dismissed...
         if ( ! get_option( 'dismissed-disciple-tools-plugin-starter-template', false ) ) { ?>

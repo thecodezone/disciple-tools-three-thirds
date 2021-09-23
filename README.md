@@ -1,16 +1,16 @@
 [![Build Status](https://travis-ci.com/DiscipleTools/disciple-tools-plugin-starter-template.svg?branch=master)](https://travis-ci.com/DiscipleTools/disciple-tools-plugin-starter-template)
 
 ## Dev notes, delete me:
-This is a starter plugin to jumstart your work with Disciple.Tools.  
-Click the "Use this template" button above.  
-See instructions for refactoring and getting started in the [wiki](https://github.com/DiscipleTools/disciple-tools-plugin-starter-template/wiki)  
+This is a starter plugin to jumstart your work with Disciple.Tools.
+Click the "Use this template" button above.
+See instructions for refactoring and getting started in the [wiki](https://github.com/DiscipleTools/disciple-tools-plugin-starter-template/wiki)
 See instruction for creating releases and publishing your plugin: [wiki](https://github.com/DiscipleTools/disciple-tools-plugin-starter-template/wiki)
 
 
 ## readme format:
 
 ![Starter Plugin](https://raw.githubusercontent.com/DiscipleTools/disciple-tools-plugin-starter-template/master/documentation/starter-plugin-banner.png)
-# Disciple Tools - Name
+# Disciple.Tools - Name
 
 Description Description Description Description Description Description Description
 Description Description Description Description Description Description Description
@@ -38,7 +38,7 @@ Purpose purpose purpose purpose purpose purpose purpose purpose purpose purpose 
 
 ## Requirements
 
-- Disciple Tools Theme installed on a Wordpress Server
+- Disciple.Tools Theme installed on a Wordpress Server
 
 ## Installing
 
