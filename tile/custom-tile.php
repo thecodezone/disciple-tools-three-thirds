@@ -43,7 +43,7 @@ class Disciple_Tools_Plugin_Starter_Template_Tile
         /**
          * @todo set the post type
          */
-        if ( $post_type === "contacts" || $post_type === "starter_post_type"){
+        if ( $post_type === "contacts" || $post_type === "starter_post_type" ){
             /**
              * @todo Add the fields that you want to include in your tile.
              *

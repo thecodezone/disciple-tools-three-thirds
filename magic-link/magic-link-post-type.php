@@ -85,7 +85,7 @@ class Disciple_Tools_Plugin_Starter_Template_Magic_Link extends DT_Magic_Url_Bas
         if ( $post_type === $this->post_type ) {
             if ( 'dt_starters_magic_url' === $section ) {
                 $record = DT_Posts::get_post( $post_type, get_the_ID() );
-                if ( isset( $record[$this->meta_key] )) {
+                if ( isset( $record[$this->meta_key] ) ) {
                     $key = $record[$this->meta_key];
                 } else {
                     $key = dt_create_unique_key();

@@ -298,7 +298,7 @@ if ( ! function_exists( 'disciple_tools_plugin_starter_template_hook_admin_notic
 /**
  * AJAX handler to store the state of dismissible notices.
  */
-if ( ! function_exists( "dt_hook_ajax_notice_handler" )){
+if ( !function_exists( "dt_hook_ajax_notice_handler" ) ){
     function dt_hook_ajax_notice_handler(){
         check_ajax_referer( 'wp_rest_dismiss', 'security' );
         if ( isset( $_POST["type"] ) ){

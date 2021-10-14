@@ -59,7 +59,7 @@ class Disciple_Tools_Plugin_Starter_Template_Base extends DT_Module_Base {
     }
 
     public function after_setup_theme(){
-        if ( class_exists( 'Disciple_Tools_Post_Type_Template' )) {
+        if ( class_exists( 'Disciple_Tools_Post_Type_Template' ) ) {
             new Disciple_Tools_Post_Type_Template( $this->post_type, $this->single_name, $this->plural_name );
         }
     }

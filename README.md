@@ -11,7 +11,7 @@ In order to display the banner correctly on the Disciple.Tools Community Plugins
 
 ![Plugin Banner](https://raw.githubusercontent.com/DiscipleTools/disciple-tools-plugin-starter-template/master/documentation/banner.png)
 
-# Disciple.Tools - Name
+# Disciple.Tools - Plugin Starter Template
 
 Description Description Description Description Description Description Description
 Description Description Description Description Description Description Description

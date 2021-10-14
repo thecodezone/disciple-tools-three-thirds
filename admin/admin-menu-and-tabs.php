@@ -81,7 +81,7 @@ class Disciple_Tools_Plugin_Starter_Template_Menu {
             </h2>
 
             <?php
-            switch ($tab) {
+            switch ( $tab ) {
                 case "general":
                     $object = new Disciple_Tools_Plugin_Starter_Template_Tab_General();
                     $object->content();
