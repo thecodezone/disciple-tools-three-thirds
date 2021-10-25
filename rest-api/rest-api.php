@@ -23,7 +23,7 @@ class Disciple_Tools_Plugin_Starter_Template_Endpoints
 
         register_rest_route(
             $namespace, '/endpoint', [
-                'methods'  => WP_REST_Server::CREATABLE,
+                'methods'  => "GET",
                 'callback' => [ $this, 'endpoint' ],
                 'permission_callback' => function( WP_REST_Request $request ) {
                     return $this->has_permission();
