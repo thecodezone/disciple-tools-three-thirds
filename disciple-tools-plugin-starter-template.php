@@ -144,7 +144,7 @@ class Disciple_Tools_Plugin_Starter_Template {
 
         /**
          * @todo Decide if you want to customize links for your plugin in the plugin admin area
-         * To remove: delete the lines below and remove the function named
+         * To remove: delete the lines below and remove the function named "plugin_description_links"
          */
         if ( is_admin() ) { // adds links to the plugin description area in the plugin admin list.
             add_filter( 'plugin_row_meta', [ $this, 'plugin_description_links' ], 10, 4 );
