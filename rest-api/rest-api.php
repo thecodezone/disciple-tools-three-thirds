@@ -24,30 +24,16 @@ class Disciple_Tools_Plugin_Starter_Template_Endpoints
         register_rest_route(
             $namespace, '/endpoint', [
                 'methods'  => WP_REST_Server::CREATABLE,
-                'callback' => [ $this, 'private_endpoint' ],
+                'callback' => [ $this, 'endpoint' ],
                 'permission_callback' => function( WP_REST_Request $request ) {
                     return $this->has_permission();
                 },
             ]
         );
-        register_rest_route(
-            $namespace, '/public_endpoint', [
-                'methods'  => WP_REST_Server::CREATABLE,
-                'callback' => [ $this, 'public_endpoint' ],
-                'permission_callback' => '__return_true',
-            ]
-        );
     }
 
 
-    public function private_endpoint( WP_REST_Request $request ) {
-
-        // @todo run your function here
-
-        return true;
-    }
-
-    public function public_endpoint( WP_REST_Request $request ) {
+    public function endpoint( WP_REST_Request $request ) {
 
         // @todo run your function here
 
