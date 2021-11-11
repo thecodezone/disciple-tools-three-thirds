@@ -167,6 +167,28 @@ class Disciple_Tools_Plugin_Starter_Template_Base extends DT_Module_Base {
                 'tile' => 'details',
                 'icon' => get_template_directory_uri() . '/dt-assets/images/date-end.svg',
             ];
+            $fields["multi_select"] = [
+                'name' => __( 'Multi-Select', 'disciple-tools-plugin-starter-template' ),
+                'description' => __( "Select the main person who is responsible for reporting on this record.", 'disciple-tools-plugin-starter-template' ),
+                'type' => 'multi_select',
+                'default' => [
+                    'item_1' => [
+                        'label' => __( 'Item 1', 'disciple-tools-plugin-starter-template' ),
+                        'description' => _x( 'Item 1.', 'field description', 'disciple-tools-plugin-starter-template' ),
+                    ],
+                    'item_2' => [
+                        'label' => __( 'Item 2', 'disciple-tools-plugin-starter-template' ),
+                        'description' => _x( 'Item 1.', 'field description', 'disciple-tools-plugin-starter-template' ),
+                    ],
+                    'item_3' => [
+                        'label' => __( 'Item 3', 'disciple-tools-plugin-starter-template' ),
+                        'description' => _x( 'Item 1.', 'field description', 'disciple-tools-plugin-starter-template' ),
+                    ],
+                ],
+                "tile" => "details",
+                "in_create_form" => true,
+                'icon' => get_template_directory_uri() . "/dt-assets/images/languages.svg?v=2",
+            ];
 
 
             /**
