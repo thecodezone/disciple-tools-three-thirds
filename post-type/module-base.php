@@ -85,7 +85,7 @@ class Disciple_Tools_Plugin_Starter_Template_Base extends DT_Module_Base {
             if ( isset( $expected_roles[$role]["permissions"]['access_contacts'] ) && $expected_roles[$role]["permissions"]['access_contacts'] ){
                 $expected_roles[$role]["permissions"]['access_' . $this->post_type ] = true;
                 $expected_roles[$role]["permissions"]['create_' . $this->post_type] = true;
-                $expected_roles[$role]["permissions"]['update_' . $this->post_type] = true; //@todo?
+                $expected_roles[$role]["permissions"]['update_' . $this->post_type] = true;
             }
         }
 
@@ -117,17 +117,17 @@ class Disciple_Tools_Plugin_Starter_Template_Base extends DT_Module_Base {
              */
             $fields['status'] = [
                 'name'        => __( 'Status', 'disciple-tools-plugin-starter-template' ),
-                'description' => _x( 'Set the current status.', 'field description', 'disciple-tools-plugin-starter-template' ),
+                'description' => __( 'Set the current status.', 'disciple-tools-plugin-starter-template' ),
                 'type'        => 'key_select',
                 'default'     => [
                     'inactive' => [
                         'label' => __( 'Inactive', 'disciple-tools-plugin-starter-template' ),
-                        'description' => _x( 'No longer active.', 'field description', 'disciple-tools-plugin-starter-template' ),
+                        'description' => __( 'No longer active.', 'disciple-tools-plugin-starter-template' ),
                         'color' => "#F43636"
                     ],
                     'active'   => [
                         'label' => __( 'Active', 'disciple-tools-plugin-starter-template' ),
-                        'description' => _x( 'Is active.', 'field description', 'disciple-tools-plugin-starter-template' ),
+                        'description' => __( 'Is active.', 'disciple-tools-plugin-starter-template' ),
                         'color' => "#4CAF50"
                     ],
                 ],
@@ -169,20 +169,20 @@ class Disciple_Tools_Plugin_Starter_Template_Base extends DT_Module_Base {
             ];
             $fields["multi_select"] = [
                 'name' => __( 'Multi-Select', 'disciple-tools-plugin-starter-template' ),
-                'description' => __( "Select the main person who is responsible for reporting on this record.", 'disciple-tools-plugin-starter-template' ),
+                'description' => __( "Multi Select Field", 'disciple-tools-plugin-starter-template' ),
                 'type' => 'multi_select',
                 'default' => [
                     'item_1' => [
                         'label' => __( 'Item 1', 'disciple-tools-plugin-starter-template' ),
-                        'description' => _x( 'Item 1.', 'field description', 'disciple-tools-plugin-starter-template' ),
+                        'description' => __( 'Item 1.', 'disciple-tools-plugin-starter-template' ),
                     ],
                     'item_2' => [
                         'label' => __( 'Item 2', 'disciple-tools-plugin-starter-template' ),
-                        'description' => _x( 'Item 1.', 'field description', 'disciple-tools-plugin-starter-template' ),
+                        'description' => __( 'Item 2.', 'disciple-tools-plugin-starter-template' ),
                     ],
                     'item_3' => [
                         'label' => __( 'Item 3', 'disciple-tools-plugin-starter-template' ),
-                        'description' => _x( 'Item 1.', 'field description', 'disciple-tools-plugin-starter-template' ),
+                        'description' => __( 'Item 3.', 'disciple-tools-plugin-starter-template' ),
                     ],
                 ],
                 "tile" => "details",
@@ -197,7 +197,7 @@ class Disciple_Tools_Plugin_Starter_Template_Base extends DT_Module_Base {
              */
             $fields['location_grid'] = [
                 'name'        => __( 'Locations', 'disciple-tools-plugin-starter-template' ),
-                'description' => _x( 'The general location where this contact is located.', 'Optional Documentation', 'disciple-tools-plugin-starter-template' ),
+                'description' => __( 'The general location where this contact is located.', 'disciple-tools-plugin-starter-template' ),
                 'type'        => 'location',
                 'mapbox'    => false,
                 "in_create_form" => true,
@@ -206,7 +206,7 @@ class Disciple_Tools_Plugin_Starter_Template_Base extends DT_Module_Base {
             ];
             $fields['location_grid_meta'] = [
                 'name'        => __( 'Locations', 'disciple-tools-plugin-starter-template' ), //system string does not need translation
-                'description' => _x( 'The general location where this record is located.', 'Optional Documentation', 'disciple-tools-plugin-starter-template' ),
+                'description' => __( 'The general location where this record is located.', 'disciple-tools-plugin-starter-template' ),
                 'type'        => 'location_meta',
                 "tile"      => "details",
                 'mapbox'    => false,
@@ -277,12 +277,25 @@ class Disciple_Tools_Plugin_Starter_Template_Base extends DT_Module_Base {
              */
             $fields["peoplegroups"] = [
                 "name" => __( 'People Groups', 'disciple-tools-plugin-starter-template' ),
-                'description' => _x( 'The people groups connected to this record.', 'Optional Documentation', 'disciple-tools-plugin-starter-template' ),
+                'description' => __( 'The people groups connected to this record.', 'disciple-tools-plugin-starter-template' ),
                 "type" => "connection",
                 "post_type" => $this->post_type,
                 "p2p_direction" => "to",
                 "p2p_key" => $this->post_type."_to_peoplegroups",
                 'icon' => get_template_directory_uri() . "/dt-assets/images/people-group.svg",
+            ];
+
+            $fields['contacts'] = [
+                "name" => __( 'Contacts', 'disciple-tools-plugin-starter-template' ),
+                "description" => '',
+                "type" => "connection",
+                "post_type" => "contacts",
+                "p2p_direction" => "to",
+                "p2p_key" => $this->post_type."_to_contacts",
+                "tile" => "status",
+                'icon' => get_template_directory_uri() . "/dt-assets/images/group-type.svg",
+                'create-icon' => get_template_directory_uri() . "/dt-assets/images/add-contact.svg",
+                "show_in_table" => 35
             ];
         }
 
@@ -401,6 +414,12 @@ class Disciple_Tools_Plugin_Starter_Template_Base extends DT_Module_Base {
 
     // filter at the start of post creation
     public function dt_post_create_fields( $fields, $post_type ){
+        if ( $post_type === $this->post_type ){
+            $post_fields = DT_Posts::get_post_field_settings( $post_type );
+            if ( isset( $post_fields["status"] ) && !isset( $fields["status"] ) ){
+                $fields["status"] = "active";
+            }
+        }
         return $fields;
     }
 
@@ -498,7 +517,7 @@ class Disciple_Tools_Plugin_Starter_Template_Base extends DT_Module_Base {
 
             $filters["tabs"][] = [
                 "key" => "assigned_to_me",
-                "label" => _x( "Assigned to me", 'List Filters', 'disciple-tools-plugin-starter-template' ),
+                "label" => __( "Assigned to me", 'disciple-tools-plugin-starter-template' ),
                 "count" => $total_my,
                 "order" => 20
             ];
@@ -506,7 +525,7 @@ class Disciple_Tools_Plugin_Starter_Template_Base extends DT_Module_Base {
             $filters["filters"][] = [
                 'ID' => 'my_all',
                 'tab' => 'assigned_to_me',
-                'name' => _x( "All", 'List Filters', 'disciple-tools-plugin-starter-template' ),
+                'name' => __( "All", 'disciple-tools-plugin-starter-template' ),
                 'query' => [
                     'assigned_to' => [ 'me' ],
                     'sort' => 'status'
@@ -563,7 +582,7 @@ class Disciple_Tools_Plugin_Starter_Template_Base extends DT_Module_Base {
                 }
                 $filters["tabs"][] = [
                     "key" => "all",
-                    "label" => _x( "All", 'List Filters', 'disciple-tools-plugin-starter-template' ),
+                    "label" => __( "All", 'disciple-tools-plugin-starter-template' ),
                     "count" => $total_all,
                     "order" => 10
                 ];
@@ -571,7 +590,7 @@ class Disciple_Tools_Plugin_Starter_Template_Base extends DT_Module_Base {
                 $filters["filters"][] = [
                     'ID' => 'all',
                     'tab' => 'all',
-                    'name' => _x( "All", 'List Filters', 'disciple-tools-plugin-starter-template' ),
+                    'name' => __( "All", 'disciple-tools-plugin-starter-template' ),
                     'query' => [
                         'sort' => '-post_date'
                     ],
