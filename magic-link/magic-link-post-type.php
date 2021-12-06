@@ -9,7 +9,8 @@ class Disciple_Tools_Plugin_Starter_Template_Magic_Link extends DT_Magic_Url_Bas
 
     public $magic = false;
     public $parts = false;
-    public $page_title = 'Magic';
+    public $page_title = 'Starter - Magic Links - Post Type';
+    public $page_description = 'Post Type - Magic Links.';
     public $root = "magic_app"; // @todo define the root of the url {yoursite}/root/type/key/action
     public $type = 'magic_type'; // @todo define the type
     public $post_type = 'starter_post_type'; // @todo set the post type this magic link connects with.
@@ -32,6 +33,7 @@ class Disciple_Tools_Plugin_Starter_Template_Magic_Link extends DT_Magic_Url_Bas
          */
         add_action( 'dt_details_additional_section', [ $this, 'dt_details_additional_section' ], 30, 2 );
         add_filter( 'dt_details_additional_tiles', [ $this, 'dt_details_additional_tiles' ], 10, 2 );
+        add_filter( 'dt_settings_apps_list', [ $this, 'dt_settings_apps_list' ], 10, 1 );
         add_action( 'rest_api_init', [ $this, 'add_endpoints' ] );
 
 
@@ -98,6 +100,48 @@ class Disciple_Tools_Plugin_Starter_Template_Magic_Link extends DT_Magic_Url_Bas
                 <?php
             }
         }
+    }
+
+    /**
+     * Builds magic link type settings payload:
+     * - key:               Unique magic link type key; which is usually composed of root, type and _magic_key suffix.
+     * - url_base:          URL path information to map with parent magic link type.
+     * - label:             Magic link type name.
+     * - description:       Magic link type description.
+     * - settings_display:  Boolean flag which determines if magic link type is to be listed within frontend user profile settings.
+     * - meta:              Magic link plugin related data.
+     *      - app_type:     Flag indicating type to be processed by magic link plugin.
+     *      - post_type     Magic link type post type.
+     *      - contacts_only:    Boolean flag indicating how magic link type user assignments are to be handled within magic link plugin.
+     *                          If True, lookup field to be provided within plugin for contacts only searching.
+     *                          If false, Dropdown option to be provided for user, team or group selection.
+     *      - fields:       List of fields to be displayed within magic link frontend form.
+     *
+     * @param $apps_list
+     *
+     * @return mixed
+     */
+    public function dt_settings_apps_list( $apps_list ) {
+        $apps_list[ $this->meta_key ] = [
+            'key'              => $this->meta_key,
+            'url_base'         => $this->root . '/' . $this->type,
+            'label'            => $this->page_title,
+            'description'      => $this->page_description,
+            'settings_display' => false,
+            'meta'             => [
+                'app_type'      => 'magic_link',
+                'post_type'     => $this->post_type,
+                'contacts_only' => true,
+                'fields'        => [
+                    [
+                        'id'    => 'name',
+                        'label' => 'Name'
+                    ]
+                ]
+            ]
+        ];
+
+        return $apps_list;
     }
 
     /**
@@ -287,6 +331,7 @@ class Disciple_Tools_Plugin_Starter_Template_Magic_Link extends DT_Magic_Url_Bas
                     'callback' => [ $this, 'endpoint_get' ],
                     'permission_callback' => function( WP_REST_Request $request ){
                         $magic = new DT_Magic_URL( $this->root );
+
                         return $magic->verify_rest_endpoint_permissions_on_post( $request );
                     },
                 ],
@@ -299,6 +344,7 @@ class Disciple_Tools_Plugin_Starter_Template_Magic_Link extends DT_Magic_Url_Bas
                     'callback' => [ $this, 'update_record' ],
                     'permission_callback' => function( WP_REST_Request $request ){
                         $magic = new DT_Magic_URL( $this->root );
+
                         return $magic->verify_rest_endpoint_permissions_on_post( $request );
                     },
                 ],

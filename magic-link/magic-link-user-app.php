@@ -7,8 +7,8 @@ if ( !defined( 'ABSPATH' ) ) { exit; } // Exit if accessed directly.
  */
 class Disciple_Tools_Plugin_Starter_Template_Magic_User_App extends DT_Magic_Url_Base {
 
-    public $page_title = 'Magic User App';
-    public $page_description = 'A micro user app page that can be added to home screen.';
+    public $page_title = 'Starter - Magic Links - User App';
+    public $page_description = 'User App - Magic Links.';
     public $root = "magic_app"; // @todo define the root of the url {yoursite}/root/type/key/action
     public $type = 'user_app'; // @todo define the type
     public $post_type = 'user';
@@ -63,13 +63,45 @@ class Disciple_Tools_Plugin_Starter_Template_Magic_User_App extends DT_Magic_Url
         return $allowed_css;
     }
 
+    /**
+     * Builds magic link type settings payload:
+     * - key:               Unique magic link type key; which is usually composed of root, type and _magic_key suffix.
+     * - url_base:          URL path information to map with parent magic link type.
+     * - label:             Magic link type name.
+     * - description:       Magic link type description.
+     * - settings_display:  Boolean flag which determines if magic link type is to be listed within frontend user profile settings.
+     * - meta:              Magic link plugin related data.
+     *      - app_type:     Flag indicating type to be processed by magic link plugin.
+     *      - post_type     Magic link type post type.
+     *      - contacts_only:    Boolean flag indicating how magic link type user assignments are to be handled within magic link plugin.
+     *                          If True, lookup field to be provided within plugin for contacts only searching.
+     *                          If false, Dropdown option to be provided for user, team or group selection.
+     *      - fields:       List of fields to be displayed within magic link frontend form.
+     *
+     * @param $apps_list
+     *
+     * @return mixed
+     */
     public function dt_settings_apps_list( $apps_list ) {
-        $apps_list[$this->meta_key] = [
-            'key' => $this->meta_key,
-            'url_base' => $this->root. '/'. $this->type,
-            'label' => $this->page_title,
-            'description' => $this->page_description,
+        $apps_list[ $this->meta_key ] = [
+            'key'              => $this->meta_key,
+            'url_base'         => $this->root . '/' . $this->type,
+            'label'            => $this->page_title,
+            'description'      => $this->page_description,
+            'settings_display' => true,
+            'meta'             => [
+                'app_type'      => 'magic_link',
+                'post_type'     => $this->post_type,
+                'contacts_only' => false,
+                'fields'        => [
+                    [
+                        'id'    => 'name',
+                        'label' => 'Name'
+                    ]
+                ]
+            ]
         ];
+
         return $apps_list;
     }
 
@@ -245,6 +277,7 @@ class Disciple_Tools_Plugin_Starter_Template_Magic_User_App extends DT_Magic_Url
                     'callback' => [ $this, 'endpoint_get' ],
                     'permission_callback' => function( WP_REST_Request $request ){
                         $magic = new DT_Magic_URL( $this->root );
+
                         return $magic->verify_rest_endpoint_permissions_on_post( $request );
                     },
                 ],
@@ -257,6 +290,7 @@ class Disciple_Tools_Plugin_Starter_Template_Magic_User_App extends DT_Magic_Url
                     'callback' => [ $this, 'update_record' ],
                     'permission_callback' => function( WP_REST_Request $request ){
                         $magic = new DT_Magic_URL( $this->root );
+
                         return $magic->verify_rest_endpoint_permissions_on_post( $request );
                     },
                 ],
