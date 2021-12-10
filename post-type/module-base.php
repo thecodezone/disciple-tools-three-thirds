@@ -466,12 +466,12 @@ class Disciple_Tools_Plugin_Starter_Template_Base extends DT_Module_Base {
         global $wpdb;
         if ( current_user_can( 'view_any_'.self::post_type() ) ){
             $results = $wpdb->get_results($wpdb->prepare( "
-                SELECT status.meta_value as status, count(pm.post_id) as count, count(un.post_id) as update_needed
-                FROM $wpdb->postmeta pm
-                INNER JOIN $wpdb->postmeta status ON( status.post_id = pm.post_id AND status.meta_key = 'status' )
-                INNER JOIN $wpdb->posts a ON( a.ID = pm.post_id AND a.post_type = %s and a.post_status = 'publish' )
-                LEFT JOIN $wpdb->postmeta un ON ( un.post_id = pm.post_id AND un.meta_key = 'requires_update' AND un.meta_value = '1' )
-                GROUP BY status.meta_value, pm.meta_value
+                SELECT status.meta_value as status, count(status.post_id) as count, count(un.post_id) as update_needed
+                FROM $wpdb->postmeta status
+                INNER JOIN $wpdb->posts a ON( a.ID = status.post_id AND a.post_type = %s and a.post_status = 'publish' )
+                LEFT JOIN $wpdb->postmeta un ON ( un.post_id = status.post_id AND un.meta_key = 'requires_update' AND un.meta_value = '1' )
+                WHERE status.meta_key = 'status'
+                GROUP BY status.meta_value
             ", self::post_type() ), ARRAY_A );
         } else {
             $results = $wpdb->get_results($wpdb->prepare("
