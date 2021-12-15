@@ -13,6 +13,8 @@ class Disciple_Tools_Plugin_Starter_Template_Magic_User_App extends DT_Magic_Url
     public $type = 'user_app'; // @todo define the type
     public $post_type = 'user';
     private $meta_key = '';
+    public $show_bulk_send = false;
+    public $show_app_tile = false;
 
     private static $_instance = null;
     public static function instance() {

@@ -15,6 +15,8 @@ class Disciple_Tools_Plugin_Starter_Template_Magic_Link extends DT_Magic_Url_Bas
     public $type = 'magic_type'; // @todo define the type
     public $post_type = 'starter_post_type'; // @todo set the post type this magic link connects with.
     private $meta_key = '';
+    public $show_bulk_send = false;
+    public $show_app_tile = true;
 
     private static $_instance = null;
     public static function instance() {
