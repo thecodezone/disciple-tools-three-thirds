@@ -158,13 +158,23 @@ install_theme() {
     rm disciple-tools-theme.zip
 }
 
+install_meetings() {
+    DOWNLOAD_URL=$(curl -sL https://api.github.com/repos/DiscipleTools/disciple-tools-meetings/releases/latest | jq -r '.assets[].browser_download_url')
+    curl -s -L --create-dirs "$DOWNLOAD_URL"  -o disciple-tools-meetings.zip
+    rm -rf $WP_PLUGINS_DIR/disciple-tools-meetings
+    unzip disciple-tools-meetings -d $WP_PLUGINS_DIR
+    rm disciple-tools-meetings.zip
+}
+
 install_plugin() {
+    echo "installing plugin"
     ln -sf $PLUGIN_DIR $WP_PLUGINS_DIR/.
 }
 
 install_wp
 install_test_suite
 install_theme
+install_meetings
 install_plugin
 install_db
 

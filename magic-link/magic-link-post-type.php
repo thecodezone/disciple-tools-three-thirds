@@ -3,20 +3,21 @@ if ( !defined( 'ABSPATH' ) ) { exit; } // Exit if accessed directly.
 
 
 /**
- * Class Disciple_Tools_Plugin_Starter_Template_Magic_Link
+ * Class Disciple_Tools_Three_Thirds_Magic_Link
  */
-class Disciple_Tools_Plugin_Starter_Template_Magic_Link extends DT_Magic_Url_Base {
+class Disciple_Tools_Three_Thirds_Magic_Link extends DT_Magic_Url_Base {
 
     public $magic = false;
     public $parts = false;
-    public $page_title = 'Starter - Magic Links - Post Type';
-    public $page_description = 'Post Type - Magic Links.';
-    public $root = "starter_magic_app"; // @todo define the root of the url {yoursite}/root/type/key/action
-    public $type = 'starter_magic_type'; // @todo define the type
-    public $post_type = 'starter_post_type'; // @todo set the post type this magic link connects with.
+    public $page_title = 'Three Thirds Meeting';
+    public $page_description = 'Disciple.Tools - Three Thirds Meeting.';
+    public $root = "three-thirds"; // @todo define the root of the url {yoursite}/root/type/key/action
+    public $type = 'portal'; // @todo define the type
+    public $post_type = 'contacts'; // @todo set the post type this magic link connects with.
     private $meta_key = '';
     public $show_bulk_send = false;
     public $show_app_tile = true;
+    private $meetings_service;
 
     private static $_instance = null;
     public $meta = []; // Allows for instance specific data.
@@ -29,19 +30,7 @@ class Disciple_Tools_Plugin_Starter_Template_Magic_Link extends DT_Magic_Url_Bas
     } // End instance()
 
     public function __construct() {
-
-        /**
-         * Specify metadata structure, specific to the processing of current
-         * magic link type.
-         *
-         * - meta:              Magic link plugin related data.
-         *      - app_type:     Flag indicating type to be processed by magic link plugin.
-         *      - post_type     Magic link type post type.
-         *      - contacts_only:    Boolean flag indicating how magic link type user assignments are to be handled within magic link plugin.
-         *                          If True, lookup field to be provided within plugin for contacts only searching.
-         *                          If false, Dropdown option to be provided for user, team or group selection.
-         *      - fields:       List of fields to be displayed within magic link frontend form.
-         */
+        $this->meetings_service = new Disciple_Tools_Three_Thirds_Meetings_Utilities();
         $this->meta = [
             'app_type'      => 'magic_link',
             'post_type'     => $this->post_type,
@@ -103,18 +92,20 @@ class Disciple_Tools_Plugin_Starter_Template_Magic_Link extends DT_Magic_Url_Bas
      * Post Type Tile Examples
      */
     public function dt_details_additional_tiles( $tiles, $post_type = "" ) {
-        if ( $post_type === $this->post_type ){
-            $tiles["dt_starters_magic_url"] = [
-                "label" => __( "Magic Url", 'disciple-tools-plugin-starter-template' ),
-                "description" => "The Magic URL sets up a page accessible without authentication, only the link is needed. Useful for small applications liked to this record, like quick surveys or updates."
-            ];
-        }
+        $tiles["dt_three_thirds_magic_url"] = [
+            "label" => __( "Magic Url", 'disciple-tools-plugin-starter-template' ),
+            "description" => "The Magic URL sets up a page accessible without authentication, only the link is needed. Useful for small applications liked to this record, like quick surveys or updates.",
+            "display_for" => [
+                "type" => [ Disciple_Tools_Three_Thirds_Meeting_Type::MEETING_TYPE ],
+            ]
+        ];
         return $tiles;
     }
+
     public function dt_details_additional_section( $section, $post_type ) {
         // test if campaigns post type and campaigns_app_module enabled
         if ( $post_type === $this->post_type ) {
-            if ( 'dt_starters_magic_url' === $section ) {
+            if ( 'dt_three_thirds_magic_url' === $section ) {
                 $record = DT_Posts::get_post( $post_type, get_the_ID() );
                 if ( isset( $record[$this->meta_key] ) ) {
                     $key = $record[$this->meta_key];
@@ -361,7 +352,7 @@ class Disciple_Tools_Plugin_Starter_Template_Magic_Link extends DT_Magic_Url_Bas
                 ],
             ]
         );
-    }
+}
 
     public function update_record( WP_REST_Request $request ) {
         $params = $request->get_params();
@@ -409,4 +400,4 @@ class Disciple_Tools_Plugin_Starter_Template_Magic_Link extends DT_Magic_Url_Bas
         return $data;
     }
 }
-Disciple_Tools_Plugin_Starter_Template_Magic_Link::instance();
+Disciple_Tools_Three_Thirds_Magic_Link::instance();

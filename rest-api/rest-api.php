@@ -1,28 +1,26 @@
 <?php
 if ( !defined( 'ABSPATH' ) ) { exit; } // Exit if accessed directly.
 
-class Disciple_Tools_Plugin_Starter_Template_Endpoints
+class Disciple_Tools_Three_Thirds_Endpoints
 {
+    const V1_NAMESPACE = 'three-thirds/v1';
     /**
      * @todo Set the permissions your endpoint needs
      * @link https://github.com/DiscipleTools/Documentation/blob/master/theme-core/capabilities.md
      * @var string[]
      */
-    public $permissions = [ 'access_contacts', 'dt_all_access_contacts', 'view_project_metrics' ];
+    public $permissions = [ 'access_contacts' ];
 
 
     /**
-     * @todo define the name of the $namespace
      * @todo define the name of the rest route
      * @todo defne method (CREATABLE, READABLE)
      * @todo apply permission strategy. '__return_true' essentially skips the permission check.
      */
     //See https://github.com/DiscipleTools/disciple-tools-theme/wiki/Site-to-Site-Link for outside of wordpress authentication
     public function add_api_routes() {
-        $namespace = 'disciple-tools-plugin-starter-template/v1';
-
         register_rest_route(
-            $namespace, '/endpoint', [
+            self::V1_NAMESPACE, '/endpoint', [
                 'methods'  => "GET",
                 'callback' => [ $this, 'endpoint' ],
                 'permission_callback' => function( WP_REST_Request $request ) {
@@ -60,4 +58,4 @@ class Disciple_Tools_Plugin_Starter_Template_Endpoints
         return $pass;
     }
 }
-Disciple_Tools_Plugin_Starter_Template_Endpoints::instance();
+Disciple_Tools_Three_Thirds_Endpoints::instance();

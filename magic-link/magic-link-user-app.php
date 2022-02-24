@@ -3,18 +3,22 @@ if ( !defined( 'ABSPATH' ) ) { exit; } // Exit if accessed directly.
 
 
 /**
- * Class Disciple_Tools_Plugin_Starter_Template_Magic_User_App
+ * Class Disciple_Tools_Three_Thirds_Magic_User_App
  */
-class Disciple_Tools_Plugin_Starter_Template_Magic_User_App extends DT_Magic_Url_Base {
+class Disciple_Tools_Three_Thirds_Magic_User_App extends DT_Magic_Url_Base {
 
-    public $page_title = 'Starter - Magic Links - User App';
-    public $page_description = 'User App - Magic Links.';
-    public $root = "starter_magic_app"; // @todo define the root of the url {yoursite}/root/type/key/action
-    public $type = 'starter_user_app'; // @todo define the type
-    public $post_type = 'user';
+    public $page_title = '3/3rds Meeting';
+    public $page_description = 'Facilitate 3/3rds meetings.';
+    public $root = "three-thirds"; // @todo define the root of the url {yoursite}/root/type/key/action
+    public $type = 'portal'; // @todo define the type
+    public $type_name = "3/3rds meeting";
+    public $post_type = 'contacts';
     private $meta_key = '';
     public $show_bulk_send = false;
     public $show_app_tile = false;
+    public $root_url = "three-thirds";
+    public $post_id;
+    public $post;
 
     private static $_instance = null;
     public $meta = []; // Allows for instance specific data.
@@ -355,4 +359,4 @@ class Disciple_Tools_Plugin_Starter_Template_Magic_User_App extends DT_Magic_Url
         return $data;
     }
 }
-Disciple_Tools_Plugin_Starter_Template_Magic_User_App::instance();
+Disciple_Tools_Three_Thirds_Magic_User_App::instance();
