@@ -6,6 +6,7 @@
 abstract class TestCase extends WP_UnitTestCase {
     protected $faker;
     protected $factories;
+    protected $users = [];
 
     public function __construct( $name = null, array $data = [], $dataName = '' ) {
         $this->faker = Faker\Factory::create();
@@ -17,15 +18,22 @@ abstract class TestCase extends WP_UnitTestCase {
         activate_plugin( 'disciple-tools-meetings/disciple-tools-meetings.php' );
     }
 
-    public function actingAsAdmin() {
+    public function acting_as_admin() {
         $this->acting_as( 'administrator' );
     }
 
     public function acting_as( $role ) {
-        $user_id = wp_create_user( $this->faker->userName, $this->faker->password, $this->faker->email );
-        wp_set_current_user( $user_id );
+        global $wpdb;
+        $wpdb->show_errors();
+        $wpdb->insert( $wpdb->users, [
+            'user_login' => $this->faker->name,
+            'user_pass' => wp_generate_password(),
+            'user_email' => $this->faker->email
+        ] );
+        wp_set_current_user( $wpdb->insert_id );
         $user = wp_get_current_user();
         $user->set_role( $role );
+        return $user;
     }
 
     public function setUp() {
@@ -38,11 +46,5 @@ abstract class TestCase extends WP_UnitTestCase {
         global $wpdb;
         $wpdb->query( 'ROLLBACK' );
         parent::tearDown();
-    }
-
-    public function three_thirds_meeting( $data = [] ) {
-        return DT_Posts::create_post( Disciple_Tools_Three_Thirds_Meeting_Type::POST_TYPE, [
-            'title' => $this->faker->title,
-        ] );
     }
 }

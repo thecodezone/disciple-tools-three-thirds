@@ -42,13 +42,13 @@ $_register_theme = function () use ( $_tests_dir, $_core_dir, $_theme_dir, $_plu
     } );
     add_filter( "init", function() {
         require_once( get_template_directory() . '/dt-core/setup-functions.php' );
-        Disciple_Tools_Meetings::instance();
         Disciple_Tools_Three_Thirds::instance();
+        disciple_tools_meetings();
         dt_setup_roles_and_permissions();
     }, 500, 0 );
 
-    require $_meetings_plugin_file;
     require $_plugin_file;
+    require $_meetings_plugin_file;
 };
 
 tests_add_filter( 'muplugins_loaded', $_register_theme );
@@ -57,6 +57,8 @@ tests_add_filter( 'muplugins_loaded', $_register_theme );
 require $_tests_dir . '/includes/bootstrap.php';
 require_once __DIR__ . '/factories.php';
 require_once __DIR__ . '/testcase.php';
+
+
 
 
 

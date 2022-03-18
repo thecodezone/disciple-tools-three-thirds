@@ -23,7 +23,7 @@ class Disciple_Tools_Three_Thirds_Meeting_Type {
     public function disciple_tools_meetings_types( $types ) {
         $types[ self::MEETING_TYPE ] = [
             "label"       => __( '3/3rds Meeting', Disciple_Tools_Three_Thirds::DOMAIN ),
-            "description" => __( '3/3rds format', Disciple_Tools_Three_Thirds::DOMAIN )
+            "description" => __( '3/3rds format meeting', Disciple_Tools_Three_Thirds::DOMAIN )
         ];
         return $types;
     }
@@ -72,7 +72,17 @@ class Disciple_Tools_Three_Thirds_Meeting_Type {
 
         if ( $post_type === self::POST_TYPE ) {
             //Remove the meeting notes field. We are handling that in each tile.
-            unset ( $fields['meeting_notes'] );
+            $fields['assigned_to'] = [
+                'name'        => __( 'Leader', Disciple_Tools_Three_Thirds::DOMAIN ),
+                'description' => __( 'Select the person leading the group.', Disciple_Tools_Three_Thirds::DOMAIN ),
+                'type'        => 'user_select',
+                'default'     => '',
+                'tile'        => 'status',
+                'icon' => get_template_directory_uri() . "/dt-assets/images/assigned-to.svg?v=2",
+                "show_in_table" => 25,
+                "only_for_types" => [ self::MEETING_TYPE ],
+                "custom_display" => false
+            ];
 
             //Looking back
             $fields['three_thirds_looking_back_content'] = [

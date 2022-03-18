@@ -75,13 +75,9 @@ class Disciple_Tools_Three_Thirds {
     }
 
     private function __construct() {
-        $is_rest = dt_is_rest();
-
         require_once( 'services/utilities.php' );
         require_once( 'meeting-type/meeting-type.php' );
-        if ( $is_rest && strpos( dt_get_url_path(), 'disciple-tools-three-thirds' ) !== false ) {
-            require_once( 'rest-api/rest-api.php' ); // adds starter rest api class
-        }
+        require_once( 'rest-api/rest-api.php' );
         require_once( 'magic-link/magic-link-post-type.php' );
         require_once( 'magic-link/magic-link-user-app.php' );
         $this->i18n();
