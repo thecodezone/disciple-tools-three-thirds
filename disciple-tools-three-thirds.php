@@ -65,9 +65,14 @@ add_action( 'after_setup_theme', 'disciple_tools_three_thirds', 20 );
  */
 class Disciple_Tools_Three_Thirds {
     const DOMAIN = "disciple_tools_three_thirds";
+    static $URL;
+    static $DIR;
 
     private static $_instance = null;
     public static function instance() {
+        static::$URL = plugin_dir_url( __FILE__ );
+        static::$DIR = plugin_dir_path( __FILE__ );
+
         if ( is_null( self::$_instance ) ) {
             self::$_instance = new self();
         }
@@ -78,8 +83,7 @@ class Disciple_Tools_Three_Thirds {
         require_once( 'services/utilities.php' );
         require_once( 'meeting-type/meeting-type.php' );
         require_once( 'rest-api/rest-api.php' );
-        require_once( 'magic-link/magic-link-post-type.php' );
-        require_once( 'magic-link/magic-link-user-app.php' );
+        require_once( 'magic-link/app.php' );
         $this->i18n();
     }
 

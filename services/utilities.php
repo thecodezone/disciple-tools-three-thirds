@@ -17,9 +17,9 @@ class Disciple_Tools_Three_Thirds_Meetings_Utilities {
      */
     public function is_three_thirds_meeting( $id ) {
         $field = get_post_meta( $id, 'type' );
-        if (!is_array($field)) {
+        if ( !is_array( $field ) ) {
             return false;
         }
-        return in_array('three_thirds', $field);
+        return in_array( 'three_thirds', $field );
     }
 }
