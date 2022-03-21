@@ -1,23 +1,36 @@
 import React from 'react'
 import NextMeeting from './pages/NextMeeting'
 import ReactDom from 'react-dom'
-import {BrowserRouter, Routes, Route} from "react-router-dom";
+import {HashRouter, Routes, Route} from "react-router-dom";
+import Layout from "./components/Layout";
+
+import {AppContextProvider} from "./contexts/AppContext";
 
 function App() {
-  return (
-    <BrowserRouter>
-      <div>
-        <h1>Hello, React Router!</h1>
-        <Routes>
-          <Route path="/"
-                 element={<NextMeeting/>}/>
-        </Routes>
-      </div>
-    </BrowserRouter>
-  );
+    return (
+        <HashRouter>
+            <AppContextProvider>
+                <Layout>
+                    <Routes>
+                        <Route path="/"
+                               element={<NextMeeting/>}/>
+                        <Route
+                            path="*"
+                            element={
+                                <main style={{ padding: "1rem" }}>
+                                    <h1>Page not found.</h1>
+                                    <a href={magicLink.baseName}>Return home.</a>
+                                </main>
+                            }
+                        />
+                    </Routes>
+                </Layout>
+            </AppContextProvider>
+        </HashRouter>
+    );
 }
 
 ReactDom.render(
-  <App/>,
-  document.getElementById('app')
+    <App/>,
+    document.getElementById('app')
 );

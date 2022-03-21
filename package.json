@@ -13,7 +13,9 @@
     "watch-poll": "mix watch -- --watch-options-poll=1000",
     "hot": "mix watch --hot",
     "prod": "npm run production",
-    "production": "mix --production"
+    "production": "npm run foundation; mix --production",
+    "foundation": "sass magic-link/styles/foundation.scss dist/foundation.css --style compressed",
+    "watch:foundation": "sass magic-link/styles/foundation.scss dist/foundation.css --watch"
   },
   "repository": {
     "type": "git",
@@ -28,13 +30,23 @@
   "homepage": "https://github.com/thecodezone/disciple-tools-three-thirds#readme",
   "devDependencies": {
     "@babel/preset-react": "^7.16.7",
-    "laravel-mix": "^6.0.43"
+    "@pmmmwh/react-refresh-webpack-plugin": "^0.5.4",
+    "browser-sync": "^2.27.9",
+    "browser-sync-webpack-plugin": "^2.3.0",
+    "laravel-mix": "^6.0.43",
+    "react-refresh": "^0.11.0",
+    "resolve-url-loader": "^5.0.0",
+    "sass": "^1.49.9",
+    "sass-loader": "^12.6.0"
   },
   "dependencies": {
+    "classnames": "^2.3.1",
     "foundation-sites": "^6.7.4",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-foundation": "^0.9.7",
-    "react-router-dom": "^6.2.2"
+    "react-router-dom": "^6.2.2",
+    "swiper": "^8.0.7",
+    "uniqid": "^5.4.0"
   }
 }

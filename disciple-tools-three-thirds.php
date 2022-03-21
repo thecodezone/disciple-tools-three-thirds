@@ -82,7 +82,6 @@ class Disciple_Tools_Three_Thirds {
     private function __construct() {
         require_once( 'services/utilities.php' );
         require_once( 'meeting-type/meeting-type.php' );
-        require_once( 'rest-api/rest-api.php' );
         require_once( 'magic-link/app.php' );
         $this->i18n();
     }

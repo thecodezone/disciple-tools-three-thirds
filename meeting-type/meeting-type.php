@@ -58,10 +58,6 @@ class Disciple_Tools_Three_Thirds_Meeting_Type {
             $tile = $tiles['other'];
             unset( $tiles['other'] );
             $tiles['other'] = $tile;
-
-            $tile = $tiles['dt_three_thirds_magic_url'];
-            unset( $tiles['dt_three_thirds_magic_url'] );
-            $tiles['dt_three_thirds_magic_url'] = $tile;
         }
 
         return $tiles;
@@ -81,7 +77,8 @@ class Disciple_Tools_Three_Thirds_Meeting_Type {
                 'icon' => get_template_directory_uri() . "/dt-assets/images/assigned-to.svg?v=2",
                 "show_in_table" => 25,
                 "only_for_types" => [ self::MEETING_TYPE ],
-                "custom_display" => false
+                "custom_display" => false,
+                "in_create_form" => true
             ];
 
             //Looking back
@@ -134,7 +131,8 @@ class Disciple_Tools_Three_Thirds_Meeting_Type {
                 "required"       => true,
                 "tile"           => "looking_up",
                 "icon"           => get_template_directory_uri() . '/dt-assets/images/trainings-hollow.svg',
-                "only_for_types" => [ self::MEETING_TYPE ]
+                "only_for_types" => [ self::MEETING_TYPE ],
+                "in_create_form" => true
             ];
             $fields['three_thirds_looking_up_content'] = [
                 "name"           => __( "Content", Disciple_Tools_Three_Thirds::DOMAIN ),

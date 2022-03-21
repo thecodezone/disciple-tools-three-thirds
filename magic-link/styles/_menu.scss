@@ -1,0 +1,50 @@
+#menu {
+    transition: transform 250ms ease-in-out;
+    transform: translateX(-100%);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow-y: auto;
+    background-color: $white;
+    width: calc(100vw - 60px);
+    box-shadow: 7px 7px 7px 0px rgba(0, 0, 0, 0.15);
+    padding: 25px;
+}
+
+#menu.menu--open {
+    transform: translateX(0);
+}
+
+#menu h1 {
+    margin-bottom: 35px;
+}
+
+#menu .menu__item {
+    border-left: solid 2px $medium-gray;
+    padding: 7px 15px;
+    margin-bottom: 15px;
+}
+
+#menu .menu__item:hover,
+#menu .menu__item--active {
+    border-left-color: $primary-color;
+}
+
+#menu .menu__item:not(.menu__item--active) {
+    cursor: pointer;
+}
+
+#menu .menu__item:not(.menu__item--active) #menu .menu__item-title {
+    text-decoration: underline;
+}
+
+#menu .menu__item:hover .menu__item-title {
+    text-decoration: none;
+}
+
+#menu .menu__item-date {
+    font-size: 12px;
+    color: $gray;
+}
