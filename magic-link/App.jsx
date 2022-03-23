@@ -5,6 +5,7 @@ import {HashRouter, Routes, Route} from "react-router-dom";
 import Layout from "./components/Layout";
 
 import {AppContextProvider} from "./contexts/AppContext";
+import Meeting from "./pages/Meeting";
 
 function App() {
     return (
@@ -14,6 +15,8 @@ function App() {
                     <Routes>
                         <Route path="/"
                                element={<NextMeeting/>}/>
+                        <Route path="/meetings/:id"
+                               element={<Meeting/>}/>
                         <Route
                             path="*"
                             element={

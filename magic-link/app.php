@@ -99,15 +99,15 @@ class Disciple_Tools_Three_Thirds_Magic_App extends DT_Magic_Url_Base {
     }
 
     public function dt_magic_url_base_allowed_css( $allowed_css ) {
-        $blocked_css = ['site-css'];
+        $blocked_css = [ 'site-css' ];
 
         $allowed_css[] = $this->app_assets;
         $allowed_css[] = 'font-poppins';
         $allowed_css[] = $this->app_assets . '-foundation';
 
-        foreach($blocked_css as $blocked) {
-            if (($key = array_search($blocked, $allowed_css)) !== false) {
-               unset($allowed_css[$key]);
+        foreach ( $blocked_css as $blocked ) {
+            if ( ( $key = array_search( $blocked, $allowed_css ) ) !== false ) {
+                unset( $allowed_css[ $key ] );
             }
         }
 
@@ -116,17 +116,24 @@ class Disciple_Tools_Three_Thirds_Magic_App extends DT_Magic_Url_Base {
 
     public function wp_enqueue_scripts() {
         wp_enqueue_style( 'font-poppins', 'https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap', [], 1 );
-        wp_enqueue_style( $this->app_assets . '-foundation', Disciple_Tools_Three_Thirds::$URL . 'dist/foundation.css', [], filemtime( Disciple_Tools_Three_Thirds::$DIR . 'dist/foundation.css' ));
-        wp_enqueue_style( $this->app_assets, Disciple_Tools_Three_Thirds::$URL . 'dist/styles.css', [], filemtime( Disciple_Tools_Three_Thirds::$DIR . 'dist/styles.css' ));
+        wp_enqueue_style( $this->app_assets . '-foundation', Disciple_Tools_Three_Thirds::$URL . 'dist/foundation.css', [], filemtime( Disciple_Tools_Three_Thirds::$DIR . 'dist/foundation.css' ) );
+        wp_enqueue_style( $this->app_assets, Disciple_Tools_Three_Thirds::$URL . 'dist/styles.css', [], filemtime( Disciple_Tools_Three_Thirds::$DIR . 'dist/styles.css' ) );
         wp_enqueue_script( $this->app_assets, Disciple_Tools_Three_Thirds::$URL . 'dist/app.js', [], filemtime( Disciple_Tools_Three_Thirds::$DIR . 'dist/app.js' ), true );
         wp_localize_script(
             $this->app_assets, 'magicLink', [
-                'root' => esc_url_raw( rest_url() ),
-                'basename' => esc_url_raw( '/' .  $this->root . '/' . $this->type . '/' . $this->parts['public_key'] ),
+                'root'         => esc_url_raw( rest_url() ),
+                'basename'     => esc_url_raw( '/' . $this->root . '/' . $this->type . '/' . $this->parts['public_key'] ),
                 'nonce'        => wp_create_nonce( 'wp_rest' ),
                 'parts'        => $this->parts,
                 'translations' => [
-                    'title' => __( '3/3rds Meetings', Disciple_Tools_Three_Thirds::DOMAIN )
+                    'title'            => __( '3/3rds Meetings', Disciple_Tools_Three_Thirds::DOMAIN ),
+                    'previous'         => __( 'Previous', Disciple_Tools_Three_Thirds::DOMAIN ),
+                    'next'             => __( 'Next', Disciple_Tools_Three_Thirds::DOMAIN ),
+                    'create'           => __( 'Create New Meeting', Disciple_Tools_Three_Thirds::DOMAIN ),
+                    'learn_more_about' => __( 'Learn more about', Disciple_Tools_Three_Thirds::DOMAIN ),
+                    'on_zume'          => __( 'on Zúme', Disciple_Tools_Three_Thirds::DOMAIN ),
+                    'powered_by'       => __( 'Powered by', Disciple_Tools_Three_Thirds::DOMAIN ),
+                    'disciple_tools'   => __( 'disciple.tools', Disciple_Tools_Three_Thirds::DOMAIN ),
                 ],
             ]
         );
@@ -146,8 +153,8 @@ class Disciple_Tools_Three_Thirds_Magic_App extends DT_Magic_Url_Base {
      * Login without setting the auth cookie
      */
     private function login_for_request( WP_REST_Request $request ) {
-        $user_id = get_the_ID();
-        $user = get_user_by( 'id',  get_the_ID() );
+        $user_id = $request->get_param('parts')['post_id'];
+        $user = get_user_by( 'id', $user_id );
         if ( $user ) {
             wp_set_current_user( $user_id, $user->user_login );
         }
@@ -160,12 +167,13 @@ class Disciple_Tools_Three_Thirds_Magic_App extends DT_Magic_Url_Base {
     public function add_endpoints() {
         $namespace = $this->root . '/v1';
         register_rest_route(
-            $namespace, '/'.$this->type, [                [
-                    'methods'             => ["POST", "GET"],
+            $namespace, '/' . $this->type, [
+                [
+                    'methods'             => [ "POST", "GET" ],
                     'callback'            => [ $this, 'resolve_endpoint' ],
-                    'permission_callback' => function( WP_REST_Request $request ) {
+                    'permission_callback' => function ( WP_REST_Request $request ) {
                         $verified = $this->validate_endpoint( $request );
-                        if ($verified) {
+                        if ( $verified ) {
                             $this->login_for_request( $request );
                         }
                         return $verified;
@@ -206,11 +214,11 @@ class Disciple_Tools_Three_Thirds_Magic_App extends DT_Magic_Url_Base {
     }
 
     public function resolve_endpoint( WP_REST_Request $request ) {
-        $method = strtolower($request->get_method()) . '_' . $request->get_param('action');
-        if (method_exists($this->actions, $method)) {
+        $method = strtolower( $request->get_method() ) . '_' . $request->get_param( 'action' );
+        if ( method_exists( $this->actions, $method ) ) {
             return $this->actions->$method( $request );
         } else {
-            return new WP_REST_Response('Unsupported action.', 404);
+            return new WP_REST_Response( 'Unsupported action.', 404 );
         }
     }
 }

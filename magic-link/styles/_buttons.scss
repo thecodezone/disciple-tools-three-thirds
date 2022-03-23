@@ -1,0 +1,15 @@
+.button {
+    text-transform: uppercase;
+
+    .icon {
+        transform: scale(2.1);
+        display: inline-block;
+        &:first-child {
+            margin-right: 15px;
+        }
+
+        &:last-child {
+            margin-left: 15px;
+        }
+    }
+}

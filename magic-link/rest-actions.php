@@ -49,7 +49,7 @@ class Disciple_Tools_Three_Thirds_Rest_Actions
      */
     public function get_meeting( WP_REST_Request $request ) {
         return $this->transformers->meeting(
-            DT_Posts::get_post( Disciple_Tools_Three_Thirds_Meeting_Type::POST_TYPE, $request->get_param('id'), true )
+            DT_Posts::get_post( Disciple_Tools_Three_Thirds_Meeting_Type::POST_TYPE, $request->get_param('meeting_id'), true )
         );
     }
 }

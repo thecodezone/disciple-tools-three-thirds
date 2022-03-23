@@ -1,0 +1,12 @@
+.swiper {
+    --swiper-theme-color: #{$black};
+    --swiper-pagination-bullet-inactive-opacity: .7;
+    --swiper-pagination-bullet-inactive-color: #{$gray};
+    --swiper-pagination-bullet-horizontal-gap: 2px;
+    --swiper-pagination-bullet-height: 2px;
+    --swiper-pagination-bullet-width: 12px;
+
+    .swiper-pagination-bullet {
+        border-radius: 4px;
+    }
+}

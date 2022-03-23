@@ -10,7 +10,8 @@ const state = {
   pages: 0,
   pageTitle: '',
   isOpen: false,
-  setIsOpen: () => {}
+  setIsOpen: () => {
+  }
 }
 
 export const MenuContext = createContext(state)
@@ -25,6 +26,14 @@ export const MenuContextProvider = ({value, children}) => {
   useEffect(() => {
     setIsOpen(false)
   }, [location.pathname])
+
+  const close = () => {
+    setIsOpen(false)
+  }
+
+  const open = () => {
+    setIsOpen(true)
+  }
 
   useEffect(() => {
 
@@ -50,7 +59,9 @@ export const MenuContextProvider = ({value, children}) => {
       total,
       pages,
       isOpen,
-      setIsOpen
+      setIsOpen,
+      open,
+      close
     }
   }>
     {children}

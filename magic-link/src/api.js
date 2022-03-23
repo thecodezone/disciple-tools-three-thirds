@@ -6,6 +6,6 @@ export const getMeetings = async () => {
 
 export const getMeeting = async (id) => {
   return await magicLinkRequest('meeting', {
-    'id': id
+    'meeting_id': id
   })
 }
