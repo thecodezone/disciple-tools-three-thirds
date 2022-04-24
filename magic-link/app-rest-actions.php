@@ -1,7 +1,7 @@
 <?php
 if ( !defined( 'ABSPATH' ) ) { exit; } // Exit if accessed directly.
 
-class Disciple_Tools_Three_Thirds_Rest_Actions
+class Disciple_Tools_Three_Thirds_App_Rest_Actions
 {
     private $transformers;
     private static $_instance = null;
@@ -54,4 +54,4 @@ class Disciple_Tools_Three_Thirds_Rest_Actions
     }
 }
 
-Disciple_Tools_Three_Thirds_Rest_Actions::instance();
+Disciple_Tools_Three_Thirds_App_Rest_Actions::instance();

@@ -89,10 +89,9 @@ class Disciple_Tools_Three_Thirds {
         require_once( 'services/auth.php' );
         require_once( 'meeting-type/meeting-type.php' );
         require_once 'magic-link/transformers.php';
-        require_once 'magic-link/rest-actions.php';
         require_once( 'magic-link/magic-link.php' );
         require_once( 'magic-link/app.php' );
-        require_once( 'magic-link/auth.php' );
+        require_once( 'magic-link/login.php' );
         require_once( 'magic-link/redirect.php' );
         $this->i18n();
     }

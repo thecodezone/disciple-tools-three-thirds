@@ -3,6 +3,8 @@ if ( !defined( 'ABSPATH' ) ) {
     exit;
 } // Exit if accessed directly.
 
+require_once 'app-rest-actions.php';
+
 /**
  * Class Disciple_Tools_Three_Thirds_Magic_User_App
  */
@@ -21,6 +23,7 @@ class Disciple_Tools_Three_Thirds_Magic_App extends Disciple_Tools_Three_Thirds_
     public $show_app_tile = true;
     public $post_id;
     public $post;
+    private $actions;
 
     private static $_instance = null;
     public $meta = []; // Allows for instance specific data.
@@ -33,6 +36,8 @@ class Disciple_Tools_Three_Thirds_Magic_App extends Disciple_Tools_Three_Thirds_
     } // End instance()
 
     public function __construct() {
+        $this->actions = Disciple_Tools_Three_Thirds_App_Rest_Actions::instance();
+
         /**
          * Specify metadata structure, specific to the processing of current
          * magic link type.
@@ -168,6 +173,15 @@ class Disciple_Tools_Three_Thirds_Magic_App extends Disciple_Tools_Three_Thirds_
         ];
 
         return $apps_list;
+    }
+
+    public function resolve_endpoint( WP_REST_Request $request ) {
+        $method = strtolower( $request->get_method() ) . '_' . $request->get_param( 'action' );
+        if ( method_exists( $this->actions, $method ) ) {
+            return $this->actions->$method( $request );
+        } else {
+            return new WP_REST_Response( 'Unsupported action.', 404 );
+        }
     }
 }
 

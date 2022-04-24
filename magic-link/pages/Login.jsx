@@ -1,44 +1,58 @@
-import React, {useContext} from 'react'
-import Card from "../components/Card";
+import React, {useContext, useState} from 'react'
 import AppContext from "../contexts/AppContext";
-import CardHeading from "../components/CardHeading";
-import Brand from "../components/Brand";
-import { Formik, Form, Field, ErrorMessage } from 'formik';
-import CardSection from "../components/CardSection";
+import { Formik, Form } from 'formik';
 import {Link} from "react-router-dom";
 import AuthLayout from "../layouts/AuthLayout";
+import FieldGroup from "../components/FieldGroup";
+import SubmitButton from "../components/SubmitButton";
+import {login as postLogin} from '../src/api'
+import Alert from "../components/Alert";
 
 const Login = () => {
     const {magicLink} = useContext(AppContext)
+    const [error, setError] = useState('')
+    const hasError = !!error
 
     return (
         <AuthLayout>
             <Formik
-                initialValues={{ email: '', password: '' }}
+                initialValues={{ username: '', password: '' }}
                 validate={values => {
                     const errors = {};
-                    if (!values.email) {
-                        errors.email = 'Required';
-                    } else if (
-                        !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-                    ) {
-                        errors.email = 'Invalid email address';
+                    if (!values.username) {
+                        errors.username = 'Required';
+                    }
+                    if (!values.password) {
+                        errors.password = 'Required';
                     }
                     return errors;
                 }}
-                onSubmit={(values, { setSubmitting }) => {
-                    setTimeout(() => {
-                        alert(JSON.stringify(values, null, 2));
-                        setSubmitting(false);
-                    }, 400);
+                onSubmit={async (values, { setSubmitting }) => {
+                    setError('')
+                    try {
+                        const response =  await postLogin(values)
+                        if (response.success) {
+                            window.location = magicLink.redirect_url
+                            return;
+                        } else {
+                            setError(response.error ?? magicLink.translations.form_error)
+                        }
+                    } catch (exception) {
+                        console.log(exception)
+                        setError(magicLink.translations.form_error)
+                    }
+
+                    setSubmitting(false);
                 }}
             >
-                {({ isSubmitting }) => (
-                    <Form>
-                        <Field type="text" name="username" placeholder={"Username"}/>
-                        <ErrorMessage name="username" component="div" />
-                        <Field type="password" name="password" placeholder={"Password"}/>
-                        <ErrorMessage name="password" component="div" />
+                {() => (
+                    <Form  onChange={() => {
+                        setError(false)
+                    }}>
+                        <Alert active={hasError} message={error} />
+
+                        <FieldGroup type="text" name="username" placeholder={"Username"}/>
+                        <FieldGroup type="password" name="password" placeholder={"Password"}/>
                         <div className={"auth__reset text-right"}>
                             <a className={"clear button alert small"} href={magicLink.reset_url}>
                                 {magicLink.translations.reset_password}
@@ -46,9 +60,9 @@ const Login = () => {
                         </div>
 
                         <div className={"auth__buttons"}>
-                            <button type="submit" className="submit success button" disabled={isSubmitting}>
+                            <SubmitButton>
                                 {magicLink.translations.sign_in}
-                            </button>
+                            </SubmitButton>
 
                             <Link
                                 className="clear button secondary"

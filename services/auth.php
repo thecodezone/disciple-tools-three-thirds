@@ -14,8 +14,11 @@ class Disciple_Tools_Three_Thirds_Meetings_Auth {
         return self::$_instance;
     }
 
-    private function activate() {
-        Disciple_Tools_Users::app_switch(get_current_user_id(), Disciple_Tools_Three_Thirds_Magic_App::META_KEY);
+    public function activate() {
+        $app_user_key = get_user_option( Disciple_Tools_Three_Thirds_Magic_App::META_KEY );
+        if (!$app_user_key) {
+            update_user_option( get_current_user_id(), Disciple_Tools_Three_Thirds_Magic_App::META_KEY, dt_create_unique_key() );
+        }
     }
 
     private function get_app_link() {
@@ -33,7 +36,8 @@ class Disciple_Tools_Three_Thirds_Meetings_Auth {
     }
 
     public function redirect_to_login() {
-        wp_redirect(Disciple_Tools_Three_Thirds_Magic_Auth::PATH);
+        wp_redirect(Disciple_Tools_Three_Thirds_Magic_Login::PATH);
         exit;
     }
+
 }
