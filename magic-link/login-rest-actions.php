@@ -29,8 +29,12 @@ class Disciple_Tools_Three_Thirds_Login_Rest_Actions
         $user = wp_authenticate($request->get_param('username'), $request->get_param('password'));
 
         if ( is_wp_error($user) ) {
+            $error = $user->get_error_message();
+
+            //If the error links to lost password, inject the 3/3rds redirect
+            $error = str_replace('?action=lostpassword', '?action=lostpassword?&redirect_to=/3/3', $error);
             return [
-                'error' => $user->get_error_message()
+                'error' => $error
             ];
         }
 
