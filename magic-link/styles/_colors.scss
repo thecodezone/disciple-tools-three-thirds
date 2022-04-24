@@ -1,0 +1,9 @@
+@each $name, $hex in $foundation-palette {
+    .text-#{$name} {
+        color: $hex;
+    }
+
+    a.text-#{$name}:hover {
+        color: lighten($hex, 10%);
+    }
+}

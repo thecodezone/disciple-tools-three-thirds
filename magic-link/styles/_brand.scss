@@ -1,0 +1,15 @@
+.brand {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    letter-spacing: -.05em;
+}
+
+.brand__icon {
+    margin: 0 7px;
+}
+
+.brand__heading {
+    color: $true-gray;
+}

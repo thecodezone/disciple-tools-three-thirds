@@ -3,18 +3,17 @@ if ( !defined( 'ABSPATH' ) ) {
     exit;
 } // Exit if accessed directly.
 
-require_once 'transformers.php';
-require_once 'rest-actions.php';
-
 /**
  * Class Disciple_Tools_Three_Thirds_Magic_User_App
  */
-class Disciple_Tools_Three_Thirds_Magic_App extends DT_Magic_Url_Base {
-    public $app_assets = Disciple_Tools_Three_Thirds::DOMAIN . '_' . 'app';
+class Disciple_Tools_Three_Thirds_Magic_App extends Disciple_Tools_Three_Thirds_Magic_Link {
+    const META_KEY = 'threethirds_app_magic_key';
+    const PATH = '/threethirds/app';
+
     public $page_title = '3/3rds Meetings';
     public $page_description = 'Facilitate 3/3rds meetings.';
-    public $root = "three-thirds";
-    public $type = 'meetings';
+    public $root = "threethirds";
+    public $type = 'app';
     public $type_name = "3/3rds meeting";
     public $post_type = 'user';
     private $meta_key = '';
@@ -22,7 +21,6 @@ class Disciple_Tools_Three_Thirds_Magic_App extends DT_Magic_Url_Base {
     public $show_app_tile = true;
     public $post_id;
     public $post;
-    public $actions;
 
     private static $_instance = null;
     public $meta = []; // Allows for instance specific data.
@@ -35,7 +33,6 @@ class Disciple_Tools_Three_Thirds_Magic_App extends DT_Magic_Url_Base {
     } // End instance()
 
     public function __construct() {
-
         /**
          * Specify metadata structure, specific to the processing of current
          * magic link type.
@@ -60,83 +57,49 @@ class Disciple_Tools_Three_Thirds_Magic_App extends DT_Magic_Url_Base {
             ]
         ];
 
-        $this->meta_key = $this->root . '_' . $this->type . '_magic_key';
-        $this->actions = Disciple_Tools_Three_Thirds_Rest_Actions::instance();
+        $this->meta_key = static::META_KEY;
+
         parent::__construct();
-
-        /**
-         * user_app and module section
-         */
-        add_filter( 'dt_settings_apps_list', [ $this, 'dt_settings_apps_list' ], 10, 1 );
-        add_action( 'rest_api_init', [ $this, 'add_endpoints' ] );
-
 
         /**
          * tests if other URL
          */
         $url = dt_get_url_path();
-        if ( strpos( $url, $this->root . '/' . $this->type ) === false ) {
-            return;
-        }
-        /**
-         * tests magic link parts are registered and have valid elements
-         */
-        if ( !$this->check_parts_match() ) {
-            return;
-        }
 
-        // load if valid url
-        add_action( 'dt_blank_body', [ $this, 'body' ] );
-        add_action( 'wp_enqueue_scripts', [ $this, 'wp_enqueue_scripts' ], 99 );
-        add_filter( 'dt_magic_url_base_allowed_css', [ $this, 'dt_magic_url_base_allowed_css' ], 10, 1 );
-        add_filter( 'dt_magic_url_base_allowed_js', [ $this, 'dt_magic_url_base_allowed_js' ], 10, 1 );
-    }
+        if ( strpos( $url, $this->root . '/' . $this->type ) !== false ) {
+            /**
+             * tests magic link parts are registered and have valid elements
+             */
+            //if ( !$this->check_parts_match() ) {
+            //    return;
+            //}
 
+            /**
+             * user_app and module section
+             */
+            add_filter( 'dt_settings_apps_list', [ $this, 'dt_settings_apps_list' ], 10, 1 );
+            add_action( 'rest_api_init', [ $this, 'add_endpoints' ] );
 
-    public function dt_magic_url_base_allowed_js( $allowed_js ) {
-        $allowed_js[] = $this->app_assets;
-        return $allowed_js;
-    }
+            add_action( 'wp_enqueue_scripts', [ $this, 'wp_enqueue_scripts' ], 99 );
+            add_filter( 'dt_magic_url_base_allowed_css', [ $this, 'dt_magic_url_base_allowed_css' ], 10, 1 );
+            add_filter( 'dt_magic_url_base_allowed_js', [ $this, 'dt_magic_url_base_allowed_js' ], 10, 1 );
 
-    public function dt_magic_url_base_allowed_css( $allowed_css ) {
-        $blocked_css = [ 'site-css' ];
-
-        $allowed_css[] = $this->app_assets;
-        $allowed_css[] = 'font-poppins';
-        $allowed_css[] = $this->app_assets . '-foundation';
-
-        foreach ( $blocked_css as $blocked ) {
-            if ( ( $key = array_search( $blocked, $allowed_css ) ) !== false ) {
-                unset( $allowed_css[ $key ] );
-            }
+            // load if valid url
+            add_action( 'dt_blank_body', [ $this, 'body' ] );
         }
 
-        return $allowed_css;
+        if ( dt_is_rest() ) {
+            add_action( 'rest_api_init', [ $this, 'add_endpoints' ] );
+            add_filter( 'dt_allow_rest_access', [ $this, 'authorize_url' ], 10, 1 );
+        }
     }
 
-    public function wp_enqueue_scripts() {
-        wp_enqueue_style( 'font-poppins', 'https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap', [], 1 );
-        wp_enqueue_style( $this->app_assets . '-foundation', Disciple_Tools_Three_Thirds::$URL . 'dist/foundation.css', [], filemtime( Disciple_Tools_Three_Thirds::$DIR . 'dist/foundation.css' ) );
-        wp_enqueue_style( $this->app_assets, Disciple_Tools_Three_Thirds::$URL . 'dist/styles.css', [], filemtime( Disciple_Tools_Three_Thirds::$DIR . 'dist/styles.css' ) );
-        wp_enqueue_script( $this->app_assets, Disciple_Tools_Three_Thirds::$URL . 'dist/app.js', [], filemtime( Disciple_Tools_Three_Thirds::$DIR . 'dist/app.js' ), true );
-        wp_localize_script(
-            $this->app_assets, 'magicLink', [
-                'root'         => esc_url_raw( rest_url() ),
-                'basename'     => esc_url_raw( '/' . $this->root . '/' . $this->type . '/' . $this->parts['public_key'] ),
-                'nonce'        => wp_create_nonce( 'wp_rest' ),
-                'parts'        => $this->parts,
-                'translations' => [
-                    'title'            => __( '3/3rds Meetings', Disciple_Tools_Three_Thirds::DOMAIN ),
-                    'previous'         => __( 'Previous', Disciple_Tools_Three_Thirds::DOMAIN ),
-                    'next'             => __( 'Next', Disciple_Tools_Three_Thirds::DOMAIN ),
-                    'create'           => __( 'Create New Meeting', Disciple_Tools_Three_Thirds::DOMAIN ),
-                    'learn_more_about' => __( 'Learn more about', Disciple_Tools_Three_Thirds::DOMAIN ),
-                    'on_zume'          => __( 'on Zúme', Disciple_Tools_Three_Thirds::DOMAIN ),
-                    'powered_by'       => __( 'Powered by', Disciple_Tools_Three_Thirds::DOMAIN ),
-                    'disciple_tools'   => __( 'disciple.tools', Disciple_Tools_Three_Thirds::DOMAIN ),
-                ],
-            ]
-        );
+    /**
+     * Has the user activated the app?
+     * @return bool
+     */
+    public static function is_activated() {
+        return !! get_user_option( self::META_KEY );
     }
 
     /**
@@ -205,21 +168,6 @@ class Disciple_Tools_Three_Thirds_Magic_App extends DT_Magic_Url_Base {
         ];
 
         return $apps_list;
-    }
-
-    public function body() {
-        ?>
-        <div id="app"></div>
-        <?php
-    }
-
-    public function resolve_endpoint( WP_REST_Request $request ) {
-        $method = strtolower( $request->get_method() ) . '_' . $request->get_param( 'action' );
-        if ( method_exists( $this->actions, $method ) ) {
-            return $this->actions->$method( $request );
-        } else {
-            return new WP_REST_Response( 'Unsupported action.', 404 );
-        }
     }
 }
 

@@ -2,7 +2,10 @@ import {createContext, useState, useEffect} from "react"
 import {MenuContextProvider} from "./MenuContext";
 
 const state = {
-  magicLink: {},
+  user: JSON.parse(magicLink.user),
+  magicLink: {
+    translations: {}
+  },
   pageTitle: '',
   setPageTitle: () => {}
 }
