@@ -4,8 +4,7 @@ import ApplicationTopBar from "../components/ApplicationTopBar";
 
 const Layout = ({children}) => {
   return (
-    <div id="layout">
-      <TopBar />
+    <div id="layout" className={"padding-top-2"}>
       {children}
     </div>
   )
