@@ -18,6 +18,7 @@ abstract class Disciple_Tools_Three_Thirds_Magic_Link extends DT_Magic_Url_Base 
     public function dt_magic_url_base_allowed_js( $allowed_js ) {
         $allowed_js[] = Disciple_Tools_Three_Thirds::DOMAIN;
         $allowed_js[] = Disciple_Tools_Three_Thirds::DOMAIN . "_app";
+        $allowed_js[] = Disciple_Tools_Three_Thirds::DOMAIN . "_login";
         $allowed_js[] = Disciple_Tools_Three_Thirds::DOMAIN . '_fa';
         return $allowed_js;
     }
@@ -62,9 +63,7 @@ abstract class Disciple_Tools_Three_Thirds_Magic_Link extends DT_Magic_Url_Base 
 
         wp_enqueue_style( Disciple_Tools_Three_Thirds::DOMAIN . '_foundation', Disciple_Tools_Three_Thirds::$URL . 'dist/foundation.css', [], filemtime( Disciple_Tools_Three_Thirds::$DIR . 'dist/foundation.css' ) );
         wp_enqueue_style( Disciple_Tools_Three_Thirds::DOMAIN, Disciple_Tools_Three_Thirds::$URL . 'dist/styles.css', [], filemtime( Disciple_Tools_Three_Thirds::$DIR . 'dist/styles.css' ) );
-        wp_enqueue_script( Disciple_Tools_Three_Thirds::DOMAIN . "_app", Disciple_Tools_Three_Thirds::$URL . 'dist/app.js', [], filemtime( Disciple_Tools_Three_Thirds::$DIR . 'dist/app.js' ), true );
         wp_enqueue_script( Disciple_Tools_Three_Thirds::DOMAIN . '_fa', 'https://kit.fontawesome.com/dbfbaa4587.js' );
-        wp_localize_script( Disciple_Tools_Three_Thirds::DOMAIN . "_app", 'magicLink', $this->localizations() );
     }
 
     public function body() {

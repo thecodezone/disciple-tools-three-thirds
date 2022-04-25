@@ -2,6 +2,7 @@ let mix = require('laravel-mix');
 require('node-env')
 
 mix.js('magic-link/App.jsx', 'dist')
+  .js('magic-link/Login.jsx', 'dist')
   .sass('magic-link/styles/styles.scss','dist')
   .options({ processCssUrls: false })
   .react()

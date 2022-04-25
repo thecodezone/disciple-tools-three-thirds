@@ -1,6 +1,5 @@
 import React, {Fragment, useContext, useState} from 'react'
 import AppContext from "../contexts/AppContext";
-import { Formik } from 'formik';
 import {Link} from "react-router-dom";
 import AuthLayout from "../layouts/AuthLayout";
 import FieldGroup from "../components/FieldGroup";

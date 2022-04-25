@@ -119,6 +119,12 @@ class Disciple_Tools_Three_Thirds_Magic_Login extends Disciple_Tools_Three_Third
         }
     }
 
+    public function wp_enqueue_scripts() {
+       parent::wp_enqueue_scripts();
+       wp_enqueue_script( Disciple_Tools_Three_Thirds::DOMAIN . "_login", Disciple_Tools_Three_Thirds::$URL . 'dist/login.js', [], filemtime( Disciple_Tools_Three_Thirds::$DIR . 'dist/login.js' ), true );
+       wp_localize_script( Disciple_Tools_Three_Thirds::DOMAIN . "_login", 'magicLink', $this->localizations() );
+    }
+
 
     public function body() {
         ?>

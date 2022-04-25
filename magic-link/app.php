@@ -99,6 +99,12 @@ class Disciple_Tools_Three_Thirds_Magic_App extends Disciple_Tools_Three_Thirds_
         }
     }
 
+    public function wp_enqueue_scripts() {
+        parent::wp_enqueue_scripts();
+        wp_enqueue_script( Disciple_Tools_Three_Thirds::DOMAIN . "_app", Disciple_Tools_Three_Thirds::$URL . 'dist/app.js', [], filemtime( Disciple_Tools_Three_Thirds::$DIR . 'dist/app.js' ), true );
+        wp_localize_script( Disciple_Tools_Three_Thirds::DOMAIN . "_app", 'magicLink', $this->localizations() );
+    }
+
     /**
      * Has the user activated the app?
      * @return bool
@@ -127,6 +133,7 @@ class Disciple_Tools_Three_Thirds_Magic_App extends Disciple_Tools_Three_Thirds_
             wp_set_current_user( $user_id, $user->user_login );
         }
     }
+
 
     /**
      * Register REST Endpoints
