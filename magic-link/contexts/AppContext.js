@@ -1,5 +1,6 @@
 import {createContext, useState, useEffect} from "react"
 import {MenuContextProvider} from "./MenuContext";
+import {MeetingsContextProvider} from "./MeetingsContext";
 
 const state = {
   user: JSON.parse(magicLink.user),
@@ -22,9 +23,11 @@ export const AppContextProvider = ({value, children}) => {
       setPageTitle,
     }
   }>
-    <MenuContextProvider>
-      {children}
-    </MenuContextProvider>
+    <MeetingsContextProvider>
+      <MenuContextProvider>
+        {children}
+      </MenuContextProvider>
+    </MeetingsContextProvider>
   </AppContext.Provider>
 }
 

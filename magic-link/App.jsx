@@ -1,5 +1,4 @@
 import React, {useState} from 'react'
-import NextMeeting from './pages/NextMeeting'
 import ReactDom from 'react-dom'
 import {HashRouter, Routes, Route} from "react-router-dom";
 import ApplicationLayout from "./layouts/ApplicationLayout";
@@ -9,6 +8,7 @@ import Login from "./pages/Login";
 import NotFound from './pages/NotFound'
 import Layout from "./layouts/Layout";
 import CreateAccount from './pages/CreateAccount'
+import Dashboard from "./pages/Dashboard";
 
 function App() {
     const [user] = useState(JSON.parse(magicLink.user))
@@ -21,7 +21,7 @@ function App() {
                     <ApplicationLayout>
                         <Routes>
                             <Route path="/"
-                                   element={<NextMeeting/>}/>
+                                   element={<Dashboard/>}/>
                             <Route path="/meetings/:id"
                                    element={<Meeting/>}/>
                             <Route

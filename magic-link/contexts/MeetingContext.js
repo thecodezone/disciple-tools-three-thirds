@@ -1,4 +1,6 @@
 import {createContext, useState, useEffect} from "react"
+import {getMeetings} from "../src/api";
+import {chunkArray} from "../src/helpers";
 
 const state = {
   meeting: false,

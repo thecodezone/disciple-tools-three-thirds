@@ -3,7 +3,15 @@ import {Formik, Form as FormikForm, isFunction} from "formik";
 import React, {Fragment, useContext, useState} from "react";
 import AppContext from "../contexts/AppContext";
 
-const Form = ({children = () => {}, onSubmit, onSuccess = () => {}, onError = () => {}, request, ...props}) => {
+const Form = ({
+      children = () => {},
+      onSubmit,
+      onSuccess = () => {},
+      onError = () => {},
+      onChange = () => {},
+      request,
+      ...props
+}) => {
     const {magicLink} = useContext(AppContext)
     const [error, setError] = useState('')
     const hasError = !!error
@@ -22,8 +30,6 @@ const Form = ({children = () => {}, onSubmit, onSuccess = () => {}, onError = ()
                 if (!request) {
                     return
                 }
-
-                console.log(request)
 
                 setError('')
                 try {
@@ -48,10 +54,11 @@ const Form = ({children = () => {}, onSubmit, onSuccess = () => {}, onError = ()
                 setSubmitting(false);
             }}
         >
-            {(values) => {
-                const formChildren = isFunction(children) ? children(values) : children
+            {(formikProps) => {
+                const formChildren = isFunction(children) ? children(formikProps) : children
 
                 return (<FormikForm onChange={() => {
+                    onChange(formikProps)
                     setError(false)
                 }}>
                     <Fragment>

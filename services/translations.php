@@ -16,6 +16,7 @@ class Disciple_Tools_Three_Thirds_Meetings_Translations {
      */
     public function all() {
         return [
+            'all'              => __( 'All', Disciple_Tools_Three_Thirds::DOMAIN ),
             'create'           => __( 'Create New Meeting', Disciple_Tools_Three_Thirds::DOMAIN ),
             'create_account'   => __( 'Create Account', Disciple_Tools_Three_Thirds::DOMAIN ),
             'deactivated'      => __( 'The app has not yet been activated. Activate the app in your', Disciple_Tools_Three_Thirds::DOMAIN ),
@@ -26,10 +27,13 @@ class Disciple_Tools_Three_Thirds_Meetings_Translations {
             'login'            => __( 'Login', Disciple_Tools_Three_Thirds::DOMAIN ),
             'logout'           => __( 'Logout', Disciple_Tools_Three_Thirds::DOMAIN ),
             'next'             => __( 'Next', Disciple_Tools_Three_Thirds::DOMAIN ),
+            'no_group'         => __( 'No Group', Disciple_Tools_Three_Thirds::DOMAIN ),
             'on_zume'          => __( 'on Zúme', Disciple_Tools_Three_Thirds::DOMAIN ),
             'page_not_found'   => __( 'Page not found.', Disciple_Tools_Three_Thirds::DOMAIN ),
             'powered_by'       => __( 'Powered by', Disciple_Tools_Three_Thirds::DOMAIN ),
             'previous'         => __( 'Previous', Disciple_Tools_Three_Thirds::DOMAIN ),
+            'meeting_found'   => __( 'meeting found', Disciple_Tools_Three_Thirds::DOMAIN ),
+            'meetings_found'   => __( 'meetings found', Disciple_Tools_Three_Thirds::DOMAIN ),
             'registered'       => __( 'Your account has been created.', Disciple_Tools_Three_Thirds::DOMAIN ),
             'reset_password'   => __( 'Reset Password', Disciple_Tools_Three_Thirds::DOMAIN ),
             'return_home'      => __( 'Return home.', Disciple_Tools_Three_Thirds::DOMAIN ),

@@ -19,19 +19,7 @@ class Disciple_Tools_Three_Thirds_Transformers {
      * @throws Exception
      */
     public function meetings( $meetings ) {
-        if (!$meetings) {
-            return [
-                'total' => 0,
-                'posts' => []
-            ];
-        }
-
-        return [
-            'total' => $meetings['total'],
-            'posts' => array_map(function($meeting) {
-                return $this->meeting($meeting);
-            }, $meetings['posts'])
-        ];
+        return $this->transform_posts($meetings, 'meeting');
     }
 
     /**
@@ -43,9 +31,9 @@ class Disciple_Tools_Three_Thirds_Transformers {
     public function meeting( $meeting ) {
         $date = $meeting['date'] ?? [];
         $date['formatted'] = gmdate( 'F j, Y', $date['timestamp']);
-
         return [
             'ID' => $meeting['ID'],
+            'groups' => $this->groups($meeting['groups']),
             'assigned_to' => $meeting['assigned_to'] ?? null,
             'date' => $date,
             'name' => $meeting['name'] ?? '',
@@ -64,5 +52,64 @@ class Disciple_Tools_Three_Thirds_Transformers {
             'three_thirds_looking_ahead_prayer_topics' => $meeting['three_thirds_looking_ahead_prayer_topics'] ?? '',
             'three_thirds_looking_ahead_notes' => $meeting['three_thirds_looking_ahead_notes'] ?? '',
         ];
+    }
+
+    /**
+     * Format meeting data for the front-end
+     * @return mixed
+     * @throws Exception
+     */
+    public function groups( $groups ) {
+        return $this->transform_posts($groups, 'group');
+    }
+
+    /**
+     * Format meeting data for the front-end
+     * @param $meeting
+     * @return mixed
+     * @throws Exception
+     */
+    public function group( $group ) {
+        return [
+            'ID' => $group['ID'],
+            'title' => $group['post_title']
+        ];
+    }
+
+    public function transform_posts($items, $type)
+    {
+        if (!$items) {
+            return [
+                'total' => 0,
+                'type' => $type,
+                'posts' => []
+            ];
+        }
+
+        if (isset($items['total']) && isset($items['posts'])) {
+            return [
+                'total' => $items['total'],
+                'type' => $type,
+                'posts' => $this->map_posts($items['posts'], $type)
+            ];
+        }
+
+        return [
+            'total' => count($items),
+            'type' => $type,
+            'posts' => $this->map_posts($items, $type)
+        ];
+    }
+
+    public function map_posts($items, $type)
+    {
+        return array_map(function($items) use ($type) {
+            return $this->transform($items, $type);
+        }, $items);
+    }
+
+    public function transform($item, $type)
+    {
+        return $this->$type($item);
     }
 }
