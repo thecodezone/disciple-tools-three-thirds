@@ -1,4 +1,9 @@
 .card {
+    .card-heading {
+        background-color: $dark-gray;
+        color: $white;
+        font-weight: bold;
+    }
     .card-footer {
         margin-top: 15px;
     }

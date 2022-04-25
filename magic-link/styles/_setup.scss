@@ -71,6 +71,7 @@
 $global-font-size: 100%;
 $global-width: rem-calc(1200);
 $global-lineheight: 1.5;
+$primary-color-light: #00A7D6;
 $primary-color: #30A0DB;
 $secondary-color: #999999;
 $success-color: #2DA800;
@@ -101,7 +102,7 @@ $body-font-family: "Poppins", 'Helvetica Neue', Helvetica, Roboto, Arial, sans-s
 $body-safe-padding: false;
 $body-antialiased: true;
 $global-margin: 1rem;
-$global-padding: 1rem;
+$global-padding: 1.3rem;
 $global-position: 1rem;
 $global-weight-normal: normal;
 $global-weight-bold: bold;
@@ -156,7 +157,7 @@ $header-font-family: $body-font-family;
 $header-font-weight: $global-weight-bold;
 $header-font-style: normal;
 $font-family-monospace: Consolas, 'Liberation Mono', Courier, monospace;
-$header-color: $body-font-color;
+$header-color: currentColor;
 $header-lineheight: 1.4;
 $header-margin-bottom: 0.5rem;
 $header-styles: (
@@ -826,13 +827,13 @@ $table-stack-breakpoint: medium;
 
 $tab-margin: 0;
 $tab-background: $white;
-$tab-color: $primary-color;
-$tab-background-active: $light-gray;
-$tab-active-color: $primary-color;
+$tab-color: $secondary-color;
+$tab-background-active: $white;
+$tab-active-color: $primary-color-light;
 $tab-item-font-size: rem-calc(12);
 $tab-item-background-hover: $white;
-$tab-item-padding: 1.25rem 1.5rem;
-$tab-content-background: $white;
+$tab-item-padding: $global-padding / 2;
+$tab-content-background: transparent;
 $tab-content-border: $light-gray;
 $tab-content-color: $body-font-color;
 $tab-content-padding: 1rem;

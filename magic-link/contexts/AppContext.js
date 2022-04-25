@@ -4,11 +4,10 @@ import {MeetingsContextProvider} from "./MeetingsContext";
 
 const state = {
   user: JSON.parse(magicLink.user),
-  magicLink: {
-    translations: {}
-  },
+  magicLink: magicLink,
   pageTitle: '',
-  setPageTitle: () => {}
+  setPageTitle: () => {},
+  translations: magicLink.translations
 }
 
 export const AppContext = createContext(state)
@@ -18,7 +17,9 @@ export const AppContextProvider = ({value, children}) => {
 
   return <AppContext.Provider value={
     {
-      magicLink: window.magicLink,
+      user: state.user,
+      magicLink: state.magicLink,
+      translations: state.magicLink.translations,
       pageTitle,
       setPageTitle,
     }

@@ -1,7 +1,7 @@
 import magicLinkRequest from "./magicLinkRequest";
 
-export const getMeetings = async () => {
-  return await magicLinkRequest('meetings')
+export const getMeetings = async (params) => {
+  return await magicLinkRequest('meetings', params)
 }
 
 export const getMeeting = async (id) => {

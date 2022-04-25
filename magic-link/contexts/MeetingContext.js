@@ -1,9 +1,15 @@
 import {createContext, useState, useEffect} from "react"
-import {getMeetings} from "../src/api";
+import {getMeeting, getMeetings} from "../src/api";
 import {chunkArray} from "../src/helpers";
 
 const state = {
   meeting: false,
+  tabs: {
+    LOOKING_BACK: 'LOOKING_BACK',
+    LOOKING_UP: 'LOOKING_UP',
+    LOOKING_AHEAD: 'LOOKING_AHEAD',
+  },
+  tab: 'LOOKING_BACK',
   setMeeting: () => {},
   lookingBackContent: '',
   setLookingBackContent: () => {},
@@ -33,11 +39,12 @@ const state = {
   setPrayerTopics: () => {},
   lookingAheadNotes: '',
   setLookingAheadNotes: () => {}
+
 }
 
 export const MeetingContext = createContext(state)
 
-export const MeetingContextProvider = ({meeting, setMeeting = () => {}, children}) => {
+export const MeetingContextProvider = ({id, children}) => {
   const [lookingBackContent, setLookingBackContent] = useState(state.lookingBackContent)
   const [numberShared, setNumberShared] = useState(state.numberShared)
   const [newBelievers, setNewBelievers] = useState(state.newBelievers)
@@ -52,6 +59,22 @@ export const MeetingContextProvider = ({meeting, setMeeting = () => {}, children
   const [applications, setApplications] = useState(state.applications)
   const [prayerTopics, setPrayerTopics] = useState(state.prayerTopics)
   const [lookingAheadNotes, setLookingAheadNotes] = useState(state.lookingAheadNotes)
+  const [tab, setTab] = useState(state.tab)
+  const [meeting, setMeeting] = useState(false)
+
+
+  useEffect(() => {
+    async function fetchMeeting() {
+      try {
+        const meeting = await getMeeting(id)
+        setMeeting(meeting)
+      } catch (ex) {
+        console.log(ex)
+      }
+    }
+
+    fetchMeeting()
+  }, [id])
 
   useEffect(() => {
     setLookingAheadContent(meeting ? meeting.three_thirds_looking_back_content : '')
@@ -74,6 +97,9 @@ export const MeetingContextProvider = ({meeting, setMeeting = () => {}, children
     {
       meeting,
       setMeeting,
+      tabs: state.tabs,
+      tab,
+      setTab,
       lookingBackContent,
       setLookingBackContent,
       numberShared,

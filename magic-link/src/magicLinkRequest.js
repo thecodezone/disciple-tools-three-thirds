@@ -1,5 +1,9 @@
+const requests = {}
+
 const request = (action, data = {}, method = "GET") => {
-  console.log(action)
+  if (requests[action] !== undefined)  {
+    requests[action].abort()
+  }
   return new Promise((resolve, reject) => {
     const options = {
       type: method,
@@ -14,9 +18,11 @@ const request = (action, data = {}, method = "GET") => {
       },
       success: function (data) {
         resolve(data)
+        requests[action] = undefined
       },
       error: function (error) {
         reject(error)
+        requests[action] = undefined
       },
     }
 
@@ -24,7 +30,7 @@ const request = (action, data = {}, method = "GET") => {
       options.contentType = "application/json; charset=utf-8"
     }
 
-    jQuery.ajax(options)
+    requests[action] = jQuery.ajax(options)
   })
 }
 

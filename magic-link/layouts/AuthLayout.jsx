@@ -1,15 +1,14 @@
-import Card from "../components/Card";
-import CardHeading from "../components/CardHeading";
+import Card from "../components/layout/cards/Card";
 import Brand from "../components/Brand";
-import CardSection from "../components/CardSection";
+import CardSection from "../components/layout/cards/CardSection";
 import React from "react";
 
 const AuthLayout = ({children}) => {
     return (<main className="container auth">
         <Card>
-            <CardHeading>
+            <CardSection>
                 <Brand className={"auth__brand"}/>
-            </CardHeading>
+            </CardSection>
             <CardSection>
                 {children}
             </CardSection>

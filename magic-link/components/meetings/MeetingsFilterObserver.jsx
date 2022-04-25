@@ -1,18 +1,19 @@
 import {useEffect, useContext} from 'react'
 import {useFormikContext} from "formik";
-import MeetingsContext from "../contexts/MeetingsContext";
+import MeetingsContext from "../../contexts/MeetingsContext";
 
 const MeetingsFilterObserver = () => {
     const {
-        setSearch,
-        setGroup
+        search
     } = useContext(MeetingsContext)
 
     const {values} = useFormikContext();
 
     useEffect(() => {
-        setSearch(values.search)
-        setGroup(values.group)
+        search({
+            q: values.q,
+            filter: values.filter
+        })
     }, [values]);
 
     return null;

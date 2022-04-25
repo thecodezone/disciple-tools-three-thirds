@@ -1,11 +1,11 @@
 import React, {Fragment, useContext, useState} from 'react'
 import AppContext from "../contexts/AppContext";
-import Form from '../components/Form'
-import FieldGroup from '../components/FieldGroup'
+import Form from '../components/forms/Form'
+import FieldGroup from '../components/forms/FieldGroup'
 import {Link} from "react-router-dom";
 import AuthLayout from "../layouts/AuthLayout";
-import CardFooter from "../components/CardFooter";
-import Alert from "../components/Alert";
+import CardFooter from "../components/layout/cards/CardFooter";
+import Alert from "../components/layout/Alert";
 import {createAccount} from '../src/api'
 
 const CreateAccount = () => {

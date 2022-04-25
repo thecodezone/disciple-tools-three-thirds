@@ -22,4 +22,20 @@ class Disciple_Tools_Three_Thirds_Meetings_Utilities {
         }
         return in_array( 'three_thirds', $field );
     }
+
+    public function paginate_posts_array( $posts, $paged, $per_page, $inital_offset = 0) {
+        $offset = (($paged - 1) * $per_page) + $inital_offset;
+        $limit = $offset + $per_page;
+        $page = array_slice($posts, $offset, $limit);
+
+        return [
+            'posts' => $page,
+            'per_page' => $per_page,
+            'paged' => $paged,
+            'total' => count($posts),
+            'count' => count($page),
+            'offset' => $offset,
+            'limit' => $limit
+        ];
+    }
 }

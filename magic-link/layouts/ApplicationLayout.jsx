@@ -7,9 +7,7 @@ const ApplicationLayout = ({children}) => {
     <div id="layout">
       <ApplicationTopBar />
       <Menu />
-      <main className={"container"}>
-          {children}
-      </main>
+        {children}
     </div>
   )
 }

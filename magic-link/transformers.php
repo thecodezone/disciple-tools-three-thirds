@@ -86,6 +86,12 @@ class Disciple_Tools_Three_Thirds_Transformers {
             ];
         }
 
+        if (isset($items['paged'])) {
+            $items['posts'] = $this->map_posts($items['posts'], $type);
+            $items['type'] = $type;
+            return $items;
+        }
+
         if (isset($items['total']) && isset($items['posts'])) {
             return [
                 'total' => $items['total'],

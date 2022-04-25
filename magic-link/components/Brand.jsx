@@ -1,6 +1,7 @@
 import React, {useContext} from "react";
 import AppContext from "../contexts/AppContext";
 import classNames from "classnames";
+
 const Brand = ({className}) => {
     const {magicLink} = useContext(AppContext)
 

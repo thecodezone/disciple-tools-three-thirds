@@ -1,0 +1,21 @@
+.tabs {
+    display: flex;;
+    box-shadow: 0px 10px 20px 0px rgba(0,0,0,0.1);
+}
+
+.tabs-title {
+    border: solid 2px transparent;
+    flex-grow: 1;
+    font-weight: bold;
+    text-align: center;
+}
+
+.tabs-title.is-active {
+    border-color: $primary-color-light;
+}
+
+.tabs-title .icon {
+    display: block;
+    font-size: 2em;
+    margin-bottom: 5px;
+}

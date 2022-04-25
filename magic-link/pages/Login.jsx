@@ -2,10 +2,10 @@ import React, {Fragment, useContext, useState} from 'react'
 import AppContext from "../contexts/AppContext";
 import {Link} from "react-router-dom";
 import AuthLayout from "../layouts/AuthLayout";
-import FieldGroup from "../components/FieldGroup";
-import SubmitButton from "../components/SubmitButton";
+import FieldGroup from "../components/forms/FieldGroup";
+import SubmitButton from "../components/forms/SubmitButton";
 import {login} from '../src/api'
-import Form from "../components/Form";
+import Form from "../components/forms/Form";
 
 const Login = () => {
     const {magicLink} = useContext(AppContext)

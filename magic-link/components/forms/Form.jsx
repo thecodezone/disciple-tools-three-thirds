@@ -1,7 +1,7 @@
-import Alert from "./Alert";
+import Alert from "../layout/Alert";
 import {Formik, Form as FormikForm, isFunction} from "formik";
 import React, {Fragment, useContext, useState} from "react";
-import AppContext from "../contexts/AppContext";
+import AppContext from "../../contexts/AppContext";
 
 const Form = ({
       children = () => {},

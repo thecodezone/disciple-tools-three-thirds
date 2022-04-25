@@ -1,7 +1,5 @@
-import {Link} from "react-router-dom";
 import React, {useContext} from "react";
 import AppContext from "../contexts/AppContext";
-import {logout} from '../src/api'
 
 const LogoutButton = () => {
     const {magicLink} = useContext(AppContext)
