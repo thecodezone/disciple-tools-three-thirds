@@ -18,7 +18,10 @@ class Disciple_Tools_Three_Thirds_Meetings_Repository {
             'fields_to_return' => array_keys( DT_Posts::get_post_settings( Disciple_Tools_Three_Thirds_Meeting_Type::POST_TYPE )['fields'] ),
             'sort' => '-date'
         ], $params);
-        return DT_Posts::list_posts( Disciple_Tools_Three_Thirds_Meeting_Type::POST_TYPE, $params )['posts'];
+        $posts = DT_Posts::list_posts( Disciple_Tools_Three_Thirds_Meeting_Type::POST_TYPE, $params )['posts'];
+        return array_filter($posts, function($post) {
+            return isset($post['type']) && $post['type']['key'] === Disciple_Tools_Three_Thirds_Meeting_Type::MEETING_TYPE;
+        });
     }
 
     /**
@@ -97,9 +100,9 @@ class Disciple_Tools_Three_Thirds_Meetings_Repository {
             return null;
         }
 
-        if (count($meeting['series'])) {
+        if (isset($meeting['series']) && count($meeting['series'])) {
             $meetings = $this->in_series($meeting['series']);
-        } else if(count($meeting['groups'])) {
+        } else if(isset($meeting['groups']) && count($meeting['groups'])) {
             $meetings = $this->in_groups($meeting['groups']);
         }
 

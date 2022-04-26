@@ -83,6 +83,7 @@ class Disciple_Tools_Three_Thirds {
 
     private function __construct() {
         require_once( 'repositories/meetings-repository.php' );
+        require_once( 'repositories/groups-repository.php' );
         require_once( 'services/translations.php' );
         require_once( 'services/utilities.php' );
         require_once( 'services/auth.php' );

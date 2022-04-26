@@ -19,6 +19,7 @@ class Disciple_Tools_Three_Thirds_App_Rest_Actions {
         $this->transformers = Disciple_Tools_Three_Thirds_Transformers::instance();
         $this->utilities = Disciple_Tools_Three_Thirds_Meetings_Utilities::instance();
         $this->meetings = Disciple_Tools_Three_Thirds_Meetings_Repository::instance();
+        $this->groups = Disciple_Tools_Three_Thirds_Groups_Repository::instance();
     }
 
     /**
@@ -41,19 +42,7 @@ class Disciple_Tools_Three_Thirds_App_Rest_Actions {
         $params['sort'] = $sort;
         $filtered = $this->meetings->filtered($search, $filter);
         $paginated = $this->utilities->paginate_posts_array($filtered, $paged, $posts_per_page, $inital_posts_per_page);
-
-        //Extract the groups that have meetings
-        $groups = array_values(array_reduce($all, function($groups, $meeting) {
-            if (!$meeting['groups'] || !count($meeting['groups'])) {
-                return $groups;
-            }
-
-            foreach($meeting['groups'] as $group) {
-                $groups[$group['ID']] = $group;
-            }
-
-            return $groups;
-        }, []));
+        $groups = $this->groups->all();
 
         $meetings = $this->transformers->meetings($paginated);
         $meetings['q'] = $search;
@@ -77,11 +66,9 @@ class Disciple_Tools_Three_Thirds_App_Rest_Actions {
         }
 
         $previous_meeting = $this->meetings->previous($meeting);
-
-        return $this->transformers->meeting(
-            $meeting,
-            compact('previous_meeting')
-        );
+        $result = $this->transformers->meeting( $meeting,);
+        $result['previous_meeting'] = $previous_meeting;
+        return $result;
     }
 }
 

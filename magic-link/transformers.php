@@ -18,8 +18,8 @@ class Disciple_Tools_Three_Thirds_Transformers {
      * @return mixed
      * @throws Exception
      */
-    public function meetings( $meetings, $with = [] ) {
-        return $this->transform_posts($meetings, 'meeting', $with);
+    public function meetings( $meetings ) {
+        return $this->transform_posts($meetings, 'meeting');
     }
 
     /**
@@ -28,16 +28,16 @@ class Disciple_Tools_Three_Thirds_Transformers {
      * @return mixed
      * @throws Exception
      */
-    public function meeting( $meeting, $with = [] ) {
+    public function meeting( $meeting ) {
         $date = $meeting['date'] ?? [];
         $date['formatted'] = gmdate( 'F j, Y', $date['timestamp']);
-        return array_merge([
+        return [
             'ID' => $meeting['ID'],
             'groups' => $this->groups($meeting['groups']),
             'assigned_to' => $meeting['assigned_to'] ?? null,
             'date' => $date,
             'name' => $meeting['name'] ?? '',
-            'series' => $meeting['series'],
+            'series' => isset($meeting['series']) ? $meeting['series'] : null,
             'three_thirds_looking_back_content' => $meeting['three_thirds_looking_back_content'] ?? '',
             'three_thirds_looking_back_number_shared' => $meeting['three_thirds_looking_back_number_shared'] ?? 0,
             'three_thirds_looking_back_new_believers' => $meeting['three_thirds_looking_back_new_believers'] ?? [],
@@ -52,7 +52,7 @@ class Disciple_Tools_Three_Thirds_Transformers {
             'three_thirds_looking_ahead_applications' => $meeting['three_thirds_looking_ahead_applications'] ?? '',
             'three_thirds_looking_ahead_prayer_topics' => $meeting['three_thirds_looking_ahead_prayer_topics'] ?? '',
             'three_thirds_looking_ahead_notes' => $meeting['three_thirds_looking_ahead_notes'] ?? '',
-        ], $with);
+        ];
     }
 
     /**
@@ -60,8 +60,8 @@ class Disciple_Tools_Three_Thirds_Transformers {
      * @return mixed
      * @throws Exception
      */
-    public function groups( $groups, $with = [] ) {
-        return $this->transform_posts($groups, 'group', $with);
+    public function groups( $groups ) {
+        return $this->transform_posts($groups, 'group');
     }
 
     /**
@@ -70,14 +70,14 @@ class Disciple_Tools_Three_Thirds_Transformers {
      * @return mixed
      * @throws Exception
      */
-    public function group( $group, $with = [] ) {
-        return array_merge([
+    public function group( $group ) {
+        return [
             'ID' => $group['ID'],
             'title' => $group['post_title']
-        ], $with);
+        ];
     }
 
-    public function transform_posts($items, $type, $with = [])
+    public function transform_posts($items, $type)
     {
         if (!$items) {
             return [
@@ -88,7 +88,7 @@ class Disciple_Tools_Three_Thirds_Transformers {
         }
 
         if (isset($items['paged'])) {
-            $items['posts'] = $this->map_posts($items['posts'], $type, $with);
+            $items['posts'] = $this->map_posts($items['posts'], $type);
             $items['type'] = $type;
             return $items;
         }
@@ -97,26 +97,26 @@ class Disciple_Tools_Three_Thirds_Transformers {
             return [
                 'total' => $items['total'],
                 'type' => $type,
-                'posts' => $this->map_posts($items['posts'], $type, $with)
+                'posts' => $this->map_posts($items['posts'], $type)
             ];
         }
 
         return [
             'total' => count($items),
             'type' => $type,
-            'posts' => $this->map_posts($items, $type, $with)
+            'posts' => $this->map_posts($items, $type)
         ];
     }
 
-    public function map_posts($items, $type, $with = [])
+    public function map_posts($items, $type)
     {
-        return array_map(function($items) use ($type, $with) {
-            return $this->transform($items, $type, $with);
+        return array_map(function($items) use ($type) {
+            return $this->transform($items, $type);
         }, $items);
     }
 
-    public function transform($item, $type, $with)
+    public function transform($item, $type)
     {
-        return $this->$type($item, $with);
+        return $this->$type($item);
     }
 }
