@@ -18,6 +18,7 @@ class Disciple_Tools_Three_Thirds_App_Rest_Actions {
     public function __construct() {
         $this->transformers = Disciple_Tools_Three_Thirds_Transformers::instance();
         $this->utilities = Disciple_Tools_Three_Thirds_Meetings_Utilities::instance();
+        $this->meetings = Disciple_Tools_Three_Thirds_Meetings_Repository::instance();
     }
 
     /**
@@ -37,44 +38,8 @@ class Disciple_Tools_Three_Thirds_App_Rest_Actions {
 
         //Build up the search params
         $params = [];
-        unset( $params['action'] );
-        unset( $params['parts'] );
         $params['sort'] = $sort;
-        $params['fields_to_return'] = array_keys(DT_Posts::get_post_settings(Disciple_Tools_Three_Thirds_Meeting_Type::POST_TYPE )['fields']);
-
-
-        //Query the posts
-        $all = DT_Posts::list_posts( Disciple_Tools_Three_Thirds_Meeting_Type::POST_TYPE, $params )['posts'];
-        $filtered = $all;
-
-        //Filter the posts
-        if ($filter) {
-            if ($filter === 'NO_GROUP') {
-                //Only posts without groups
-                $filtered = array_filter($filtered, function($meeting) {
-                    $groups = $meeting['groups'] ?? [];
-                    return !count($groups);
-                });
-            } elseif(is_numeric($filter)) {
-                //Only posts in a group
-                $filtered = array_filter($filtered, function($meeting) use ($filter) {
-                    $groups = $meeting['groups'] ?? [];
-                    $groups = array_filter($groups, function($group) use ($filter) {
-                        return (string) $group["ID"] === (string) $filter;
-                    });
-                    return count($groups);
-                });
-            }
-        }
-
-        //Filter the meetings by search string
-        if ($search) {
-            $filtered = array_filter($filtered, function($meeting) use ($search) {
-                return strpos(strtolower($meeting['name']), strtolower($search)) !== false;
-            });
-        }
-
-        //Paginate the posts
+        $filtered = $this->meetings->filtered($search, $filter);
         $paginated = $this->utilities->paginate_posts_array($filtered, $paged, $posts_per_page, $inital_posts_per_page);
 
         //Extract the groups that have meetings
@@ -106,8 +71,16 @@ class Disciple_Tools_Three_Thirds_App_Rest_Actions {
      * Error
      */
     public function get_meeting( WP_REST_Request $request ) {
+        $meeting = $this->meetings->find( $request->get_param( 'meeting_id' ));
+        if (!$meeting) {
+            new WP_Error( 'no_posts', 'Meeting not found.', [ 'status' => 404 ] );
+        }
+
+        $previous_meeting = $this->meetings->previous($meeting);
+
         return $this->transformers->meeting(
-            DT_Posts::get_post( Disciple_Tools_Three_Thirds_Meeting_Type::POST_TYPE, $request->get_param( 'meeting_id' ), true )
+            $meeting,
+            compact('previous_meeting')
         );
     }
 }

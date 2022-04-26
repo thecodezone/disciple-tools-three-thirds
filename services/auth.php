@@ -23,7 +23,7 @@ class Disciple_Tools_Three_Thirds_Meetings_Auth {
 
     private function get_app_link() {
         $app_user_key = get_user_option( Disciple_Tools_Three_Thirds_Magic_App::META_KEY );
-        $app_url_base = trailingslashit( trailingslashit( site_url() ) . Disciple_Tools_Three_Thirds_Magic_App::PATH );
+        $app_url_base =   trim(site_url(), '/' ) . Disciple_Tools_Three_Thirds_Magic_App::PATH;
         return $app_user_key ? $app_url_base . '/' . $app_user_key : '';
     }
 

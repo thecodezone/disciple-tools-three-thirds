@@ -9,8 +9,6 @@ import Dashboard from "./pages/Dashboard";
 import {MeetingContextProvider} from "./contexts/MeetingContext";
 
 function App() {
-    let {id} = useParams();
-
     return (
         <HashRouter>
             <AppContextProvider>
@@ -19,7 +17,7 @@ function App() {
                         <Route path="/"
                                element={<Dashboard/>}/>
                         <Route path="/meetings/:id"
-                               element={<MeetingContextProvider id={id}><Meeting/></MeetingContextProvider>}/>
+                               element={<MeetingContextProvider><Meeting/></MeetingContextProvider>}/>
                         <Route
                             path="*"
                             element={

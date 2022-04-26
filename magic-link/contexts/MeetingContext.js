@@ -1,6 +1,7 @@
 import {createContext, useState, useEffect} from "react"
 import {getMeeting, getMeetings} from "../src/api";
 import {chunkArray} from "../src/helpers";
+import {useParams} from "react-router-dom";
 
 const state = {
   meeting: false,
@@ -44,7 +45,8 @@ const state = {
 
 export const MeetingContext = createContext(state)
 
-export const MeetingContextProvider = ({id, children}) => {
+export const MeetingContextProvider = ({children}) => {
+  let {id} = useParams();
   const [lookingBackContent, setLookingBackContent] = useState(state.lookingBackContent)
   const [numberShared, setNumberShared] = useState(state.numberShared)
   const [newBelievers, setNewBelievers] = useState(state.newBelievers)
@@ -61,7 +63,7 @@ export const MeetingContextProvider = ({id, children}) => {
   const [lookingAheadNotes, setLookingAheadNotes] = useState(state.lookingAheadNotes)
   const [tab, setTab] = useState(state.tab)
   const [meeting, setMeeting] = useState(false)
-
+  const [meetingId, setMeetingId] = useState()
 
   useEffect(() => {
     async function fetchMeeting() {
