@@ -50,7 +50,8 @@ class Disciple_Tools_Three_Thirds_App_Rest_Actions {
 
         return [
             'meetings' => $meetings,
-            'groups' => $this->transformers->groups($groups)
+            'groups' => $this->transformers->groups($groups),
+            'series' => $this->meetings->series()
         ];
     }
 

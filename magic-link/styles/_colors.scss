@@ -1,4 +1,8 @@
 @each $name, $hex in $foundation-palette {
+    :root {
+        --color-#{$name}: #{$hex};
+    }
+
     .text-#{$name} {
         color: $hex;
     }

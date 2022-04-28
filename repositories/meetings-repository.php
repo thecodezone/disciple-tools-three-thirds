@@ -2,6 +2,7 @@
 
 class Disciple_Tools_Three_Thirds_Meetings_Repository {
     private static $_instance = null;
+    private $cache;
 
     public static function instance() {
         if ( is_null( self::$_instance ) ) {
@@ -18,10 +19,15 @@ class Disciple_Tools_Three_Thirds_Meetings_Repository {
             'fields_to_return' => array_keys( DT_Posts::get_post_settings( Disciple_Tools_Three_Thirds_Meeting_Type::POST_TYPE )['fields'] ),
             'sort' => '-date'
         ], $params);
+        $cache_key = md5(wp_json_encode($params));
+        if (isset($this->cache[$cache_key])) {
+            return $this->cache[$cache_key];
+        }
         $posts = DT_Posts::list_posts( Disciple_Tools_Three_Thirds_Meeting_Type::POST_TYPE, $params )['posts'];
-        return array_filter($posts, function($post) {
+        $this->cache[$cache_key] = array_filter($posts, function($post) {
             return isset($post['type']) && $post['type']['key'] === Disciple_Tools_Three_Thirds_Meeting_Type::MEETING_TYPE;
         });
+        return $this->cache[$cache_key];
     }
 
     /**
@@ -47,6 +53,11 @@ class Disciple_Tools_Three_Thirds_Meetings_Repository {
                 });
                 return count($groups);
             });
+        } else if($filter) {
+            //Only posts in a series
+            $filtered = array_filter($filtered, function($meeting) use ($filter) {
+                return in_array($filter, $meeting['series'] ?? []);
+            });
         }
 
         //Filter the meetings by search string
@@ -67,7 +78,7 @@ class Disciple_Tools_Three_Thirds_Meetings_Repository {
     }
 
     /**
-     * Find all three thirds meetings in a series
+     * Find all three thirds meetings in a group
      */
     public function in_groups($groups) {
         if (!is_array($groups)) {
@@ -93,7 +104,7 @@ class Disciple_Tools_Three_Thirds_Meetings_Repository {
     }
 
     /**
-     * Find the previous meeting in a series
+     * Get the previous meeting
      */
     public function previous($meeting) {
         if (!$meeting['date']) {
@@ -111,7 +122,7 @@ class Disciple_Tools_Three_Thirds_Meetings_Repository {
             return null;
         }
 
-        //ONly get previous
+        //Only get previous
         $meetings = array_filter($meetings, function($post) use ($meeting) {
             if (!$post['date']) {
                 return false;
@@ -121,5 +132,15 @@ class Disciple_Tools_Three_Thirds_Meetings_Repository {
         });
 
         return array_values($meetings)[0];
+    }
+
+    public function series( $params = [] ) {
+        $series = array_reduce($this->all( $params ), function($series, $meeting) {
+            $series = array_merge($series, $meeting['series'] ?? []);
+            return $series;
+        }, []);
+        $series = array_unique($series);
+        sort($series);
+        return $series;
     }
 }

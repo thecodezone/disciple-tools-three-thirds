@@ -3,15 +3,12 @@ import {Link} from "react-router-dom";
 import classNames from "classnames";
 import {Button, ButtonGroup, Colors} from "react-foundation";
 import React, {Fragment, useContext, useState} from "react";
-import {Swiper, SwiperSlide} from "swiper/react";
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
 import Form from "../forms/Form";
 import FieldGroup from "../forms/FieldGroup";
 import AppContext from "../../contexts/AppContext";
 import MeetingsContext from "../../contexts/MeetingsContext";
 import MeetingsFilterObserver from "./MeetingsFilterObserver";
+import SelectField from '../forms/SelectField'
 
 const Meetings = () => {
     const {
@@ -21,7 +18,8 @@ const Meetings = () => {
         meta,
         meetings,
         groups,
-        search
+        search,
+        series
     } = useContext(MeetingsContext)
 
     const loadMore = () => {
@@ -51,7 +49,15 @@ const Meetings = () => {
                     </div>
                     <div className="columns small-6">
                         <FieldGroup as="select"
-                                    name="filter">
+                                    name="filter"
+                                    options={[
+                                        { value: '', label: magicLink.translations.all },
+                                        { value: 'NO_GROUP', label: magicLink.translations.no_group },
+                                        ...series.map(series => ({ value: series, label: series })),
+                                        ...groups.map(group => ({ value: group.ID, label: group.title })),
+                                    ]}
+                                    component={SelectField}
+                        >
                             <option value="">{magicLink.translations.all}</option>
                             <option value="NO_GROUP">{magicLink.translations.no_group}</option>
                             {
