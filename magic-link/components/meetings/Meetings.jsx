@@ -39,15 +39,15 @@ const Meetings = () => {
                 }}
             >
                 <MeetingsFilterObserver/>
-                <div className="row">
-                    <div className="columns small-6">
+                <div className="grid-x grid-margin-x align-middle">
+                    <div className="cell small-6">
                         <FieldGroup
                             type="text"
                             name="q"
                             placeholder={"Search"}
                         />
                     </div>
-                    <div className="columns small-6">
+                    <div className="cell small-6">
                         <FieldGroup as="select"
                                     name="filter"
                                     options={[

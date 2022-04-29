@@ -33,10 +33,28 @@ class Disciple_Tools_Three_Thirds_Groups_Repository {
         }, [] ) );
 
         //ABC order
-        usort($groups, function($a, $b) {
-            return strcmp($a["title"], $b["title"]);
-        });
+        usort( $groups, function ( $a, $b ) {
+            return strcmp( $a["post_title"], $b["post_title"] );
+        } );
 
         return $groups;
+    }
+
+    public function create( $params )
+    {
+        return DT_Posts::create_post( 'groups', $params, false, false );
+    }
+
+    /**
+     * Find by ID
+     */
+    public function find( $id ) {
+        $filtered = array_filter($this->all(), function($group) use ($id) {
+            return (int) $group['ID'] === (int) $id;
+        });
+        if (count($filtered)) {
+            return array_values($filtered)[0];
+        }
+        return null;
     }
 }

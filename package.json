@@ -41,6 +41,7 @@
     "sass-loader": "^12.6.0"
   },
   "dependencies": {
+    "autosize": "^5.0.1",
     "classnames": "^2.3.1",
     "formik": "^2.2.9",
     "foundation-sites": "^6.7.4",

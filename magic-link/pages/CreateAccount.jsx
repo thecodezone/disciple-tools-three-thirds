@@ -16,7 +16,14 @@ const CreateAccount = () => {
         <AuthLayout>
             {!success ? (
                 <Form
-                    initialValues={{ username: '', email: '', confirm_password: '', password: '' }}
+                    initialValues={{
+                        username: '',
+                        email: '',
+                        confirm_password: '',
+                        password: '',
+                        groups: [],
+                        create_group: false
+                    }}
                     validate={values => {
                         const errors = {};
                         if (!values.username) {
@@ -41,12 +48,45 @@ const CreateAccount = () => {
                         setSuccess(true)
                     }}
                 >
-                    {({ isSubmitting }) => (
-                        <Fragment>
-                            <FieldGroup type="text" name="username" placeholder={"Username"}/>
-                            <FieldGroup type="text" name="email" placeholder={"Email"}/>
-                            <FieldGroup type="password" name="password" placeholder={"Password"}/>
-                            <FieldGroup type="password" name="confirm_password" placeholder={"Confirm Password"}/>
+                    {({values, isSubmitting, setFieldValue, setTouched, ...attrs}) => {
+                        return <Fragment>
+                            <fieldset className="fieldset">
+                                <legend>Account</legend>
+
+                                <FieldGroup type="text"
+                                            name="username"
+                                            placeholder={"Username"}/>
+                                <FieldGroup type="text"
+                                            name="email"
+                                            placeholder={"Email"}/>
+                                <FieldGroup type="password"
+                                            name="password"
+                                            placeholder={"Password"}/>
+                                <FieldGroup type="password"
+                                            name="confirm_password"
+                                            placeholder={"Confirm Password"}/>
+                            </fieldset>
+
+
+                            <fieldset className="fieldset">
+                                <legend>Groups</legend>
+
+                                {values.groups.map((group, idx) => <FieldGroup type="text"
+                                                                               placeholder={"Group Name"}
+                                                                               key={'group-field'}
+                                                                               name={`groups[${idx}]`}/>)}
+
+                                <a className="small button secondary" onClick={(e) => {
+                                    e.preventDefault()
+                                    values.groups.push('')
+                                    setFieldValue( 'groups', values.groups )
+                                }}>
+                                    Add group
+                                </a>
+
+                            </fieldset>
+
+
 
                             <CardFooter>
                                 <div className={"auth__buttons"}>
@@ -59,13 +99,15 @@ const CreateAccount = () => {
                                         <i className="icon fa-solid fa-angle-left"/> {magicLink.translations.login}
                                     </Link>
 
-                                    <button type="submit" className="submit success button" disabled={isSubmitting}>
+                                    <button type="submit"
+                                            className="submit success button"
+                                            disabled={isSubmitting}>
                                         {magicLink.translations.submit}
                                     </button>
                                 </div>
                             </CardFooter>
                         </Fragment>
-                    )}
+                    }}
                 </Form>
             ) : <Alert theme={"success"}>
                 {magicLink.translations.registered} <Link to={{

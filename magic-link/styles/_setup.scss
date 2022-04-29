@@ -244,7 +244,7 @@ $input-background-invalid: get-color(alert);
 $form-label-color-invalid: get-color(alert);
 $input-error-color: get-color(alert);
 $input-error-font-size: rem-calc(12);
-$input-error-font-weight: $global-weight-bold;
+$input-error-font-weight: $global-weight-normal;
 
 // 7. Accordion
 // ------------
@@ -362,7 +362,7 @@ $callout-link-tint: 30%;
 // --------
 
 $card-background: $white;
-$card-font-color: $body-font-color;
+$card-font-color: $darker-gray;
 $card-divider-background: transparent;
 $card-border: 1px solid $light-gray;
 $card-shadow: 0px 10px 20px -5px rgba(0,0,0,0.25);
@@ -458,9 +458,9 @@ $input-prefix-color: $black;
 $input-prefix-background: $light-gray;
 $input-prefix-border: 1px solid $medium-gray;
 $input-prefix-padding: 1rem;
-$form-label-color: $black;
+$form-label-color: inherit;
 $form-label-font-size: rem-calc(14);
-$form-label-font-weight: $global-weight-normal;
+$form-label-font-weight: $global-weight-bold;
 $form-label-line-height: 1.8;
 $select-background: $white;
 $select-triangle-color: $dark-gray;
@@ -469,7 +469,7 @@ $input-color: $black;
 $input-placeholder-color: $medium-gray;
 $input-font-family: inherit;
 $input-font-size: rem-calc(15);
-$input-font-weight: $global-weight-bold;
+$input-font-weight: $global-weight-normal;
 $input-line-height: $global-lineheight;
 $input-background: $light-gray;
 $input-background-focus: $white;

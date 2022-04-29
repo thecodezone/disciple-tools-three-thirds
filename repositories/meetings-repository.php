@@ -11,6 +11,10 @@ class Disciple_Tools_Three_Thirds_Meetings_Repository {
         return self::$_instance;
     }
 
+    public function flush() {
+        $this->cache = [];
+    }
+
     /**
      * Return all three-thirds meetings
      */
@@ -74,7 +78,7 @@ class Disciple_Tools_Three_Thirds_Meetings_Repository {
      * Find a three things meetings by ID
      */
     public function find( $id ) {
-        return DT_Posts::get_post( Disciple_Tools_Three_Thirds_Meeting_Type::POST_TYPE, $id, true );
+        return DT_Posts::get_post( Disciple_Tools_Three_Thirds_Meeting_Type::POST_TYPE, (int) $id, true );
     }
 
     /**

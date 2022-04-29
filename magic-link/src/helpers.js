@@ -6,3 +6,8 @@ export const chunkArray = (arr, chunkSize) => {
   }
   return res;
 }
+
+export const useHtml = ( html ) => {
+  return {__html: html}
+}
+

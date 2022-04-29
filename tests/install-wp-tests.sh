@@ -159,10 +159,11 @@ install_theme() {
 }
 
 install_meetings() {
-    DOWNLOAD_URL=$(curl -sL https://api.github.com/repos/DiscipleTools/disciple-tools-meetings/releases/latest | jq -r '.assets[].browser_download_url')
+    #DOWNLOAD_URL=$(curl -sL https://api.github.com/repos/DiscipleTools/disciple-tools-meetings/releases/latest | jq -r '.assets[].browser_download_url')
+    DOWNLOAD_URL=$(curl -sL https://api.github.com/repos/thecodezone/disciple-tools-meetings/releases/latest | jq -r '.assets[].browser_download_url')
     curl -s -L --create-dirs "$DOWNLOAD_URL"  -o disciple-tools-meetings.zip
     rm -rf $WP_PLUGINS_DIR/disciple-tools-meetings
-    unzip disciple-tools-meetings -d $WP_PLUGINS_DIR
+    unzip disciple-tools-meetings -d $WP_PLUGINS_DIR/
     rm disciple-tools-meetings.zip
 }
 

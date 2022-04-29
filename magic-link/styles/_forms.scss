@@ -11,3 +11,24 @@ body .form-error {
     outline: none;
     box-shadow: none;
 }
+
+.input-group {
+    position: relative;
+}
+
+.input-group .input-group-button.position-absolute:last-child {
+    top: 0;
+    bottom: 0;
+    right: 0;
+}
+
+.input-group .input-group-button.position-absolute:last-child .button {
+    display: flex;
+    align-items: center;
+    padding-left: 15px;
+    padding-right: 10px;
+}
+
+.input-group .input-group-button .icon {
+    font-size: .75rem;
+}

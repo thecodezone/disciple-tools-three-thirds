@@ -68,7 +68,7 @@ class Disciple_Tools_Three_Thirds_App_Rest_Actions {
 
         $previous_meeting = $this->meetings->previous($meeting);
         $result = $this->transformers->meeting( $meeting,);
-        $result['previous_meeting'] = $previous_meeting;
+        $result['previous_meeting'] = $result;
         return $result;
     }
 }

@@ -61,6 +61,19 @@ class Disciple_Tools_Three_Thirds_Login_Rest_Actions
             ];
         }
 
+        wp_set_current_user( $user );
+
+        if ($request->has_param('groups')) {
+            foreach($request->get_param('groups') as $group_title) {
+                if ($group_title) {
+                    $group = Disciple_Tools_Three_Thirds_Groups_Repository::instance()->create( [
+                        'title' => $group_title,
+                    ] );
+
+                }
+            }
+        }
+
         return [
             'success' => !!$user
         ];
