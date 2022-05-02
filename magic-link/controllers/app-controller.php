@@ -51,7 +51,6 @@ class Disciple_Tools_Three_Thirds_App_Controller {
         return [
             'meetings' => $meetings,
             'groups' => $this->transformers->groups($groups),
-            'series' => $this->meetings->series()
         ];
     }
 

@@ -18,8 +18,7 @@ const Meetings = () => {
         meta,
         meetings,
         groups,
-        search,
-        series
+        search
     } = useContext(MeetingsContext)
 
     const loadMore = () => {
@@ -53,7 +52,6 @@ const Meetings = () => {
                                     options={[
                                         { value: '', label: magicLink.translations.all },
                                         { value: 'NO_GROUP', label: magicLink.translations.no_group },
-                                        ...series.map(series => ({ value: series, label: series })),
                                         ...groups.map(group => ({ value: group.ID, label: group.title })),
                                     ]}
                                     component={SelectField}

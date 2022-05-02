@@ -5,11 +5,28 @@ import {useParams} from "react-router-dom";
 
 const state = {
   meeting: false,
-  tabs: {
-    LOOKING_BACK: 'LOOKING_BACK',
-    LOOKING_UP: 'LOOKING_UP',
-    LOOKING_AHEAD: 'LOOKING_AHEAD',
-  },
+  tabs: [
+    {
+      key: 'SETTINGS',
+      translation: 'settings',
+      icon: 'fi-widget',
+    },
+    {
+      key: 'LOOKING_BACK',
+      translation: 'looking_back',
+      icon: 'fi-arrow-left',
+    },
+    {
+      key: 'LOOKING_UP',
+      translation: 'looking_up',
+      icon: 'fi-arrow-up',
+    },
+    {
+      key: 'LOOKING_AHEAD',
+      translation: 'looking_ahead',
+      icon: 'fi-arrow-right'
+    }
+  ],
   tab: 'LOOKING_BACK',
   submission: {}
 }
@@ -21,6 +38,8 @@ export const MeetingContextProvider = ({children}) => {
   const [tab, setTab] = useState(state.tab)
   const [meeting, setMeeting] = useState(false)
   const [submission, setSubmission] = useState(false)
+
+
 
   useEffect(() => {
     async function fetchMeeting() {
@@ -40,8 +59,8 @@ export const MeetingContextProvider = ({children}) => {
     {
       meeting,
       setMeeting,
-      tabs: state.tabs,
       tab,
+      tabs: state.tabs,
       setTab,
       submission,
       setSubmission

@@ -96,18 +96,6 @@ class Disciple_Tools_Three_Thirds_Meetings_Repository {
     }
 
     /**
-     * Find all three thirds meetings in a series
-     */
-    public function in_series($series) {
-        if (!is_array($series)) {
-            $series = [$series];
-        }
-        return array_filter(self::all(), function($meeting) use ($series) {
-            return !!count(array_intersect($meeting['series'], $series));
-        });
-    }
-
-    /**
      * Get the previous meeting
      */
     public function previous($meeting) {

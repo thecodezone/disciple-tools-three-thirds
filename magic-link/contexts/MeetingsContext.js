@@ -8,7 +8,6 @@ const state = {
   meetings: [],
   meta: {},
   groups: [],
-  series: [],
   q: '',
   inProgress: true,
   total: 0,
@@ -24,7 +23,6 @@ export const MeetingsContextProvider = ({value, children}) => {
   const [meetings, setMeetings] = useState(state.meetings)
   const [groups, setGroups] = useState(state.groups)
   const [meta, setMeta] = useState(state.total)
-  const [series, setSeries] = useState(state.series)
 
   const search = async (params = {}) => {
     try {
@@ -33,7 +31,6 @@ export const MeetingsContextProvider = ({value, children}) => {
       newMeetings.push(...data.meetings.posts)
       setMeetings(newMeetings)
       setGroups(data.groups['posts'])
-      setSeries(data.series)
       delete(data.meetings['posts'])
       setMeta(data.meetings)
     } catch (ex) {
@@ -50,8 +47,7 @@ export const MeetingsContextProvider = ({value, children}) => {
       meetings,
       meta,
       groups,
-      search,
-      series
+      search
     }
   }>
     {children}

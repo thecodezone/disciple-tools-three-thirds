@@ -13,19 +13,23 @@ import RepeatingField from "../components/forms/RepeatingField";
 import ApplicationLayout from "../layouts/ApplicationLayout";
 import {saveMeeting} from "../src/api";
 
-const MeetingPage = () => {
+const EditMeetingPage = () => {
     const {translations} = useContext(AppContext)
-    const {meeting, tab, tabs, submission} = useContext(MeetingContext)
+    const {meeting, tab, submission} = useContext(MeetingContext)
 
     if (!meeting || !submission) {
         return null
     }
 
     return (
-        <ApplicationLayout title={meeting.name} breadcrumbs={[
+        <ApplicationLayout title={translations.edit_meeting} breadcrumbs={[
             {
                 link: '/',
                 label: 'Dashboard'
+            },
+            {
+                link: '/meetings/' + meeting.id,
+                label: meeting.name
             }
         ]}>
             <Form
@@ -41,11 +45,26 @@ const MeetingPage = () => {
                     }
 
                     return <Fragment>
-                        <MeetingTabs tabs={["LOOKING_BACK", "LOOKING_UP", "LOOKING_AHEAD"]}/>
+                        <MeetingTabs/>
                         <main>
                             <div className={"container"}>
                                 <TabsContent>
-                                    <TabPanel isActive={tab.key === "LOOKING_BACK"}>
+                                    <TabPanel isActive={tab.key === 'SETTINGS'}>
+                                        <Card show={!!meeting.three_thirds_looking_back_content}>
+                                            <CardHeading>
+                                                <h2>{translations.name}</h2>
+                                            </CardHeading>
+                                            <CardSection>
+                                                <FieldGroup
+                                                    type={"text"}
+                                                    name="name"
+                                                    placeholder={translations.name}
+                                                    onBlur={handleBlur}
+                                                />
+                                            </CardSection>
+                                        </Card>
+                                    </TabPanel>
+                                    <TabPanel isActive={tab.key === 'LOOKING_BACK'}>
                                         <Card show={!!meeting.three_thirds_looking_back_content}>
                                             <CardHeading>
                                                 <h2>{translations.description}</h2>
@@ -131,7 +150,7 @@ const MeetingPage = () => {
                                         </Card>
 
                                     </TabPanel>
-                                    <TabPanel isActive={tab.key === "LOOKING_UP"}>
+                                    <TabPanel isActive={tab.key === 'LOOKING_UP'}>
                                         <Card>
                                             <CardHeading>
                                                 <h2>{values.three_thirds_looking_up_topic}</h2>
@@ -184,7 +203,7 @@ const MeetingPage = () => {
                                         </Card>
 
                                     </TabPanel>
-                                    <TabPanel isActive={tab.key === "LOOKING_AHEAD"}>
+                                    <TabPanel isActive={tab.key === 'LOOKING_AHEAD'}>
                                         <Card show={!!meeting.three_thirds_looking_ahead_content}>
                                             <CardHeading>
                                                 <h2>{translations.description}</h2>
@@ -258,4 +277,4 @@ const MeetingPage = () => {
     )
 }
 
-export default MeetingPage
+export default EditMeetingPage
