@@ -6,6 +6,9 @@ import FieldGroup from "../components/forms/FieldGroup";
 import SubmitButton from "../components/forms/SubmitButton";
 import {login} from '../src/api'
 import Form from "../components/forms/Form";
+import Card from "../components/layout/cards/Card";
+import CardSection from "../components/layout/cards/CardSection";
+import Brand from "../components/Brand";
 
 const Login = () => {
     const {magicLink} = useContext(AppContext)
@@ -31,30 +34,37 @@ const Login = () => {
             >
                 {
                     () => (
-                        <Fragment>
-                            <FieldGroup type="text" name="username" placeholder={"Username"}/>
-                            <FieldGroup type="password" name="password" placeholder={"Password"}/>
-                            <div className={"auth__reset text-right"}>
-                                <a className={"clear button alert small"} href={magicLink.reset_url}>
-                                    {magicLink.translations.reset_password}
-                                </a>
-                            </div>
+                        <Card>
+                            <CardSection>
+                                <Brand className={"auth__brand"}/>
+                            </CardSection>
+                            <CardSection>
+                                <Fragment>
+                                    <FieldGroup type="text" name="username" placeholder={"Username"}/>
+                                    <FieldGroup type="password" name="password" placeholder={"Password"}/>
+                                    <div className={"auth__reset text-right"}>
+                                        <a className={"clear button alert small"} href={magicLink.reset_url}>
+                                            {magicLink.translations.reset_password}
+                                        </a>
+                                    </div>
 
-                            <div className={"auth__buttons"}>
-                                <SubmitButton>
-                                    {magicLink.translations.sign_in}
-                                </SubmitButton>
+                                    <div className={"auth__buttons"}>
+                                        <SubmitButton>
+                                            {magicLink.translations.sign_in}
+                                        </SubmitButton>
 
-                                <Link
-                                    className="clear button secondary"
-                                    to={{
-                                        pathname: "/create-account",
-                                    }}
-                                >
-                                    {magicLink.translations.create_account} <i className="icon fa-solid fa-angle-right"/>
-                                </Link>
-                            </div>
-                        </Fragment>
+                                        <Link
+                                            className="clear button secondary"
+                                            to={{
+                                                pathname: "/create-account",
+                                            }}
+                                        >
+                                            {magicLink.translations.create_account} <i className="icon fa-solid fa-angle-right"/>
+                                        </Link>
+                                    </div>
+                                </Fragment>
+                            </CardSection>
+                        </Card>
                     )}
             </Form>
         </AuthLayout>

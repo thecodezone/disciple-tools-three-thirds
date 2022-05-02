@@ -1,4 +1,9 @@
-    const Card = ({ children }) => {
+    const Card = ({ children, show = true }) => {
+
+        if (!show) {
+            return ""
+        }
+
         return (
             <div className="card">
                 {children}

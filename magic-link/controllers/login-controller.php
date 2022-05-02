@@ -1,14 +1,13 @@
 <?php
 if ( !defined( 'ABSPATH' ) ) { exit; } // Exit if accessed directly.
 
-class Disciple_Tools_Three_Thirds_Login_Rest_Actions
+class Disciple_Tools_Three_Thirds_Login_Controller
 {
     private $transformers;
     private static $_instance = null;
     public $meta = []; // Allows for instance specific data.
 
     public static function instance() {
-
         if ( is_null( self::$_instance ) ) {
             self::$_instance = new self();
         }
@@ -43,7 +42,7 @@ class Disciple_Tools_Three_Thirds_Login_Rest_Actions
         $this->auth->activate();
 
         return [
-          'success' => true
+            'success' => true
         ];
     }
 
@@ -80,4 +79,4 @@ class Disciple_Tools_Three_Thirds_Login_Rest_Actions
     }
 }
 
-Disciple_Tools_Three_Thirds_Login_Rest_Actions::instance();
+Disciple_Tools_Three_Thirds_Login_Controller::instance();

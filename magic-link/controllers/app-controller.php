@@ -3,7 +3,7 @@ if ( !defined( 'ABSPATH' ) ) {
     exit;
 } // Exit if accessed directly.
 
-class Disciple_Tools_Three_Thirds_App_Rest_Actions {
+class Disciple_Tools_Three_Thirds_App_Controller {
     private $transformers;
     private static $_instance = null;
     public $meta = []; // Allows for instance specific data.
@@ -71,6 +71,46 @@ class Disciple_Tools_Three_Thirds_App_Rest_Actions {
         $result['previous_meeting'] = $result;
         return $result;
     }
+
+    /**
+     * Save a meeting
+     */
+    public function put_meeting( WP_REST_Request $request ) {
+        $meeting = $this->meetings->find( $request->get_param( 'ID' ));
+
+        if (!$meeting) {
+            new WP_Error( 'no_posts', 'Meeting not found.', [ 'status' => 404 ] );
+        }
+
+        $params = array_merge(
+            $meeting,
+            $request->get_params()
+        );
+
+        $fields = [
+            'series' => $this->utilities->format_array_field_value($params['series']),
+            'three_thirds_looking_ahead_applications' => $params['three_thirds_looking_ahead_applications'],
+            'three_thirds_looking_ahead_content' => $params['three_thirds_looking_ahead_content'],
+            'three_thirds_looking_ahead_notes' => $params['three_thirds_looking_ahead_notes'],
+            'three_thirds_looking_ahead_prayer_topics' => $params['three_thirds_looking_ahead_prayer_topics'],
+            'three_thirds_looking_ahead_share_goal' => $params['three_thirds_looking_ahead_share_goal'],
+            'three_thirds_looking_back_content' => $params['three_thirds_looking_back_content'],
+            'three_thirds_looking_back_new_believers' => $this->utilities->format_array_field_value($params['three_thirds_looking_back_new_believers']),
+            'three_thirds_looking_back_number_shared' => $params['three_thirds_looking_back_number_shared'],
+            'three_thirds_looking_back_notes' => $params['three_thirds_looking_back_notes'],
+            'three_thirds_looking_up_content' => $params['three_thirds_looking_up_notes'],
+            'three_thirds_looking_up_number_attendees' => $params['three_thirds_looking_up_number_attendees'],
+            'three_thirds_looking_up_practice' => $params['three_thirds_looking_up_practice'],
+            'three_thirds_looking_up_topic' => $params['three_thirds_looking_up_topic'],
+            'three_thirds_looking_up_notes' => $params['three_thirds_looking_up_notes'],
+        ];
+
+        return DT_Posts::update_post(
+            Disciple_Tools_Three_Thirds_Meeting_Type::POST_TYPE,
+            $meeting['ID'],
+            $fields
+        );
+    }
 }
 
-Disciple_Tools_Three_Thirds_App_Rest_Actions::instance();
+Disciple_Tools_Three_Thirds_App_Controller::instance();

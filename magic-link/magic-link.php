@@ -7,11 +7,31 @@
 abstract class Disciple_Tools_Three_Thirds_Magic_Link extends DT_Magic_Url_Base {
     protected $translations;
     protected $auth;
+    protected $controller;
 
     public function __construct() {
+        $this->magic = new DT_Magic_URL( $this->root );
+        $this->parts = $this->magic->parse_url_parts();
         $this->translations = Disciple_Tools_Three_Thirds_Meetings_Translations::instance();
-        $this->auth = Disciple_Tools_Three_Thirds_Meetings_Auth::instance();
+
+        if ($this->controller &&  dt_is_rest()) {
+            add_action( 'rest_api_init', [ $this, 'add_endpoints' ] );
+            add_filter( 'dt_allow_rest_access', [ $this, 'authorize_url' ], 10, 1 );
+        }
         parent::__construct();
+    }
+
+    public function validate_parts() {
+        return $this->check_parts_match();
+    }
+
+    /**
+     * Test if it's the URL
+     * @return bool
+     */
+    public function is_route() {
+        $url = dt_get_url_path();
+        return strpos( $url, $this->root . '/' . $this->type ) !== false;
     }
 
 
@@ -39,6 +59,9 @@ abstract class Disciple_Tools_Three_Thirds_Magic_Link extends DT_Magic_Url_Base 
         return $allowed_css;
     }
 
+    /**
+     * @return array
+     */
     public function localizations() {
         $key = $this->parts ? $this->parts['public_key'] : '';
         return [
@@ -70,5 +93,36 @@ abstract class Disciple_Tools_Three_Thirds_Magic_Link extends DT_Magic_Url_Base 
         ?>
         <div id="app"></div>
         <?php
+    }
+
+    public function validate_request( WP_REST_Request $request ) {
+        return true;
+    }
+
+
+    /**
+     * Register REST Endpoints
+     * @link https://github.com/DiscipleTools/disciple-tools-theme/wiki/Site-to-Site-Link for outside of wordpress authentication
+     */
+    public function add_endpoints() {
+        $namespace = $this->root . '/v1';
+        register_rest_route(
+            $namespace, '/' . $this->type, [
+                [
+                    'methods'             => [ "POST", "GET", "PUT" ],
+                    'callback'            => [ $this, 'resolve_endpoint' ],
+                    'permission_callback' => [ $this, 'validate_request' ],
+                ],
+            ]
+        );
+    }
+
+    public function resolve_endpoint( WP_REST_Request $request ) {
+        $method = strtolower( $request->get_method() ) . '_' . $request->get_param( 'action' );
+        if ( method_exists( $this->controller, $method ) ) {
+            return $this->controller->$method( $request );
+        } else {
+            return new WP_REST_Response( 'Unsupported action.', 404 );
+        }
     }
 }

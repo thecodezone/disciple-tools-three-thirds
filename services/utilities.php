@@ -38,4 +38,15 @@ class Disciple_Tools_Three_Thirds_Meetings_Utilities {
             'limit' => $limit
         ];
     }
+
+    public function format_array_field_value($value) {
+        return [
+            'values' => array_map( function ( $value ) {
+                return [
+                    'value' => $value
+                ];
+            }, $value ),
+            'force_values' => true
+        ];
+    }
 }

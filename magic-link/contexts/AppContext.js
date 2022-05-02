@@ -13,15 +13,11 @@ const state = {
 export const AppContext = createContext(state)
 
 export const AppContextProvider = ({value, children}) => {
-  const [pageTitle, setPageTitle] = useState(magicLink.translations.title)
-
   return <AppContext.Provider value={
     {
       user: state.user,
       magicLink: state.magicLink,
-      translations: state.magicLink.translations,
-      pageTitle,
-      setPageTitle,
+      translations: state.magicLink.translations
     }
   }>
     <MeetingsContextProvider>

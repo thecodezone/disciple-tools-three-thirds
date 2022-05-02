@@ -21,3 +21,7 @@ export const logout = async (data) => {
 export const createAccount = async (data) => {
   return await magicLinkRequest('register', data,'POST')
 }
+
+export const saveMeeting = async (data) => {
+  return await magicLinkRequest('meeting', data,'PUT')
+}

@@ -3,7 +3,7 @@ if ( !defined( 'ABSPATH' ) ) {
     exit;
 } // Exit if accessed directly.
 
-require_once 'login-rest-actions.php';
+require_once 'controllers/login-controller.php';
 
 /**
  * Adds a magic link home page to the Disciple Tools system.
@@ -26,7 +26,7 @@ class Disciple_Tools_Three_Thirds_Magic_Login extends Disciple_Tools_Three_Third
     public $type = 'login';
     public static $token = 'three-thirds-login';
     private static $_instance = null;
-    private $actions;
+    protected $controller;
 
     public static function instance() {
         if ( is_null( self::$_instance ) ) {
@@ -36,23 +36,17 @@ class Disciple_Tools_Three_Thirds_Magic_Login extends Disciple_Tools_Three_Third
     } // End instance()
 
     public function __construct() {
+        $this->controller = Disciple_Tools_Three_Thirds_Login_Controller::instance();
         parent::__construct();
-        $this->actions = Disciple_Tools_Three_Thirds_Login_Rest_Actions::instance();
-        $this->magic = new DT_Magic_URL( $this->root );
-        $this->parts = $this->magic->parse_url_parts();
 
-        $url = dt_get_url_path();
-
-        if ( strpos( $url, $this->root . '/' . $this->type ) !== false ) {
-
+        if ( $this->is_route() ) {
             if (!dt_is_rest() && is_user_logged_in()) {
                 wp_redirect('/3/3');
                 exit;
             }
-            /**
-             * tests magic link parts are registered and have valid elements
-             */
-            if ( !$this->check_parts_match( false ) ) {
+
+
+            if ($this->validate_parts()) {
                 return;
             }
 
@@ -68,7 +62,6 @@ class Disciple_Tools_Three_Thirds_Magic_Login extends Disciple_Tools_Three_Third
             add_filter( 'dt_override_header_meta', function () {
                 return true;
             }, 100, 1 );
-
             // header content
             add_filter( "dt_blank_title", [ $this, "page_tab_title" ] ); // adds basic title to browser tab
             add_action( 'wp_print_scripts', [ $this, 'print_scripts' ], 1500 ); // authorizes scripts
@@ -84,40 +77,12 @@ class Disciple_Tools_Three_Thirds_Magic_Login extends Disciple_Tools_Three_Third
             add_filter( 'dt_magic_url_base_allowed_css', [ $this, 'dt_magic_url_base_allowed_css' ], 10, 1 );
             add_filter( 'dt_magic_url_base_allowed_js', [ $this, 'dt_magic_url_base_allowed_js' ], 10, 1 );
         }
-
-        if ( dt_is_rest() ) {
-            add_action( 'rest_api_init', [ $this, 'add_endpoints' ] );
-            add_filter( 'dt_allow_rest_access', [ $this, 'authorize_url' ], 10, 1 );
-        }
     }
 
-    /**
-     * Register REST Endpoints
-     * @link https://github.com/DiscipleTools/disciple-tools-theme/wiki/Site-to-Site-Link for outside of wordpress authentication
-     */
-    public function add_endpoints() {
-        $namespace = $this->root . '/v1';
-        register_rest_route(
-            $namespace, '/' . $this->type, [
-                [
-                    'methods'             => [ "POST", "GET" ],
-                    'callback'            => [ $this, 'resolve_endpoint' ],
-                    'permission_callback' => function ( WP_REST_Request $request ) {
-                       return !is_user_logged_in();
-                    },
-                ],
-            ]
-        );
+    public function validate_parts() {
+        return !$this->check_parts_match( false );
     }
 
-    public function resolve_endpoint( WP_REST_Request $request ) {
-        $method = strtolower( $request->get_method() ) . '_' . $request->get_param( 'action' );
-        if ( method_exists( $this->actions, $method ) ) {
-            return $this->actions->$method( $request );
-        } else {
-            return new WP_REST_Response( 'Unsupported action.', 404 );
-        }
-    }
 
     public function wp_enqueue_scripts() {
        parent::wp_enqueue_scripts();

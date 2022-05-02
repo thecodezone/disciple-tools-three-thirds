@@ -92,11 +92,11 @@ $foundation-palette: (
     white: $white,
     light-gray: $light-gray,
     medium-gray: $medium-gray,
-gray: $gray,
+    gray: $gray,
     true-gray: $true-gray,
     darker-gray: $darker-gray,
     dark-gray: $dark-gray,
-black: $black,
+    black: $black,
     primary: $primary-color,
     secondary: $secondary-color,
     success: $success-color,
@@ -353,7 +353,7 @@ $callout-sizes: (
     default: 1rem,
     large: 3rem,
 );
-$callout-font-color: $body-font-color;
+$callout-font-color: $white;
 $callout-font-color-alt: $body-background;
 $callout-radius: $global-radius;
 $callout-link-tint: 30%;
@@ -453,7 +453,7 @@ $legend-padding: rem-calc(0 3);
 $form-spacing: rem-calc(8);
 $helptext-color: $black;
 $helptext-font-size: rem-calc(13);
-$helptext-font-style: italic;
+$helptext-font-style: none;
 $input-prefix-color: $black;
 $input-prefix-background: $light-gray;
 $input-prefix-border: 1px solid $medium-gray;
@@ -842,7 +842,7 @@ $tab-item-font-size: rem-calc(12);
 $tab-item-background-hover: $white;
 $tab-item-padding: $global-padding / 2;
 $tab-content-background: transparent;
-$tab-content-border: $light-gray;
+$tab-content-border: transparent;
 $tab-content-color: $body-font-color;
 $tab-content-padding: 1rem;
 

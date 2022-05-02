@@ -15,7 +15,6 @@ const Form = ({
     const {magicLink} = useContext(AppContext)
     const [error, setError] = useState('')
     const hasError = !!error
-
     return (
         <Formik
             {...props}

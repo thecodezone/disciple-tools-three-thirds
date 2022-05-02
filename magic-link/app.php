@@ -3,7 +3,7 @@ if ( !defined( 'ABSPATH' ) ) {
     exit;
 } // Exit if accessed directly.
 
-require_once 'app-rest-actions.php';
+require_once 'controllers/app-controller.php';
 
 /**
  * Class Disciple_Tools_Three_Thirds_Magic_User_App
@@ -23,7 +23,7 @@ class Disciple_Tools_Three_Thirds_Magic_App extends Disciple_Tools_Three_Thirds_
     public $show_app_tile = true;
     public $post_id;
     public $post;
-    private $actions;
+    protected $controller;
 
     private static $_instance = null;
     public $meta = []; // Allows for instance specific data.
@@ -36,7 +36,7 @@ class Disciple_Tools_Three_Thirds_Magic_App extends Disciple_Tools_Three_Thirds_
     } // End instance()
 
     public function __construct() {
-        $this->actions = Disciple_Tools_Three_Thirds_App_Rest_Actions::instance();
+        $this->controller = Disciple_Tools_Three_Thirds_App_Controller::instance();
 
         /**
          * Specify metadata structure, specific to the processing of current
@@ -66,24 +66,15 @@ class Disciple_Tools_Three_Thirds_Magic_App extends Disciple_Tools_Three_Thirds_
 
         parent::__construct();
 
-        /**
-         * tests if other URL
-         */
-        $url = dt_get_url_path();
-
-        if ( strpos( $url, $this->root . '/' . $this->type ) !== false ) {
-            /**
-             * tests magic link parts are registered and have valid elements
-             */
-            //if ( !$this->check_parts_match() ) {
-            //    return;
-            //}
-
+        if ( $this->is_route() ) {
             /**
              * user_app and module section
              */
             add_filter( 'dt_settings_apps_list', [ $this, 'dt_settings_apps_list' ], 10, 1 );
-            add_action( 'rest_api_init', [ $this, 'add_endpoints' ] );
+
+            if ( !$this->validate_parts() ) {
+                return;
+            }
 
             add_action( 'wp_enqueue_scripts', [ $this, 'wp_enqueue_scripts' ], 99 );
             add_filter( 'dt_magic_url_base_allowed_css', [ $this, 'dt_magic_url_base_allowed_css' ], 10, 1 );
@@ -92,11 +83,30 @@ class Disciple_Tools_Three_Thirds_Magic_App extends Disciple_Tools_Three_Thirds_
             // load if valid url
             add_action( 'dt_blank_body', [ $this, 'body' ] );
         }
+    }
 
-        if ( dt_is_rest() ) {
-            add_action( 'rest_api_init', [ $this, 'add_endpoints' ] );
-            add_filter( 'dt_allow_rest_access', [ $this, 'authorize_url' ], 10, 1 );
-        }
+    /**
+     * Builds magic link type settings payload:
+     * - key:               Unique magic link type key; which is usually composed of root, type and _magic_key suffix.
+     * - url_base:          URL path information to map with parent magic link type.
+     * - label:             Magic link type name.
+     * - description:       Magic link type description.
+     * - settings_display:  Boolean flag which determines if magic link type is to be listed within frontend user profile settings.
+     *
+     * @param $apps_list
+     *
+     * @return mixed
+     */
+    public function dt_settings_apps_list( $apps_list ) {
+        $apps_list[ $this->meta_key ] = [
+            'key'              => $this->meta_key,
+            'url_base'         => $this->root . '/' . $this->type,
+            'label'            => $this->page_title,
+            'description'      => $this->page_description,
+            'settings_display' => true
+        ];
+
+        return $apps_list;
     }
 
     public function wp_enqueue_scripts() {
@@ -134,61 +144,12 @@ class Disciple_Tools_Three_Thirds_Magic_App extends Disciple_Tools_Three_Thirds_
         }
     }
 
-
-    /**
-     * Register REST Endpoints
-     * @link https://github.com/DiscipleTools/disciple-tools-theme/wiki/Site-to-Site-Link for outside of wordpress authentication
-     */
-    public function add_endpoints() {
-        $namespace = $this->root . '/v1';
-        register_rest_route(
-            $namespace, '/' . $this->type, [
-                [
-                    'methods'             => [ "POST", "GET" ],
-                    'callback'            => [ $this, 'resolve_endpoint' ],
-                    'permission_callback' => function ( WP_REST_Request $request ) {
-                        $verified = $this->validate_endpoint( $request );
-                        if ( $verified ) {
-                            $this->login_for_request( $request );
-                        }
-                        return $verified;
-                    },
-                ],
-            ]
-        );
-    }
-
-    /**
-     * Builds magic link type settings payload:
-     * - key:               Unique magic link type key; which is usually composed of root, type and _magic_key suffix.
-     * - url_base:          URL path information to map with parent magic link type.
-     * - label:             Magic link type name.
-     * - description:       Magic link type description.
-     * - settings_display:  Boolean flag which determines if magic link type is to be listed within frontend user profile settings.
-     *
-     * @param $apps_list
-     *
-     * @return mixed
-     */
-    public function dt_settings_apps_list( $apps_list ) {
-        $apps_list[ $this->meta_key ] = [
-            'key'              => $this->meta_key,
-            'url_base'         => $this->root . '/' . $this->type,
-            'label'            => $this->page_title,
-            'description'      => $this->page_description,
-            'settings_display' => true
-        ];
-
-        return $apps_list;
-    }
-
-    public function resolve_endpoint( WP_REST_Request $request ) {
-        $method = strtolower( $request->get_method() ) . '_' . $request->get_param( 'action' );
-        if ( method_exists( $this->actions, $method ) ) {
-            return $this->actions->$method( $request );
-        } else {
-            return new WP_REST_Response( 'Unsupported action.', 404 );
+    public function validate_request( WP_REST_Request $request ) {
+        $verified = $this->validate_endpoint( $request );
+        if ( $verified ) {
+            $this->login_for_request( $request );
         }
+        return $verified;
     }
 }
 
