@@ -54,7 +54,6 @@ export const SelectField = ({options, field, form,}) => {
                 height,
             }),
             option: (provided, state) => {
-                console.log(state)
                 return ({
                 ...provided,
                 fontWeight: "bold",

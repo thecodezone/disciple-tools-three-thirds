@@ -1,7 +1,7 @@
 <?php
 if ( !defined( 'ABSPATH' ) ) { exit; } // Exit if accessed directly.
 
-class Disciple_Tools_Three_Thirds_Transformers {
+class DT_33_Transformers {
     private static $_instance = null;
     public $meta = []; // Allows for instance specific data.
 
@@ -37,7 +37,6 @@ class Disciple_Tools_Three_Thirds_Transformers {
             'assigned_to' => $meeting['assigned_to'] ?? null,
             'date' => $date,
             'name' => $meeting['name'] ?? '',
-            'series' => isset($meeting['series']) ? $meeting['series'] : null,
             'three_thirds_looking_back_content' => $meeting['three_thirds_looking_back_content'] ?? '',
             'three_thirds_looking_back_number_shared' => $meeting['three_thirds_looking_back_number_shared'] ?? 0,
             'three_thirds_looking_back_new_believers' => $meeting['three_thirds_looking_back_new_believers'] ?? [],

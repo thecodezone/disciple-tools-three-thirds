@@ -1,6 +1,6 @@
 <?php
 
-class Disciple_Tools_Three_Thirds_Meetings_Repository {
+class DT_33_Meetings_Repository {
     private static $_instance = null;
     private $cache;
 
@@ -20,16 +20,16 @@ class Disciple_Tools_Three_Thirds_Meetings_Repository {
      */
     public function all( $params = [] ) {
         $params = array_merge([
-            'fields_to_return' => array_keys( DT_Posts::get_post_settings( Disciple_Tools_Three_Thirds_Meeting_Type::POST_TYPE )['fields'] ),
+            'fields_to_return' => array_keys( DT_Posts::get_post_settings( DT_33_Meeting_Type::POST_TYPE )['fields'] ),
             'sort' => '-date'
         ], $params);
         $cache_key = md5(wp_json_encode($params));
         if (isset($this->cache[$cache_key])) {
             return $this->cache[$cache_key];
         }
-        $posts = DT_Posts::list_posts( Disciple_Tools_Three_Thirds_Meeting_Type::POST_TYPE, $params )['posts'];
+        $posts = DT_Posts::list_posts( DT_33_Meeting_Type::POST_TYPE, $params )['posts'];
         $this->cache[$cache_key] = array_filter($posts, function($post) {
-            return isset($post['type']) && $post['type']['key'] === Disciple_Tools_Three_Thirds_Meeting_Type::MEETING_TYPE;
+            return isset($post['type']) && $post['type']['key'] === DT_33_Meeting_Type::MEETING_TYPE;
         });
         return $this->cache[$cache_key];
     }
@@ -78,7 +78,7 @@ class Disciple_Tools_Three_Thirds_Meetings_Repository {
      * Find a three things meetings by ID
      */
     public function find( $id ) {
-        return DT_Posts::get_post( Disciple_Tools_Three_Thirds_Meeting_Type::POST_TYPE, (int) $id, true );
+        return DT_Posts::get_post( DT_33_Meeting_Type::POST_TYPE, (int) $id, true );
     }
 
     /**
@@ -103,9 +103,7 @@ class Disciple_Tools_Three_Thirds_Meetings_Repository {
             return null;
         }
 
-        if (isset($meeting['series']) && count($meeting['series'])) {
-            $meetings = $this->in_series($meeting['series']);
-        } else if(isset($meeting['groups']) && count($meeting['groups'])) {
+        if(isset($meeting['groups']) && count($meeting['groups'])) {
             $meetings = $this->in_groups($meeting['groups']);
         }
 

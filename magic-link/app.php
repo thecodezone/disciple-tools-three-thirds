@@ -6,9 +6,9 @@ if ( !defined( 'ABSPATH' ) ) {
 require_once 'controllers/app-controller.php';
 
 /**
- * Class Disciple_Tools_Three_Thirds_Magic_User_App
+ * Class DT_33_Magic_User_App
  */
-class Disciple_Tools_Three_Thirds_Magic_App extends Disciple_Tools_Three_Thirds_Magic_Link {
+class DT_33_Magic_App extends DT_33_Magic_Link {
     const META_KEY = 'threethirds_app_magic_key';
     const PATH = '/threethirds/app';
 
@@ -36,7 +36,7 @@ class Disciple_Tools_Three_Thirds_Magic_App extends Disciple_Tools_Three_Thirds_
     } // End instance()
 
     public function __construct() {
-        $this->controller = Disciple_Tools_Three_Thirds_App_Controller::instance();
+        $this->controller = DT_33_App_Controller::instance();
 
         /**
          * Specify metadata structure, specific to the processing of current
@@ -111,8 +111,8 @@ class Disciple_Tools_Three_Thirds_Magic_App extends Disciple_Tools_Three_Thirds_
 
     public function wp_enqueue_scripts() {
         parent::wp_enqueue_scripts();
-        wp_enqueue_script( Disciple_Tools_Three_Thirds::DOMAIN . "_app", Disciple_Tools_Three_Thirds::$URL . 'dist/app.js', [], filemtime( Disciple_Tools_Three_Thirds::$DIR . 'dist/app.js' ), true );
-        wp_localize_script( Disciple_Tools_Three_Thirds::DOMAIN . "_app", 'magicLink', $this->localizations() );
+        wp_enqueue_script( DT_33::DOMAIN . "_app", DT_33::$URL . 'dist/app.js', [], filemtime( DT_33::$DIR . 'dist/app.js' ), true );
+        wp_localize_script( DT_33::DOMAIN . "_app", 'magicLink', $this->localizations() );
     }
 
     /**
@@ -153,4 +153,4 @@ class Disciple_Tools_Three_Thirds_Magic_App extends Disciple_Tools_Three_Thirds_
     }
 }
 
-Disciple_Tools_Three_Thirds_Magic_App::instance();
+DT_33_Magic_App::instance();

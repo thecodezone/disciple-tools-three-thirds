@@ -1,6 +1,6 @@
 <?php
 
-class Disciple_Tools_Three_Thirds_Groups_Repository {
+class DT_33_Groups_Repository {
     private static $_instance = null;
 
     public static function instance() {
@@ -11,7 +11,7 @@ class Disciple_Tools_Three_Thirds_Groups_Repository {
     }
 
     public function __construct() {
-        $this->meetings = Disciple_Tools_Three_Thirds_Meetings_Repository::instance();
+        $this->meetings = DT_33_Meetings_Repository::instance();
     }
 
     /**

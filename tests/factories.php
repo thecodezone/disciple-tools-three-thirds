@@ -65,6 +65,6 @@ class factories {
             'three_thirds_looking_ahead_prayer_topics' => $this->faker->paragraph,
             'three_thirds_looking_ahead_notes'         => $this->faker->paragraph,
             'assigned_to'                              => get_current_user_id()
-        ], $params ), Disciple_Tools_Three_Thirds_Meeting_Type::MEETING_TYPE );
+        ], $params ), DT_33_Meeting_Type::MEETING_TYPE );
     }
 }

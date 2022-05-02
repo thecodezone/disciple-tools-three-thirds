@@ -1,4 +1,4 @@
-find ./ -type f -exec sed -i -e 's|Disciple_Tools_Three_Thirds|Disciple_Tools_Three_Thirds|g' {} \;
+find ./ -type f -exec sed -i -e 's|DT_33|DT_33|g' {} \;
 find ./ -type f -exec sed -i -e 's|disciple_tools_three_thirds|disciple_tools_three_thirds|g' {} \;
 find ./ -type f -exec sed -i -e 's|disciple-tools-three-thirds|disciple-tools-three-thirds|g' {} \;
 find ./ -type f -exec sed -i -e 's|starter_post_type|starter_post_type|g' {} \;

@@ -1,6 +1,6 @@
 <?php
 
-class Disciple_Tools_Three_Thirds_Meetings_Utilities {
+class DT_33_Utilities {
     private static $_instance = null;
 
     public static function instance() {

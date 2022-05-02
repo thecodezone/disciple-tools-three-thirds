@@ -14,7 +14,7 @@ class GroupsTest extends TestCase {
                 ]
             ] );
         }
-        $this->assertEquals( 1, count( Disciple_Tools_Three_Thirds_Groups_Repository::instance()->all() ) );
+        $this->assertEquals( 1, count( DT_33_Groups_Repository::instance()->all() ) );
         $group = $this->factories->group();
         for ( $x = 0; $x < 3; $x++ ) {
             $this->factories->three_thirds_meeting( [
@@ -26,8 +26,8 @@ class GroupsTest extends TestCase {
         for ( $x = 0; $x < 2; $x++ ) {
             $this->factories->group();
         }
-        Disciple_Tools_Three_Thirds_Meetings_Repository::instance()->flush();
-        $groups = Disciple_Tools_Three_Thirds_Groups_Repository::instance()->all();
+        DT_33_Meetings_Repository::instance()->flush();
+        $groups = DT_33_Groups_Repository::instance()->all();
         $this->assertEquals( 2, count( $groups ) );
     }
 
@@ -46,15 +46,15 @@ class GroupsTest extends TestCase {
                 'values' => [ [ "value" => $group['ID'] ] ]
             ]
         ] );
-        Disciple_Tools_Three_Thirds_Meetings_Repository::instance()->flush();
+        DT_33_Meetings_Repository::instance()->flush();
 
-        $this->assertEquals( $group['ID'], Disciple_Tools_Three_Thirds_Groups_Repository::instance()->find( $group['ID'] )['ID'] );
+        $this->assertEquals( $group['ID'], DT_33_Groups_Repository::instance()->find( $group['ID'] )['ID'] );
     }
 
     public function test_it_can_create_groups() {
         $this->acting_as_admin();
 
-        $group = Disciple_Tools_Three_Thirds_Groups_Repository::instance()->create( [
+        $group = DT_33_Groups_Repository::instance()->create( [
             'title' => $this->faker->sentence
         ] );
 

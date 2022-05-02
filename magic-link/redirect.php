@@ -4,7 +4,7 @@ if ( !defined( 'ABSPATH' ) ) {
 } // Exit if accessed directly.
 
 
-class Disciple_Tools_Three_Thirds_Magic_Redirect  {
+class DT_33_Magic_Redirect  {
     const PATH = '/3/3';
     public $paths = [
         '3/3',
@@ -22,7 +22,7 @@ class Disciple_Tools_Three_Thirds_Magic_Redirect  {
     } // End instance()
 
     public function __construct() {
-        $this->auth = Disciple_Tools_Three_Thirds_Meetings_Auth::instance();
+        $this->auth = DT_33_Auth::instance();
         $path = dt_get_url_path();
         if ( !in_array( $path, $this->paths ) ) {
             return;
@@ -32,7 +32,7 @@ class Disciple_Tools_Three_Thirds_Magic_Redirect  {
             $this->auth->redirect_to_login();
         }
 
-        if ( !Disciple_Tools_Three_Thirds_Magic_App::is_activated() ) {
+        if ( !DT_33_Magic_App::is_activated() ) {
             $this->auth->activate();
         }
 
@@ -40,4 +40,4 @@ class Disciple_Tools_Three_Thirds_Magic_Redirect  {
     }
 }
 
-Disciple_Tools_Three_Thirds_Magic_Redirect::instance();
+DT_33_Magic_Redirect::instance();

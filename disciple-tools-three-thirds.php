@@ -22,7 +22,7 @@ if ( !defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Gets the instance of the `Disciple_Tools_Three_Thirds` class.
+ * Gets the instance of the `DT_33` class.
  *
  * @return object|bool
  * @since  0.1
@@ -52,7 +52,7 @@ function disciple_tools_three_thirds() {
         require_once get_template_directory() . '/dt-core/global-functions.php';
     }
 
-    return Disciple_Tools_Three_Thirds::instance();
+    return DT_33::instance();
 
 }
 
@@ -64,7 +64,7 @@ add_action( 'after_setup_theme', 'disciple_tools_three_thirds', 20 );
  * @since  0.1
  * @access public
  */
-class Disciple_Tools_Three_Thirds {
+class DT_33 {
     const DOMAIN = "disciple_tools_three_thirds";
     static $URL;
     static $DIR;
@@ -194,8 +194,8 @@ class Disciple_Tools_Three_Thirds {
 
 
 // Register activation hook.
-register_activation_hook( __FILE__, [ 'Disciple_Tools_Three_Thirds', 'activation' ] );
-register_deactivation_hook( __FILE__, [ 'Disciple_Tools_Three_Thirds', 'deactivation' ] );
+register_activation_hook( __FILE__, [ 'DT_33', 'activation' ] );
+register_deactivation_hook( __FILE__, [ 'DT_33', 'deactivation' ] );
 
 
 if ( !function_exists( 'disciple_tools_three_thirds_hook_admin_notice' ) ) {

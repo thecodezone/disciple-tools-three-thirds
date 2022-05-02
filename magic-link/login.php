@@ -16,7 +16,7 @@ require_once 'controllers/login-controller.php';
  * @see https://disciple.tools/plugins/porch/
  * @see https://disciple.tools/plugins/disciple-tools-porch-template/
  */
-class Disciple_Tools_Three_Thirds_Magic_Login extends Disciple_Tools_Three_Thirds_Magic_Link {
+class DT_33_Magic_Login extends DT_33_Magic_Link {
     const PATH = '/threethirds/login';
 
     public $magic = false;
@@ -36,7 +36,7 @@ class Disciple_Tools_Three_Thirds_Magic_Login extends Disciple_Tools_Three_Third
     } // End instance()
 
     public function __construct() {
-        $this->controller = Disciple_Tools_Three_Thirds_Login_Controller::instance();
+        $this->controller = DT_33_Login_Controller::instance();
         parent::__construct();
 
         if ( $this->is_route() ) {
@@ -86,8 +86,8 @@ class Disciple_Tools_Three_Thirds_Magic_Login extends Disciple_Tools_Three_Third
 
     public function wp_enqueue_scripts() {
        parent::wp_enqueue_scripts();
-       wp_enqueue_script( Disciple_Tools_Three_Thirds::DOMAIN . "_login", Disciple_Tools_Three_Thirds::$URL . 'dist/login.js', [], filemtime( Disciple_Tools_Three_Thirds::$DIR . 'dist/login.js' ), true );
-       wp_localize_script( Disciple_Tools_Three_Thirds::DOMAIN . "_login", 'magicLink', $this->localizations() );
+       wp_enqueue_script( DT_33::DOMAIN . "_login", DT_33::$URL . 'dist/login.js', [], filemtime( DT_33::$DIR . 'dist/login.js' ), true );
+       wp_localize_script( DT_33::DOMAIN . "_login", 'magicLink', $this->localizations() );
     }
 
 
@@ -98,4 +98,4 @@ class Disciple_Tools_Three_Thirds_Magic_Login extends Disciple_Tools_Three_Third
     }
 }
 
-Disciple_Tools_Three_Thirds_Magic_Login::instance();
+DT_33_Magic_Login::instance();

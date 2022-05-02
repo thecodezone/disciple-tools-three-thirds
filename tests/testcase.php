@@ -45,7 +45,7 @@ abstract class TestCase extends WP_UnitTestCase {
     public function tearDown() {
         global $wpdb;
         $wpdb->query( 'ROLLBACK' );
-        Disciple_Tools_Three_Thirds_Meetings_Repository::instance()->flush();
+        DT_33_Meetings_Repository::instance()->flush();
         parent::tearDown();
     }
 }

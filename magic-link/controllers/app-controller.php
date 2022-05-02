@@ -3,7 +3,7 @@ if ( !defined( 'ABSPATH' ) ) {
     exit;
 } // Exit if accessed directly.
 
-class Disciple_Tools_Three_Thirds_App_Controller {
+class DT_33_App_Controller {
     private $transformers;
     private static $_instance = null;
     public $meta = []; // Allows for instance specific data.
@@ -16,10 +16,10 @@ class Disciple_Tools_Three_Thirds_App_Controller {
     } // End instance()
 
     public function __construct() {
-        $this->transformers = Disciple_Tools_Three_Thirds_Transformers::instance();
-        $this->utilities = Disciple_Tools_Three_Thirds_Meetings_Utilities::instance();
-        $this->meetings = Disciple_Tools_Three_Thirds_Meetings_Repository::instance();
-        $this->groups = Disciple_Tools_Three_Thirds_Groups_Repository::instance();
+        $this->transformers = DT_33_Transformers::instance();
+        $this->utilities = DT_33_Utilities::instance();
+        $this->meetings = DT_33_Meetings_Repository::instance();
+        $this->groups = DT_33_Groups_Repository::instance();
     }
 
     /**
@@ -87,7 +87,6 @@ class Disciple_Tools_Three_Thirds_App_Controller {
         );
 
         $fields = [
-            'series' => $this->utilities->format_array_field_value($params['series']),
             'three_thirds_looking_ahead_applications' => $params['three_thirds_looking_ahead_applications'],
             'three_thirds_looking_ahead_content' => $params['three_thirds_looking_ahead_content'],
             'three_thirds_looking_ahead_notes' => $params['three_thirds_looking_ahead_notes'],
@@ -105,11 +104,11 @@ class Disciple_Tools_Three_Thirds_App_Controller {
         ];
 
         return DT_Posts::update_post(
-            Disciple_Tools_Three_Thirds_Meeting_Type::POST_TYPE,
+            DT_33_Meeting_Type::POST_TYPE,
             $meeting['ID'],
             $fields
         );
     }
 }
 
-Disciple_Tools_Three_Thirds_App_Controller::instance();
+DT_33_App_Controller::instance();

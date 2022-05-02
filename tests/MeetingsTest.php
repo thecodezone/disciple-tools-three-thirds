@@ -8,7 +8,7 @@ class MeetingsTest extends TestCase {
         $this->acting_as_admin();
         $post = $this->factories->three_thirds_meeting();
         $this->assertArrayHasKey( 'post_type', $post );
-        $this->assertEquals( Disciple_Tools_Three_Thirds_Meeting_Type::POST_TYPE, $post['post_type'] );
+        $this->assertEquals( DT_33_Meeting_Type::POST_TYPE, $post['post_type'] );
     }
 
     public function test_meetings_have_fields() {
@@ -23,7 +23,7 @@ class MeetingsTest extends TestCase {
         for ( $x = 0; $x < $count; $x++ ) {
             $this->factories->three_thirds_meeting();
         }
-        $this->assertEquals( $count, count( Disciple_Tools_Three_Thirds_Meetings_Repository::instance()->all() ) );
+        $this->assertEquals( $count, count( DT_33_Meetings_Repository::instance()->all() ) );
     }
 
     public function test_only_includes_33_meetings() {
@@ -35,7 +35,7 @@ class MeetingsTest extends TestCase {
         for ( $x = 0; $x < $count; $x++ ) {
             $this->factories->three_thirds_meeting();
         }
-        $this->assertEquals( $count, count( Disciple_Tools_Three_Thirds_Meetings_Repository::instance()->all() ) );
+        $this->assertEquals( $count, count( DT_33_Meetings_Repository::instance()->all() ) );
     }
 
     public function test_it_search_meetings() {
@@ -51,7 +51,7 @@ class MeetingsTest extends TestCase {
         }
         $this->assertEquals(
             2,
-            count( Disciple_Tools_Three_Thirds_Meetings_Repository::instance()->filtered( 'needle' ) )
+            count( DT_33_Meetings_Repository::instance()->filtered( 'needle' ) )
         );
     }
 
@@ -72,7 +72,7 @@ class MeetingsTest extends TestCase {
 
         $this->assertEquals(
             $count,
-            count( Disciple_Tools_Three_Thirds_Meetings_Repository::instance()->filtered( '', 'NO_GROUP' ) )
+            count( DT_33_Meetings_Repository::instance()->filtered( '', 'NO_GROUP' ) )
         );
     }
 
@@ -102,7 +102,7 @@ class MeetingsTest extends TestCase {
 
         $this->assertEquals(
             $count,
-            count( Disciple_Tools_Three_Thirds_Meetings_Repository::instance()->filtered( '', $group['ID'] ) )
+            count( DT_33_Meetings_Repository::instance()->filtered( '', $group['ID'] ) )
         );
     }
 
@@ -132,13 +132,13 @@ class MeetingsTest extends TestCase {
 
         $this->assertEquals(
             $count,
-            count( Disciple_Tools_Three_Thirds_Meetings_Repository::instance()->filtered( '', $series ) )
+            count( DT_33_Meetings_Repository::instance()->filtered( '', $series ) )
         );
     }
 
     public function test_it_can_find_a_meeting() {
         $this->acting_as_admin();
         $meeting = $this->factories->three_thirds_meeting();
-        $this->assertEquals( $meeting['ID'], Disciple_Tools_Three_Thirds_Meetings_Repository::instance()->find( $meeting['ID'] )['ID'] );
+        $this->assertEquals( $meeting['ID'], DT_33_Meetings_Repository::instance()->find( $meeting['ID'] )['ID'] );
     }
 }

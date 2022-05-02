@@ -1,7 +1,7 @@
 <?php
 if ( !defined( 'ABSPATH' ) ) { exit; } // Exit if accessed directly.
 
-class Disciple_Tools_Three_Thirds_Login_Controller
+class DT_33_Login_Controller
 {
     private $transformers;
     private static $_instance = null;
@@ -15,8 +15,8 @@ class Disciple_Tools_Three_Thirds_Login_Controller
     } // End instance()
 
     public function __construct() {
-        $this->auth = Disciple_Tools_Three_Thirds_Meetings_Auth::instance();
-        $this->transformers = Disciple_Tools_Three_Thirds_Transformers::instance();
+        $this->auth = DT_33_Auth::instance();
+        $this->transformers = DT_33_Transformers::instance();
     }
 
     /**
@@ -65,7 +65,7 @@ class Disciple_Tools_Three_Thirds_Login_Controller
         if ($request->has_param('groups')) {
             foreach($request->get_param('groups') as $group_title) {
                 if ($group_title) {
-                    $group = Disciple_Tools_Three_Thirds_Groups_Repository::instance()->create( [
+                    $group = DT_33_Groups_Repository::instance()->create( [
                         'title' => $group_title,
                     ] );
 
@@ -79,4 +79,4 @@ class Disciple_Tools_Three_Thirds_Login_Controller
     }
 }
 
-Disciple_Tools_Three_Thirds_Login_Controller::instance();
+DT_33_Login_Controller::instance();
