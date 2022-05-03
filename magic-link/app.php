@@ -37,19 +37,7 @@ class DT_33_Magic_App extends DT_33_Magic_Link {
 
     public function __construct() {
         $this->controller = DT_33_App_Controller::instance();
-
-        /**
-         * Specify metadata structure, specific to the processing of current
-         * magic link type.
-         *
-         * - meta:              Magic link plugin related data.
-         *      - app_type:     Flag indicating type to be processed by magic link plugin.
-         *      - post_type     Magic link type post type.
-         *      - contacts_only:    Boolean flag indicating how magic link type user assignments are to be handled within magic link plugin.
-         *                          If True, lookup field to be provided within plugin for contacts only searching.
-         *                          If false, Dropdown option to be provided for user, team or group selection.
-         *      - fields:       List of fields to be displayed within magic link frontend form.
-         */
+        
         $this->meta = [
             'app_type'      => 'magic_link',
             'post_type'     => $this->post_type,

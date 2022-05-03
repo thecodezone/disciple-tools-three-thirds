@@ -1,6 +1,6 @@
 import {createContext, useState, useEffect} from "react"
 import {MenuContextProvider} from "./MenuContext";
-import {getMeetings} from "../src/api";
+import {searchMeetings} from "../src/api";
 import {chunkArray} from "../src/helpers";
 import Fuse from 'fuse.js'
 
@@ -26,7 +26,7 @@ export const MeetingsContextProvider = ({value, children}) => {
 
   const search = async (params = {}) => {
     try {
-      const data = await getMeetings(params);
+      const data = await searchMeetings(params);
       const newMeetings = params.paged ? [...meetings] : []
       newMeetings.push(...data.meetings.posts)
       setMeetings(newMeetings)

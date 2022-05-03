@@ -1,4 +1,3 @@
-import {Navigation, Pagination} from "swiper";
 import {Link} from "react-router-dom";
 import classNames from "classnames";
 import {Button, ButtonGroup, Colors} from "react-foundation";
@@ -9,6 +8,7 @@ import AppContext from "../../contexts/AppContext";
 import MeetingsContext from "../../contexts/MeetingsContext";
 import MeetingsFilterObserver from "./MeetingsFilterObserver";
 import SelectField from '../forms/SelectField'
+import Alert from "../layout/Alert";
 
 const Meetings = () => {
     const {
@@ -50,27 +50,20 @@ const Meetings = () => {
                         <FieldGroup as="select"
                                     name="filter"
                                     options={[
-                                        { value: '', label: magicLink.translations.all },
-                                        { value: 'NO_GROUP', label: magicLink.translations.no_group },
-                                        ...groups.map(group => ({ value: group.ID, label: group.title })),
+                                        {value: '', label: magicLink.translations.all},
+                                        {value: 'NO_GROUP', label: magicLink.translations.no_group},
+                                        ...groups.map(group => ({value: group.ID, label: group.title})),
                                     ]}
                                     component={SelectField}
-                        >
-                            <option value="">{magicLink.translations.all}</option>
-                            <option value="NO_GROUP">{magicLink.translations.no_group}</option>
-                            {
-                                groups.map(group => <option value={group.ID}
-                                                            key={`group-option-${group.ID}`}>{group.title}</option>)
-                            }
-                        </FieldGroup>
+                        />
                     </div>
                 </div>
             </Form>
             <div className={"row"}>
                 <div className={"columns"}>
-                    {meta.total ? <p className={"text-small font-italic text-secondary"}>
-                        {meta.total} {meta.total > 1 ? magicLink.translations.meetings_found : magicLink.translations.meeting_found}.
-                    </p> : <br/>}
+                    {meta.total ? <Alert theme={"success"}
+                                         size="small"
+                                         className={"font-italic margin-top-1"}>{meta.total} {meta.total > 1 ? magicLink.translations.meetings_found : magicLink.translations.meeting_found}.</Alert> : ''}
                 </div>
             </div>
 

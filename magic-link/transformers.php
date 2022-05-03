@@ -31,7 +31,13 @@ class DT_33_Transformers {
     public function meeting( $meeting ) {
         $date = $meeting['date'] ?? [];
         $date['formatted'] = gmdate( 'F j, Y', $date['timestamp']);
+        $label = $meeting['name'] ?? '';
+        if ($date['formatted']) {
+            $label .= ", " . $date['formatted'];
+        }
         return [
+            'value' => $meeting['ID'],
+            'label' => $label,
             'ID' => $meeting['ID'],
             'groups' => $this->groups($meeting['groups']),
             'assigned_to' => $meeting['assigned_to'] ?? null,

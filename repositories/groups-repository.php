@@ -14,12 +14,18 @@ class DT_33_Groups_Repository {
         $this->meetings = DT_33_Meetings_Repository::instance();
     }
 
+    public function all() {
+        return DT_Posts::list_posts( 'groups', [
+            'sort' => 'name'
+        ] )['posts'];
+    }
+
     /**
      * Extract the groups that have meetings
      * @param array $params
      * @return array
      */
-    public function all( $params = [] ) {
+    public function withMeetings( $params = [] ) {
         $groups = array_values( array_reduce( $this->meetings->all( $params ), function ( $groups, $meeting ) {
             if ( !$meeting['groups'] || !count( $meeting['groups'] ) ) {
                 return $groups;

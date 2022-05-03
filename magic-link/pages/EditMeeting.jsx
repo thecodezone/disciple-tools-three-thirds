@@ -11,10 +11,15 @@ import FieldGroup from "../components/forms/FieldGroup";
 import TextAreaField from "../components/forms/TextAreaField";
 import RepeatingField from "../components/forms/RepeatingField";
 import ApplicationLayout from "../layouts/ApplicationLayout";
-import {saveMeeting} from "../src/api";
+import {saveMeeting, getGroups, getMeetings} from "../src/api";
+import RelationshipField from "../components/forms/RelationshipField";
+import CreatableRelationshipField from "../components/forms/CreatableRelationshipField";
+import MeetingsContext from "../contexts/MeetingsContext";
+import SelectField from "../components/forms/SelectField"
 
 const EditMeetingPage = () => {
     const {translations} = useContext(AppContext)
+    const {meetings} = useContext(MeetingsContext)
     const {meeting, tab, submission} = useContext(MeetingContext)
 
     if (!meeting || !submission) {
@@ -22,16 +27,17 @@ const EditMeetingPage = () => {
     }
 
     return (
-        <ApplicationLayout title={translations.edit_meeting} breadcrumbs={[
-            {
-                link: '/',
-                label: 'Dashboard'
-            },
-            {
-                link: '/meetings/' + meeting.id,
-                label: meeting.name
-            }
-        ]}>
+        <ApplicationLayout title={translations.edit_meeting}
+                           breadcrumbs={[
+                               {
+                                   link: '/',
+                                   label: 'Dashboard'
+                               },
+                               {
+                                   link: '/meetings/' + meeting.id,
+                                   label: meeting.name
+                               }
+                           ]}>
             <Form
                 initialValues={{
                     ...submission
@@ -50,7 +56,7 @@ const EditMeetingPage = () => {
                             <div className={"container"}>
                                 <TabsContent>
                                     <TabPanel isActive={tab.key === 'SETTINGS'}>
-                                        <Card show={!!meeting.three_thirds_looking_back_content}>
+                                        <Card>
                                             <CardHeading>
                                                 <h2>{translations.name}</h2>
                                             </CardHeading>
@@ -63,44 +69,49 @@ const EditMeetingPage = () => {
                                                 />
                                             </CardSection>
                                         </Card>
+
+                                        <Card>
+                                            <CardHeading>
+                                                <h2>{translations.group}</h2>
+                                            </CardHeading>
+                                            <CardSection>
+                                                <FieldGroup name="group"
+                                                            request={getGroups}
+                                                            component={CreatableRelationshipField}
+                                                            labelField={"title"}
+                                                            valueField={"ID"}
+                                                            onBlur={handleBlur}
+                                                />
+                                            </CardSection>
+                                        </Card>
+
+                                        <Card>
+                                            <CardHeading>
+                                                <h2>{translations.previous_meeting}</h2>
+                                            </CardHeading>
+                                            <CardSection>
+                                                <FieldGroup name="three_thirds_previous_meeting"
+                                                            request={getMeetings}
+                                                            component={RelationshipField}
+                                                            onBlur={handleBlur}
+                                                />
+                                            </CardSection>
+                                        </Card>
+
                                     </TabPanel>
                                     <TabPanel isActive={tab.key === 'LOOKING_BACK'}>
-                                        <Card show={!!meeting.three_thirds_looking_back_content}>
+                                        <Card>
                                             <CardHeading>
                                                 <h2>{translations.description}</h2>
                                             </CardHeading>
                                             <CardSection>
-                                                {meeting.three_thirds_looking_back_content}
-                                            </CardSection>
-                                        </Card>
-
-                                        <Card show={meeting.previous_meeting && (meeting.previous_meeting.three_thirds_looking_ahead_prayer_topics || meeting.previous_meeting.three_thirds_looking_ahead_applications)}>
-                                            <CardHeading>
-                                                <div>
-                                                    <strong>{translations.previous_meeting}:</strong>
-                                                </div>
-                                                <div>
-                                                    <strong>{meeting.previous_meeting.date?.formatted}</strong>
-                                                </div>
-                                            </CardHeading>
-                                            <CardSection>
-                                                {(meeting.previous_meeting.three_thirds_looking_ahead_prayer_topics)
-                                                    ? <Fragment>
-                                                        <h3>{translations.prayer_requests}</h3>
-                                                        <p>
-                                                            {meeting.previous_meeting.three_thirds_looking_ahead_prayer_topics}
-                                                        </p>
-                                                    </Fragment>
-                                                    : ''}
-
-                                                {(meeting.previous_meeting.three_thirds_looking_ahead_applications)
-                                                    ? <Fragment>
-                                                        <h3>{translations.application}</h3>
-                                                        <p>
-                                                            {meeting.previous_meeting.three_thirds_looking_ahead_applications}
-                                                        </p>
-                                                    </Fragment>
-                                                    : ''}
+                                                <FieldGroup
+                                                    as={TextAreaField}
+                                                    name="three_thirds_looking_back_content"
+                                                    placeholder={translations.description}
+                                                    rows={3}
+                                                    onBlur={handleBlur}
+                                                />
                                             </CardSection>
                                         </Card>
 
@@ -153,10 +164,15 @@ const EditMeetingPage = () => {
                                     <TabPanel isActive={tab.key === 'LOOKING_UP'}>
                                         <Card>
                                             <CardHeading>
-                                                <h2>{values.three_thirds_looking_up_topic}</h2>
+                                                <h2>{translations.topic}</h2>
                                             </CardHeading>
-                                            <CardSection show={!!values.three_thirds_looking_up_content}>
-                                                {values.three_thirds_looking_up_content}
+                                            <CardSection>
+                                                <FieldGroup as={TextAreaField}
+                                                            placeholder={translations.topic}
+                                                            name={`three_thirds_looking_up_topic`}
+                                                            rows={3}
+                                                            onBlur={handleBlur}
+                                                />
                                             </CardSection>
                                         </Card>
 
@@ -181,12 +197,17 @@ const EditMeetingPage = () => {
                                             </CardSection>
                                         </Card>
 
-                                        <Card show={!!values.three_thirds_looking_up_practice}>
+                                        <Card>
                                             <CardHeading>
                                                 <h2>{translations.practice}</h2>
                                             </CardHeading>
-                                            <CardSection >
-                                                {values.three_thirds_looking_up_practice}
+                                            <CardSection>
+                                                <FieldGroup as={TextAreaField}
+                                                            placeholder={translations.practice}
+                                                            name={`three_thirds_looking_up_practice`}
+                                                            rows={3}
+                                                            onBlur={handleBlur}
+                                                />
                                             </CardSection>
                                         </Card>
 
@@ -201,24 +222,34 @@ const EditMeetingPage = () => {
                                                 />
                                             </CardSection>
                                         </Card>
-
                                     </TabPanel>
+
                                     <TabPanel isActive={tab.key === 'LOOKING_AHEAD'}>
-                                        <Card show={!!meeting.three_thirds_looking_ahead_content}>
+                                        <Card>
                                             <CardHeading>
                                                 <h2>{translations.description}</h2>
                                             </CardHeading>
                                             <CardSection>
-                                                {meeting.three_thirds_looking_ahead_content}
+                                                <FieldGroup as={TextAreaField}
+                                                            placeholder={translations.notes_label}
+                                                            name={`three_thirds_looking_ahead_content`}
+                                                            rows={3}
+                                                            onBlur={handleBlur}
+                                                />
                                             </CardSection>
                                         </Card>
 
-                                        <Card show={!!meeting.three_thirds_looking_ahead_applications}>
+                                        <Card>
                                             <CardHeading>
                                                 <h2>{translations.application}</h2>
                                             </CardHeading>
                                             <CardSection>
-                                                {meeting.three_thirds_looking_ahead_applications}
+                                                <FieldGroup as={TextAreaField}
+                                                            placeholder={translations.application}
+                                                            name={`three_thirds_looking_ahead_applications`}
+                                                            rows={3}
+                                                            onBlur={handleBlur}
+                                                />
                                             </CardSection>
                                         </Card>
 

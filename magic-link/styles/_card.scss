@@ -1,5 +1,9 @@
 .card {
+    overflow: visible;
+
     .card-heading {
+        border-top-left-radius: $card-border-radius;
+        border-top-right-radius: $card-border-radius;
         background-color: $dark-gray;
         color: $white;
         font-weight: bold;

@@ -23,10 +23,12 @@ class DT_33_Translations {
             'create_account'        => __( 'Create Account', DT_33::DOMAIN ),
             'deactivated'           => __( 'The app has not yet been activated. Activate the app in your', DT_33::DOMAIN ),
             'description'           => __( 'Description', DT_33::DOMAIN ),
+            'details'               => __( 'Details', DT_33::DOMAIN ),
             'disciple_tools'        => __( 'disciple.tools', DT_33::DOMAIN ),
             'edit_meeting'          => __( 'Edit Meeting', DT_33::DOMAIN ),
             'form_error'            => __( 'There was an error. Please try again.', DT_33::DOMAIN ),
             'go_to_login'           => __( 'Click here to login.', DT_33::DOMAIN ),
+            'group'                 => __( 'Group', DT_33::DOMAIN ),
             'load_more'             => __( 'Load more', DT_33::DOMAIN ),
             'learn_more_about'      => __( 'Learn more about', DT_33::DOMAIN ),
             'looking_back'          => __( 'Looking Back', DT_33::DOMAIN ),
@@ -61,6 +63,7 @@ class DT_33_Translations {
             'sign_in'               => __( 'Sign in', DT_33::DOMAIN ),
             'submit'                => __( 'Submit', DT_33::DOMAIN ),
             'title'                 => __( '3/3rds Meetings', DT_33::DOMAIN ),
+            'topic'                 => __( 'Topic', DT_33::DOMAIN ),
         ];
     }
 
