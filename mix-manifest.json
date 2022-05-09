@@ -1,5 +1,5 @@
 {
-    "/dist/App.js": "/dist/App.js",
-    "/dist/Login.js": "/dist/Login.js",
+    "/dist/app.js": "/dist/app.js",
+    "/dist/login.js": "/dist/login.js",
     "/dist/styles.css": "/dist/styles.css"
 }
