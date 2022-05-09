@@ -15,6 +15,7 @@
     flex-direction: column;
     justify-content: space-between;
     z-index: 10;
+    text-align: center;
 }
 
 .menu__footer,
@@ -32,35 +33,66 @@
     transform: translateX(0);
 }
 
-#menu h1 {
-    margin-bottom: 35px;
-}
-
-#menu {
-
+.menu__items-wrapper {
+    display: flex;
+    justify-content: center;
 }
 
 .menu__item {
-    border-left: solid 2px $medium-gray;
+    display: block;
     padding: 7px 15px;
     margin-bottom: 15px;
 }
 
-.menu__item:hover,
-.menu__item--active {
+.menu__item.menu__item--border-left {
+    border-left: solid 2px $medium-gray;
+}
+
+.menu__item.menu__item--border-left:hover,
+.menu__item--active.menu__item--border-left {
     border-left-color: $primary-color;
+}
+
+.menu__item.menu__item--border-left:hover,
+.menu__item--active.menu__item--border-left {
+    border-color: $primary-color;
+}
+
+
+.menu__item.menu__item--border-bottom {
+    padding: $global-padding*2;
+}
+
+.menu__item.menu__item--border-bottom:not(:last-child) {
+    border-bottom: solid 2px $medium-gray;
+}
+
+.menu__item,
+.menu__item {
+    color: $black;
+}
+
+.menu__item--active,
+.menu__item--active:hover {
+    color: $black;
+    cursor: default;
 }
 
 .menu__item:not(.menu__item--active) {
     cursor: pointer;
+    text-decoration: none;
 }
 
 .menu__item:not(.menu__item--active) .menu__item-title {
+}
+
+.menu__item--active .menu__item-title,
+.menu__item:hover .menu__item-title {
     text-decoration: underline;
 }
 
-.menu__item:hover .menu__item-title {
-    text-decoration: none;
+.menu__item-icon {
+    font-size: 2.5rem;
 }
 
 .menu__item-date {

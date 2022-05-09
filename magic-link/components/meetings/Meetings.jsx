@@ -1,7 +1,7 @@
 import {Link} from "react-router-dom";
 import classNames from "classnames";
 import {Button, ButtonGroup, Colors} from "react-foundation";
-import React, {Fragment, useContext, useState} from "react";
+import React, {useContext} from "react";
 import Form from "../forms/Form";
 import FieldGroup from "../forms/FieldGroup";
 import AppContext from "../../contexts/AppContext";
@@ -44,6 +44,7 @@ const Meetings = () => {
                             type="text"
                             name="q"
                             placeholder={"Search"}
+                            inputClassNames={"margin-bottom-0"}
                         />
                     </div>
                     <div className="cell small-6">
@@ -76,15 +77,17 @@ const Meetings = () => {
                         }}
                     >
                         <div className={classNames(
-                            "menu__item",
+                            "menu__item menu__item--border-left",
                             location.pathname === "/meetings/" + meeting["ID"] ? 'menu__item--active' : false
                         )}>
                             <strong className={"menu__item-title"}>
                                 {meeting.name}
                             </strong>
-                            <div className={"menu__item-date"}>
-                                {meeting.date.formatted}
-                            </div>
+                            {
+                                (meeting.date) ?  <div className={"menu__item-date"}>
+                                    {meeting.date.formatted}
+                                </div> : ''
+                            }
                         </div>
                     </Link>
                 ))

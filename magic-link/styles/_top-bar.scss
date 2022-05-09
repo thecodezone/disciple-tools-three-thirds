@@ -10,3 +10,19 @@
 .menu__toggle {
     font-size: 2rem;
 }
+
+.top-bar__heading-icon {
+    margin-top: 7px;
+    margin-left: $global-margin;
+    font-size: $breadcrumbs-item-font-size;
+    color: $breadcrumbs-item-color;
+    text-transform: uppercase;
+
+    .icon {
+        margin-right: $global-margin/3;
+    }
+}
+
+.top-bar__heading-link:hover .top-bar__heading-icon {
+    text-decoration: underline;
+}

@@ -29,7 +29,6 @@ const request = (action, data = {}, method = "GET") => {
     if (method.toUpperCase() === 'GET') {
       options.contentType = "application/json; charset=utf-8"
     }
-
     requests[action] = jQuery.ajax(options)
   })
 }

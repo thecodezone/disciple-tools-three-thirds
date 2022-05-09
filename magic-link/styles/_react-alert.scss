@@ -1,0 +1,7 @@
+.react-alert {
+    margin-top: 0px !important;
+}
+
+.react-alert:not(:last-child) {
+    margin-bottom: 5px;
+}

@@ -1,4 +1,4 @@
-import React, {Fragment, useContext, useEffect, useState} from 'react'
+import React, {Fragment, useCallback, useContext, useEffect, useState} from 'react'
 import MeetingContext from "../contexts/MeetingContext";
 import MeetingTabs from "../components/meetings/MeetingTabs";
 import Card from "../components/layout/cards/Card";
@@ -15,26 +15,29 @@ import {saveMeeting, getGroups, getMeetings} from "../src/api";
 import RelationshipField from "../components/forms/RelationshipField";
 import CreatableRelationshipField from "../components/forms/CreatableRelationshipField";
 import MeetingsContext from "../contexts/MeetingsContext";
-import SelectField from "../components/forms/SelectField"
+import { useAlert } from 'react-alert'
+import HandleFieldChange from "../components/forms/HandleFieldChange";
+import DateField from '../components/forms/DateField'
 
 const EditMeetingPage = () => {
     const {translations} = useContext(AppContext)
     const {meetings} = useContext(MeetingsContext)
     const {meeting, tab, submission} = useContext(MeetingContext)
+    const alert = useAlert()
 
     if (!meeting || !submission) {
         return null
     }
 
     return (
-        <ApplicationLayout title={translations.edit_meeting}
+        <ApplicationLayout title={translations.edit + ": " + meeting.name}
                            breadcrumbs={[
                                {
                                    link: '/',
                                    label: 'Dashboard'
                                },
                                {
-                                   link: '/meetings/' + meeting.id,
+                                   link: '/meetings/' + meeting.ID,
                                    label: meeting.name
                                }
                            ]}>
@@ -44,28 +47,44 @@ const EditMeetingPage = () => {
                 }}
             >
                 {({values, isSubmitting, setFieldValue, setTouched, ...attrs}) => {
-
-
-                    const handleBlur = () => {
-                        saveMeeting(Object.assign(meeting, values))
-                    }
+                    const save = useCallback(async () => {
+                        try {
+                            await saveMeeting(Object.assign(meeting, values))
+                            alert.show('Saved')
+                        } catch (ex) {
+                            if (ex.statusText !== "abort") {
+                                console.log(ex)
+                                alert.show('Error', {
+                                    type: 'error',
+                                })
+                            }
+                        }
+                    }, [values])
 
                     return <Fragment>
                         <MeetingTabs/>
                         <main>
                             <div className={"container"}>
                                 <TabsContent>
-                                    <TabPanel isActive={tab.key === 'SETTINGS'}>
+                                    <TabPanel isActive={tab.key === 'DETAILS'}>
                                         <Card>
                                             <CardHeading>
-                                                <h2>{translations.name}</h2>
+                                                <h2>{translations.meeting}</h2>
                                             </CardHeading>
                                             <CardSection>
                                                 <FieldGroup
+                                                    label={translations.name}
                                                     type={"text"}
                                                     name="name"
                                                     placeholder={translations.name}
-                                                    onBlur={handleBlur}
+                                                    onBlur={save}
+                                                />
+                                                <FieldGroup
+                                                    label={translations.date}
+                                                    name="date"
+                                                    placeholder={translations.date}
+                                                    component={DateField}
+                                                    onChange={save}
                                                 />
                                             </CardSection>
                                         </Card>
@@ -75,12 +94,12 @@ const EditMeetingPage = () => {
                                                 <h2>{translations.group}</h2>
                                             </CardHeading>
                                             <CardSection>
-                                                <FieldGroup name="group"
+                                                <FieldGroup name="groups"
                                                             request={getGroups}
+                                                            defaultValues={meeting.groups}
                                                             component={CreatableRelationshipField}
-                                                            labelField={"title"}
-                                                            valueField={"ID"}
-                                                            onBlur={handleBlur}
+                                                            isMulti
+                                                            onChange={save}
                                                 />
                                             </CardSection>
                                         </Card>
@@ -90,10 +109,13 @@ const EditMeetingPage = () => {
                                                 <h2>{translations.previous_meeting}</h2>
                                             </CardHeading>
                                             <CardSection>
-                                                <FieldGroup name="three_thirds_previous_meeting"
+                                                <FieldGroup name="three_thirds_previous_meetings"
+                                                            excludeOptions={[meeting.ID]}
                                                             request={getMeetings}
+                                                            defaultValues={meeting.three_thirds_previous_meetings}
                                                             component={RelationshipField}
-                                                            onBlur={handleBlur}
+                                                            isMulti
+                                                            onChange={save}
                                                 />
                                             </CardSection>
                                         </Card>
@@ -110,7 +132,7 @@ const EditMeetingPage = () => {
                                                     name="three_thirds_looking_back_content"
                                                     placeholder={translations.description}
                                                     rows={3}
-                                                    onBlur={handleBlur}
+                                                    onBlur={save}
                                                 />
                                             </CardSection>
                                         </Card>
@@ -124,7 +146,7 @@ const EditMeetingPage = () => {
                                                             type="number"
                                                             name="three_thirds_looking_back_number_shared"
                                                             placeholder={"0"}
-                                                            onBlur={handleBlur}
+                                                            onBlur={save}
                                                         />
                                                     </div>
                                                     <div className="cell small-6">
@@ -143,7 +165,7 @@ const EditMeetingPage = () => {
                                                     <RepeatingField
                                                         name={'three_thirds_looking_back_new_believers'}
                                                         placeholder={"Name"}
-                                                        onBlur={handleBlur}
+                                                        onBlur={save}
                                                     />
                                                 </div>
                                             </CardSection>
@@ -155,7 +177,7 @@ const EditMeetingPage = () => {
                                                             placeholder={"Notes go here"}
                                                             name={`three_thirds_looking_back_notes`}
                                                             rows={3}
-                                                            onBlur={handleBlur}
+                                                            onBlur={save}
                                                 />
                                             </CardSection>
                                         </Card>
@@ -171,7 +193,7 @@ const EditMeetingPage = () => {
                                                             placeholder={translations.topic}
                                                             name={`three_thirds_looking_up_topic`}
                                                             rows={3}
-                                                            onBlur={handleBlur}
+                                                            onBlur={save}
                                                 />
                                             </CardSection>
                                         </Card>
@@ -185,7 +207,7 @@ const EditMeetingPage = () => {
                                                             type="number"
                                                             name="three_thirds_looking_up_number_attendees"
                                                             placeholder={"0"}
-                                                            onBlur={handleBlur}
+                                                            onBlur={save}
                                                         />
                                                     </div>
                                                     <div className="cell small-6">
@@ -206,7 +228,7 @@ const EditMeetingPage = () => {
                                                             placeholder={translations.practice}
                                                             name={`three_thirds_looking_up_practice`}
                                                             rows={3}
-                                                            onBlur={handleBlur}
+                                                            onBlur={save}
                                                 />
                                             </CardSection>
                                         </Card>
@@ -218,7 +240,7 @@ const EditMeetingPage = () => {
                                                             placeholder={translations.notes_label}
                                                             name={`three_thirds_looking_up_notes`}
                                                             rows={3}
-                                                            onBlur={handleBlur}
+                                                            onBlur={save}
                                                 />
                                             </CardSection>
                                         </Card>
@@ -234,7 +256,7 @@ const EditMeetingPage = () => {
                                                             placeholder={translations.notes_label}
                                                             name={`three_thirds_looking_ahead_content`}
                                                             rows={3}
-                                                            onBlur={handleBlur}
+                                                            onBlur={save}
                                                 />
                                             </CardSection>
                                         </Card>
@@ -248,7 +270,7 @@ const EditMeetingPage = () => {
                                                             placeholder={translations.application}
                                                             name={`three_thirds_looking_ahead_applications`}
                                                             rows={3}
-                                                            onBlur={handleBlur}
+                                                            onBlur={save}
                                                 />
                                             </CardSection>
                                         </Card>
@@ -262,7 +284,7 @@ const EditMeetingPage = () => {
                                                             type="number"
                                                             name="three_thirds_looking_ahead_share_goal"
                                                             placeholder={"0"}
-                                                            onBlur={handleBlur}
+                                                            onBlur={save}
                                                         />
                                                     </div>
                                                     <div className="cell small-6">
@@ -281,7 +303,7 @@ const EditMeetingPage = () => {
                                                             placeholder={translations.prayer_requests_label}
                                                             name={`three_thirds_looking_ahead_prayer_topics`}
                                                             rows={3}
-                                                            onBlur={handleBlur}
+                                                            onBlur={save}
                                                 />
                                             </CardSection>
                                         </Card>
@@ -293,7 +315,7 @@ const EditMeetingPage = () => {
                                                             placeholder={translations.notes_label}
                                                             name={`three_thirds_looking_ahead_notes`}
                                                             rows={3}
-                                                            onBlur={handleBlur}
+                                                            onBlur={save}
                                                 />
                                             </CardSection>
                                         </Card>

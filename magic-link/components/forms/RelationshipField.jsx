@@ -1,7 +1,15 @@
 import SelectField from "./SelectField";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState, Fragment} from "react";
 
-const RelationshipField = ({request = false, options: optionProp = [], optionMap = null, labelField = 'label', valueField = 'value', ...props}) => {
+const RelationshipField = ({
+                               excludeOptions = [],
+                               request = false,
+                               options: optionProp = [],
+                               optionMap = null,
+                               labelField = 'label',
+                               valueField = 'value',
+                               ...props
+                           }) => {
     const [options, setOptions] = useState(optionProp)
 
     if (!optionMap) {
@@ -11,7 +19,7 @@ const RelationshipField = ({request = false, options: optionProp = [], optionMap
         })
     }
 
-    useEffect(async () => {
+    const makeRequest = async () => {
         if (!request) {
             return
         }
@@ -19,24 +27,35 @@ const RelationshipField = ({request = false, options: optionProp = [], optionMap
         try {
             const results = await request()
             if (!results.posts) {
-                console.log(result)
+                console.log(results)
                 return
             }
             if (typeof results.posts === "object") {
                 results.posts = Object.values(results.posts)
             }
-            setOptions(results.posts.map(optionMap))
+            setOptions(results.posts.filter(({value}) => {
+                return !excludeOptions.includes((parseInt(value)))
+            }).map(optionMap))
         } catch (ex) {
             console.log(ex)
         }
+    }
 
+    useEffect(async () => {
+        return await makeRequest()
     }, [request])
 
     if (!options.length) {
         return null
     }
 
-    return <SelectField {...props} options={options} />
+
+    return <Fragment>
+        <SelectField {...props}
+                     options={options}
+        />
+    </Fragment>
+
 }
 
 export default RelationshipField

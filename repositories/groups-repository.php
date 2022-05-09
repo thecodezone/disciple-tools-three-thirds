@@ -25,7 +25,7 @@ class DT_33_Groups_Repository {
      * @param array $params
      * @return array
      */
-    public function withMeetings( $params = [] ) {
+    public function with_meetings( $params = [] ) {
         $groups = array_values( array_reduce( $this->meetings->all( $params ), function ( $groups, $meeting ) {
             if ( !$meeting['groups'] || !count( $meeting['groups'] ) ) {
                 return $groups;
@@ -62,5 +62,18 @@ class DT_33_Groups_Repository {
             return array_values($filtered)[0];
         }
         return null;
+    }
+
+    /**
+     * Find by title
+     */
+    public function find_by_title( $title ) {
+        $post = get_page_by_title( $title, OBJECT, 'groups' );
+
+        if (!$post) {
+            return $post;
+        }
+
+        return $this->find($post->ID);
     }
 }

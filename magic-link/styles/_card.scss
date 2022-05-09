@@ -8,6 +8,11 @@
         color: $white;
         font-weight: bold;
     }
+
+    .card-heading:last-child {
+        border-radius: $card-border-radius;
+    }
+
     .card-footer {
         margin-top: 15px;
     }

@@ -10,6 +10,7 @@ const FieldGroup = ({name, label, before, after, inputClassNames, ...props}) => 
 
     return (
         <label className={classNames("field-group", {"is-invalid-label": hasError})}>
+            {label}
             <div className={"input-group margin-bottom-0 display-block"}>
                 {before}
                 <Field name={name} {...props} className={classNames(inputClassNames, {"is-invalid-input": hasError})}/>

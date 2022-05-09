@@ -1,5 +1,3 @@
-const height = '49px';
-
 export const theme = (theme) => ({
   ...theme,
   borderRadius:"8px",
@@ -14,7 +12,6 @@ export const theme = (theme) => ({
 export const styles = {
   control: (provided, state) => ({
     ...provided,
-    height,
     boxShadow: state.isFocused ? "0 0 5px var(--color-primary)" : "inset 0 1px 1px rgb(10 10 10 / 10%)",
     backgroundColor: state.isFocused ? 'var(--color-white)' : 'var(--color-light-gray)',
     borderColor: state.isFocused ? 'var(--color-primary)' : '#EDEDED',
@@ -27,21 +24,20 @@ export const styles = {
 
   valueContainer: (provided, state) => ({
     ...provided,
-    height,
     padding: '0 6px'
   }),
 
-  input: (provided, state) => ({
+  input: (provided, state) => {
+    return ({
     ...provided,
-    margin: '0px',
-  }),
+    margin: '0px'
+  })},
   indicatorSeparator: (provided, state) => ({
     ...provided,
     backgroundColor: '#EDEDED'
   }),
   indicatorsContainer: (provided, state) => ({
     ...provided,
-    height,
   }),
   option: (provided, state) => {
     let backgroundColor = "#F2F2F2"

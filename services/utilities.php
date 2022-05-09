@@ -39,14 +39,14 @@ class DT_33_Utilities {
         ];
     }
 
-    public function format_array_field_value($value) {
+    public function format_array_field_value($value, $force = true) {
         return [
             'values' => array_map( function ( $value ) {
                 return [
-                    'value' => $value
+                    'value' => $value ? $value : []
                 ];
-            }, $value ),
-            'force_values' => true
+            }, array_unique( array_filter($value) ) ),
+            'force_values' => $force
         ];
     }
 }

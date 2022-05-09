@@ -1,5 +1,7 @@
 <?php
-if ( !defined( 'ABSPATH' ) ) { exit; } // Exit if accessed directly.
+if ( !defined( 'ABSPATH' ) ) {
+    exit;
+} // Exit if accessed directly.
 
 class DT_33_Transformers {
     private static $_instance = null;
@@ -18,8 +20,8 @@ class DT_33_Transformers {
      * @return mixed
      * @throws Exception
      */
-    public function meetings( $meetings ) {
-        return $this->transform_posts($meetings, 'meeting');
+    public function meetings( $meetings, $with = [] ) {
+        return $this->transform_posts( $meetings, 'meeting', $with );
     }
 
     /**
@@ -28,35 +30,38 @@ class DT_33_Transformers {
      * @return mixed
      * @throws Exception
      */
-    public function meeting( $meeting ) {
-        $date = $meeting['date'] ?? [];
-        $date['formatted'] = gmdate( 'F j, Y', $date['timestamp']);
+    public function meeting( $meeting, $with = [] ) {
+        $date = $meeting['date'] ?? null;
+        if (is_array($date) && isset($date['timestamp'])) {
+            $date['formatted'] = gmdate( get_option('date_format'), $date['timestamp'] );
+        }
         $label = $meeting['name'] ?? '';
-        if ($date['formatted']) {
+        if ( $date['formatted'] ) {
             $label .= ", " . $date['formatted'];
         }
         return [
-            'value' => $meeting['ID'],
-            'label' => $label,
-            'ID' => $meeting['ID'],
-            'groups' => $this->groups($meeting['groups']),
-            'assigned_to' => $meeting['assigned_to'] ?? null,
-            'date' => $date,
-            'name' => $meeting['name'] ?? '',
-            'three_thirds_looking_back_content' => $meeting['three_thirds_looking_back_content'] ?? '',
-            'three_thirds_looking_back_number_shared' => $meeting['three_thirds_looking_back_number_shared'] ?? 0,
-            'three_thirds_looking_back_new_believers' => $meeting['three_thirds_looking_back_new_believers'] ?? [],
-            'three_thirds_looking_back_notes' => $meeting['three_thirds_looking_back_notes'] ?? '',
+            'value'                                    => $meeting['ID'],
+            'label'                                    => $label,
+            'ID'                                       => $meeting['ID'],
+            'groups'                                   => in_array( 'groups', $with ) ? $this->groups( $meeting['groups'] ) : $this->ids( $meeting['groups'] ),
+            'assigned_to'                              => $meeting['assigned_to'] ?? null,
+            'date'                                     => $date,
+            'name'                                     => $meeting['name'] ?? '',
+            'three_thirds_previous_meetings'           => in_array( 'three_thirds_previous_meetings', $with ) ? $this->meetings( $meeting['three_thirds_previous_meetings'] ) : $this->ids( $meeting['three_thirds_previous_meetings'] ),
+            'three_thirds_looking_back_content'        => $meeting['three_thirds_looking_back_content'] ?? '',
+            'three_thirds_looking_back_number_shared'  => $meeting['three_thirds_looking_back_number_shared'] ?? 0,
+            'three_thirds_looking_back_new_believers'  => $meeting['three_thirds_looking_back_new_believers'] ?? [],
+            'three_thirds_looking_back_notes'          => $meeting['three_thirds_looking_back_notes'] ?? '',
             'three_thirds_looking_up_number_attendees' => $meeting['three_thirds_looking_up_number_attendees'] ?? '',
-            'three_thirds_looking_up_topic' => $meeting['three_thirds_looking_up_topic'] ?? '',
-            'three_thirds_looking_up_content' => $meeting['three_thirds_looking_up_content'] ?? '',
-            'three_thirds_looking_up_practice' => $meeting['three_thirds_looking_up_practice'] ?? '',
-            'three_thirds_looking_up_notes' => $meeting['three_thirds_looking_up_notes'] ?? '',
-            'three_thirds_looking_ahead_content' => $meeting['three_thirds_looking_ahead_content'] ?? '',
-            'three_thirds_looking_ahead_share_goal' => $meeting['three_thirds_looking_ahead_share_goal'] ?? 0,
-            'three_thirds_looking_ahead_applications' => $meeting['three_thirds_looking_ahead_applications'] ?? '',
+            'three_thirds_looking_up_topic'            => $meeting['three_thirds_looking_up_topic'] ?? '',
+            'three_thirds_looking_up_content'          => $meeting['three_thirds_looking_up_content'] ?? '',
+            'three_thirds_looking_up_practice'         => $meeting['three_thirds_looking_up_practice'] ?? '',
+            'three_thirds_looking_up_notes'            => $meeting['three_thirds_looking_up_notes'] ?? '',
+            'three_thirds_looking_ahead_content'       => $meeting['three_thirds_looking_ahead_content'] ?? '',
+            'three_thirds_looking_ahead_share_goal'    => $meeting['three_thirds_looking_ahead_share_goal'] ?? 0,
+            'three_thirds_looking_ahead_applications'  => $meeting['three_thirds_looking_ahead_applications'] ?? '',
             'three_thirds_looking_ahead_prayer_topics' => $meeting['three_thirds_looking_ahead_prayer_topics'] ?? '',
-            'three_thirds_looking_ahead_notes' => $meeting['three_thirds_looking_ahead_notes'] ?? '',
+            'three_thirds_looking_ahead_notes'         => $meeting['three_thirds_looking_ahead_notes'] ?? '',
         ];
     }
 
@@ -65,8 +70,19 @@ class DT_33_Transformers {
      * @return mixed
      * @throws Exception
      */
-    public function groups( $groups ) {
-        return $this->transform_posts($groups, 'group');
+    public function groups( $groups, $with = [] ) {
+        return $this->transform_posts( $groups, 'group', $with );
+    }
+
+    /**
+     * Format meeting data for the front-end
+     * @return mixed
+     * @throws Exception
+     */
+    public function ids( $posts ) {
+        return array_map( function ( $post ) {
+            return $post['ID'];
+        }, $posts );
     }
 
     /**
@@ -77,51 +93,50 @@ class DT_33_Transformers {
      */
     public function group( $group ) {
         return [
-            'ID' => $group['ID'],
+            'value' => $group['ID'],
+            'label' => $group['post_title'],
+            'ID'    => $group['ID'],
             'title' => $group['post_title']
         ];
     }
 
-    public function transform_posts($items, $type)
-    {
-        if (!$items) {
+    public function transform_posts( $items, $type, $with = [] ) {
+        if ( !$items ) {
             return [
                 'total' => 0,
-                'type' => $type,
+                'type'  => $type,
                 'posts' => []
             ];
         }
 
-        if (isset($items['paged'])) {
-            $items['posts'] = $this->map_posts($items['posts'], $type);
+        if ( isset( $items['paged'] ) ) {
+            $items['posts'] = $this->map_posts( $items['posts'], $type, $with );
             $items['type'] = $type;
             return $items;
         }
 
-        if (isset($items['total']) && isset($items['posts'])) {
+        if ( isset( $items['total'] ) && isset( $items['posts'] ) ) {
             return [
                 'total' => $items['total'],
-                'type' => $type,
-                'posts' => $this->map_posts($items['posts'], $type)
+                'type'  => $type,
+                'posts' => $this->map_posts( $items['posts'], $type, $with )
             ];
         }
 
         return [
-            'total' => count($items),
-            'type' => $type,
-            'posts' => $this->map_posts($items, $type)
+            'total' => count( $items ),
+            'type'  => $type,
+            'posts' => $this->map_posts( $items, $type, $with )
         ];
     }
 
-    public function map_posts($items, $type)
-    {
-        return array_map(function($items) use ($type) {
-            return $this->transform($items, $type);
-        }, $items);
+    public function map_posts( $items, $type, $with = [] ) {
+        return array_map( function ( $items ) use ( $type, $with ) {
+            return $this->transform( $items, $type, $with );
+        }, $items );
     }
 
-    public function transform($item, $type)
-    {
-        return $this->$type($item);
+    public function transform( $item, $type, $with = [] ) {
+        return $this->$type( $item, $with );
     }
 }

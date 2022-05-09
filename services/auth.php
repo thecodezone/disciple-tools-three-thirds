@@ -39,5 +39,4 @@ class DT_33_Auth {
         wp_redirect(DT_33_Magic_Login::PATH);
         exit;
     }
-
 }

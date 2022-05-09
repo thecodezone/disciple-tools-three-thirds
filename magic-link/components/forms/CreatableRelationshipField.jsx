@@ -6,7 +6,8 @@ const CreatableRelationshipField = (props) => {
     return (<RelationshipField
         {...props}
         component={CreatableSelect}
-        isClearable
+        isMulti
+        isClearable={false}
     />)
 }
 

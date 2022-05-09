@@ -2,11 +2,10 @@ import TopBar from "../components/TopBar";
 import Menu from '../components/Menu'
 import ApplicationTopBar from "../components/ApplicationTopBar";
 
-const ApplicationLayout = ({children, title, breadcrumbs}) => {
+const ApplicationLayout = ({children, ...props}) => {
     return (
         <div id="layout">
-            <ApplicationTopBar title={title}
-                               breadcrumbs={breadcrumbs}/>
+            <ApplicationTopBar {...props} />
             <Menu/>
             {children}
         </div>

@@ -68,7 +68,6 @@ class DT_33_Login_Controller
                     $group = DT_33_Groups_Repository::instance()->create( [
                         'title' => $group_title,
                     ] );
-
                 }
             }
         }

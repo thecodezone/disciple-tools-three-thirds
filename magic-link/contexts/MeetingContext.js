@@ -1,15 +1,15 @@
 import {createContext, useState, useEffect} from "react"
 import {getMeeting, getMeetings} from "../src/api";
 import {chunkArray} from "../src/helpers";
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams, useLocation} from "react-router-dom";
 
 const state = {
   meeting: false,
   tabs: [
     {
-      key: 'SETTINGS',
-      translation: 'settings',
-      icon: 'fi-widget',
+      key: 'DETAILS',
+      translation: 'details',
+      icon: 'fi-info',
     },
     {
       key: 'LOOKING_BACK',
@@ -35,25 +35,31 @@ export const MeetingContext = createContext(state)
 
 export const MeetingContextProvider = ({children}) => {
   let {id} = useParams();
+  let navigate = useNavigate();
   const [tab, setTab] = useState(state.tab)
   const [meeting, setMeeting] = useState(false)
   const [submission, setSubmission] = useState(false)
-
+  const location = useLocation();
 
 
   useEffect(() => {
+
     async function fetchMeeting() {
       try {
         const meeting = await getMeeting(id)
         setMeeting(meeting)
-        setSubmission(Object.assign({}, meeting))
+        setSubmission(Object.assign({}, meeting, {
+          "groups": meeting.groups.posts.map(group => group.ID),
+          "three_thirds_previous_meetings": meeting.three_thirds_previous_meetings.posts.map(meeting => meeting.ID)
+        }))
       } catch (ex) {
-        console.log(ex)
+        console.log(ex);
+        navigate('/');
       }
     }
 
     fetchMeeting()
-  }, [id])
+  }, [id, location])
 
   return <MeetingContext.Provider value={
     {

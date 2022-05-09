@@ -22,12 +22,16 @@ const MeetingPage = () => {
     }
 
     return (
-        <ApplicationLayout title={meeting.name} breadcrumbs={[
-            {
-                link: '/',
-                label: 'Dashboard'
-            }
-        ]}>
+        <ApplicationLayout title={meeting.name}
+                           titleIcon="fi-pencil"
+                           titleTo={`/meetings/edit/${meeting.ID}`}
+                           iconLabel={translations.edit}
+                           breadcrumbs={[
+                                {
+                                    link: '/',
+                                    label: 'Dashboard'
+                                }
+                            ]}>
             <Form
                 initialValues={{
                     ...submission
@@ -36,8 +40,15 @@ const MeetingPage = () => {
                 {({values, isSubmitting, setFieldValue, setTouched, ...attrs}) => {
 
 
-                    const handleBlur = () => {
-                        saveMeeting(Object.assign(meeting, values))
+                    const handleBlur = async () => {
+                        try {
+                            await saveMeeting(Object.assign(meeting, values))
+                            alert.show('Saved')
+                        } catch (ex) {
+                            alert.show('Error', {
+                                type: 'error',
+                            })
+                        }
                     }
 
                     return <Fragment>
@@ -55,7 +66,8 @@ const MeetingPage = () => {
                                             </CardSection>
                                         </Card>
 
-                                        <Card show={meeting.previous_meeting && (meeting.previous_meeting.three_thirds_looking_ahead_prayer_topics || meeting.previous_meeting.three_thirds_looking_ahead_applications)}>
+                                        {meeting.previous_meeting
+                                        && (meeting.previous_meeting?.three_thirds_looking_ahead_prayer_topics || meeting.previous_meeting?.three_thirds_looking_ahead_applications) ? <Card>
                                             <CardHeading>
                                                 <div>
                                                     <strong>{translations.previous_meeting}:</strong>
@@ -83,7 +95,8 @@ const MeetingPage = () => {
                                                     </Fragment>
                                                     : ''}
                                             </CardSection>
-                                        </Card>
+                                        </Card> : null}
+
 
                                         <Card>
                                             <CardSection>
@@ -133,12 +146,13 @@ const MeetingPage = () => {
                                     </TabPanel>
                                     <TabPanel isActive={tab.key === "LOOKING_UP"}>
                                         <Card>
-                                            <CardHeading>
+                                            {values.three_thirds_looking_up_topic ? <CardHeading>
                                                 <h2>{values.three_thirds_looking_up_topic}</h2>
-                                            </CardHeading>
-                                            <CardSection show={!!values.three_thirds_looking_up_content}>
+                                            </CardHeading> : null}
+                                            {values.three_thirds_looking_up_content ?  <CardSection>
                                                 {values.three_thirds_looking_up_content}
-                                            </CardSection>
+                                            </CardSection> : null}
+
                                         </Card>
 
                                         <Card>

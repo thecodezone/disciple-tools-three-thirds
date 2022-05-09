@@ -1,9 +1,12 @@
-import {useContext, Fragment} from 'react'
+import React, {useContext, Fragment} from 'react'
 import AppContext from "../contexts/AppContext";
 import MenuContext from "../contexts/MenuContext";
-import {useLocation} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 import classNames from "classnames";
 import LogoutButton from "./LogoutLink";
+import {Label} from "react-foundation";
+import Brand from "./Brand";
+import CardSection from "./layout/cards/CardSection";
 
 const Menu = () => {
     const {
@@ -27,7 +30,29 @@ const Menu = () => {
                          'shadow'
                      )}>
                 <div className={"menu__content"}>
-                    <h1>{magicLink.translations.title}</h1>
+                    <Brand />
+
+                    <div className={"menu__items-wrapper"}>
+                        <div className={"menu__items"}>
+                            <Link className={classNames("menu__item menu__item--border-bottom", location.pathname === "/" ? 'menu__item--active' : false)} to={"/"}>
+                                <strong className={"menu__item-title"}>Go to Dashboard</strong>
+                                <div className={"menu__item-icon"}>
+                                    <span className="icon fa-solid fa-border-all" />
+                                </div>
+                            </Link>
+
+                            <Link className={classNames("menu__item menu__item--border-bottom", location.pathname === "/meetings/create" ? 'menu__item--active' : false)} to={"/meetings/create"}>
+                                <strong className={"menu__item-title"}>Create Meeting</strong>
+                                <div className={"menu__item-icon"}>
+                                    <span className="icon fa-regular fa-calendar-days" />
+                                </div>
+                            </Link>
+                        </div>
+                    </div>
+                </div>
+
+                <div className={"menu__footer"}>
+                    <LogoutButton className={"margin-bottom-2"}/>
 
                     <p className={"margin-bottom-0"}>
                         <small>
@@ -44,10 +69,6 @@ const Menu = () => {
                                                                          target="_blank">{magicLink.translations.title}</a> {magicLink.translations.on_zume}.
                         </small>
                     </p>
-                </div>
-
-                <div className={"menu__footer"}>
-                    <LogoutButton />
                 </div>
             </nav>
         </Fragment>
