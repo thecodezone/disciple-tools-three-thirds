@@ -27,7 +27,6 @@ jobs:
       - uses: "shivammathur/setup-php@v2"
         with:
           php-version: "7.4"
-      - uses: "ramsey/composer-install@v1"
       - name: Install Node.js
         uses: actions/setup-node@v1
         with:
