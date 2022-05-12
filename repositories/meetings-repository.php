@@ -165,13 +165,11 @@ class DT_33_Meetings_Repository {
         }
 
 
-        //Only get previous
+        //Only get meetings with dates
         $with_dates = array_filter( $meetings, function ( $post ) use ( $meeting ) {
             if ( !$post['date'] ) {
                 return false;
             }
-
-            return $post['date']['timestamp'] < $meeting['date']['timestamp'];
         } );
 
         if ( !count( $with_dates ) ) {
@@ -197,16 +195,12 @@ class DT_33_Meetings_Repository {
         return $this->find( $previous['ID'] );
     }
 
-    public function series( $params = [] ) {
-        $series = array_reduce( $this->all( $params ), function ( $series, $meeting ) {
-            $series = array_merge( $series, $meeting['series'] ?? [] );
-            return $series;
-        }, [] );
-        $series = array_unique( $series );
-        sort( $series );
-        return $series;
-    }
-
+    /**
+     * Save a meeting
+     * @param $id
+     * @param $fields
+     * @return array|int[]|WP_Error
+     */
     public function save( $id, $fields ) {
         return DT_Posts::update_post(
             DT_33_Meeting_Type::POST_TYPE,
@@ -215,6 +209,11 @@ class DT_33_Meetings_Repository {
         );
     }
 
+    /**
+     * Create a meeting
+     * @param $fields
+     * @return array|false|int|WP_Error|null
+     */
     public function create( $fields ) {
         return DT_Posts::create_post(
             DT_33_Meeting_Type::POST_TYPE,

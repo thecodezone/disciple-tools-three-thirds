@@ -112,9 +112,9 @@ class MeetingsTest extends TestCase {
         $this->assertEquals( $meeting['ID'], DT_33_Meetings_Repository::instance()->find( $meeting['ID'] )['ID'] );
     }
 
-    public function test_it_can_find_previous_meetings() {
+    public function test_it_can_handle_no_previous_meetings() {
         $this->acting_as_admin();
         $meeting = $this->factories->three_thirds_meeting();
-        $this->assertEquals( $meeting['ID'], DT_33_Meetings_Repository::instance()->find( $meeting['ID'] )['ID'] );
+        $this->assertNull( DT_33_Meetings_Repository::instance()->previous( $meeting ) );
     }
 }
