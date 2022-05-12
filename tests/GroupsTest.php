@@ -6,7 +6,9 @@
 class GroupsTest extends TestCase {
     public function test_it_can_get_groups_with_meetings() {
         $this->acting_as_admin();
+
         $group = $this->factories->group();
+
         for ( $x = 0; $x < 2; $x++ ) {
             $this->factories->three_thirds_meeting( [
                 'groups' => [
@@ -26,8 +28,7 @@ class GroupsTest extends TestCase {
         for ( $x = 0; $x < 2; $x++ ) {
             $this->factories->group();
         }
-        DT_33_Meetings_Repository::instance()->flush();
-        $groups = DT_33_Groups_Repository::instance()->all();
+        $groups = DT_33_Groups_Repository::instance()->with_meetings();
         $this->assertEquals( 2, count( $groups ) );
     }
 
@@ -46,8 +47,6 @@ class GroupsTest extends TestCase {
                 'values' => [ [ "value" => $group['ID'] ] ]
             ]
         ] );
-        DT_33_Meetings_Repository::instance()->flush();
-
         $this->assertEquals( $group['ID'], DT_33_Groups_Repository::instance()->find( $group['ID'] )['ID'] );
     }
 

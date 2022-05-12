@@ -106,37 +106,13 @@ class MeetingsTest extends TestCase {
         );
     }
 
-    public function test_it_can_filter_series() {
+    public function test_it_can_find_a_meeting() {
         $this->acting_as_admin();
-        $count = 2;
-        $series = 'series title';
-        for ( $x = 0; $x < 3; $x++ ) {
-            $this->factories->three_thirds_meeting( [
-                'series' => [
-                    'values' => [ [ "value" => 'some other series' ] ]
-                ]
-            ] );
-        }
-
-        for ( $x = 0; $x < $count; $x++ ) {
-            $this->factories->three_thirds_meeting( [
-                'series' => [
-                    'values' => [ [ "value" => $series ] ]
-                ]
-            ] );
-        }
-
-        for ( $x = 0; $x < 3; $x++ ) {
-            $this->factories->three_thirds_meeting();
-        }
-
-        $this->assertEquals(
-            $count,
-            count( DT_33_Meetings_Repository::instance()->filtered( '', $series ) )
-        );
+        $meeting = $this->factories->three_thirds_meeting();
+        $this->assertEquals( $meeting['ID'], DT_33_Meetings_Repository::instance()->find( $meeting['ID'] )['ID'] );
     }
 
-    public function test_it_can_find_a_meeting() {
+    public function test_it_can_find_previous_meetings() {
         $this->acting_as_admin();
         $meeting = $this->factories->three_thirds_meeting();
         $this->assertEquals( $meeting['ID'], DT_33_Meetings_Repository::instance()->find( $meeting['ID'] )['ID'] );

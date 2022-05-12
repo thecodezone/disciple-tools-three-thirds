@@ -4,19 +4,32 @@ class DT_33_Meetings_Repository {
     private static $_instance = null;
     private $cache;
 
+    /**
+     * Fields defaults that should be included when saving meetings.
+     * @var array[]
+     */
     static $force_fields = [
         'groups' => [],
         'three_thirds_previous_meetings' => [],
         'three_thirds_looking_back_new_believers' => []
     ];
 
+    /**
+     * Fields that are arrays
+     * @var string[]
+     */
     static $array_fields = [
         'groups',
         'three_thirds_previous_meetings',
         'three_thirds_looking_back_new_believers'
     ];
 
+    /**
+     * Fields that are allowed be included when saving meetings.
+     * @var string[]
+     */
     static $whitelist = [
+        'type',
         'name',
         'groups',
         'date',
@@ -37,6 +50,9 @@ class DT_33_Meetings_Repository {
         'three_thirds_looking_up_notes',
     ];
 
+    /**
+     * @return DT_33_Meetings_Repository|null
+     */
     public static function instance() {
         if ( is_null( self::$_instance ) ) {
             self::$_instance = new self();
@@ -44,6 +60,9 @@ class DT_33_Meetings_Repository {
         return self::$_instance;
     }
 
+    /**
+     * DT_33_Meetings_Repository constructor.
+     */
     public function __construct() {
         $this->utilities = DT_33_Utilities::instance();
     }
@@ -54,14 +73,16 @@ class DT_33_Meetings_Repository {
     public function all( $params = [] ) {
         $params = array_merge( [
             'fields_to_return' => array_keys( DT_Posts::get_post_settings( DT_33_Meeting_Type::POST_TYPE )['fields'] ),
-            'sort'             => '-date'
+            'sort' => '-date',
+            'type' => ['key' => DT_33_Meeting_Type::MEETING_TYPE]
         ], $params );
         return DT_Posts::list_posts( DT_33_Meeting_Type::POST_TYPE, $params )['posts'];
     }
 
     /**
+     * Filter meetings by a search term or a group
      * @param string $search
-     * @param string $filter
+     * @param string $filter Group ID or NO_GROUP
      * @return mixed
      */
     public function filtered( $search = '', $filter = '' ) {
@@ -81,11 +102,6 @@ class DT_33_Meetings_Repository {
                     return (string)$group["ID"] === (string)$filter;
                 } );
                 return count( $groups );
-            } );
-        } else if ( $filter ) {
-            //Only posts in a series
-            $filtered = array_filter( $filtered, function ( $meeting ) use ( $filter ) {
-                return in_array( $filter, $meeting['series'] ?? [] );
             } );
         }
 
@@ -120,6 +136,11 @@ class DT_33_Meetings_Repository {
         } );
     }
 
+    /**
+     * Get the previous meeting WP_POST
+     * @param $meeting
+     * @return mixed|null
+     */
     private function previous_raw( $meeting ) {
         $meetings = $meeting['three_thirds_previous_meetings'];
 
@@ -139,7 +160,7 @@ class DT_33_Meetings_Repository {
         }
 
         //Do we need to find the previous by date?
-        if ( count( $meetings === 1 ) ) {
+        if ( count( $meetings ) === 1 ) {
             return $meetings[0];
         }
 
@@ -165,7 +186,7 @@ class DT_33_Meetings_Repository {
     }
 
     /**
-     * Get the previous meeting.
+     * Get the previous meeting DT_POST.
      * If more than one meeting exists, only take the latest.
      */
     public function previous( $meeting ) {
