@@ -17,10 +17,6 @@ export const MenuContextProvider = ({value, children}) => {
   const [isOpen, setIsOpen] = useState(state.isOpen)
   const location = useLocation()
 
-  useEffect(() => {
-    setIsOpen(false)
-  }, [location.pathname])
-
   const close = () => {
     setIsOpen(false)
   }
@@ -28,6 +24,11 @@ export const MenuContextProvider = ({value, children}) => {
   const open = () => {
     setIsOpen(true)
   }
+
+
+  useEffect(() => {
+    setIsOpen(false)
+  }, [location.key])
 
   return <MenuContext.Provider value={
     {

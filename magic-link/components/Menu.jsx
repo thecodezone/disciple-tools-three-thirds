@@ -1,14 +1,14 @@
-import React, {useContext, Fragment} from 'react'
+import React, {useContext, Fragment, useEffect} from 'react'
 import AppContext from "../contexts/AppContext";
 import MenuContext from "../contexts/MenuContext";
 import {Link, useLocation} from "react-router-dom";
 import classNames from "classnames";
 import LogoutButton from "./LogoutLink";
-import {Label} from "react-foundation";
 import Brand from "./Brand";
-import CardSection from "./layout/cards/CardSection";
 
 const Menu = () => {
+    const location = useLocation()
+
     const {
         magicLink
     } = useContext(AppContext)
@@ -17,8 +17,6 @@ const Menu = () => {
         close,
         isOpen
     } = useContext(MenuContext)
-
-    const location = useLocation()
 
     return (
         <Fragment>
