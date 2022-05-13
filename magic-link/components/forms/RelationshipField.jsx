@@ -1,5 +1,6 @@
 import SelectField from "./SelectField";
 import React, {useEffect, useState, Fragment} from "react";
+import AsyncSelect from "react-select/async";
 
 const RelationshipField = ({
                                excludeOptions = [],
@@ -8,10 +9,9 @@ const RelationshipField = ({
                                optionMap = null,
                                labelField = 'label',
                                valueField = 'value',
+                                component = null,
                                ...props
                            }) => {
-    const [options, setOptions] = useState(optionProp)
-
     if (!optionMap) {
         optionMap = (option) => ({
             label: option[labelField],
@@ -19,40 +19,42 @@ const RelationshipField = ({
         })
     }
 
-    const makeRequest = async () => {
-        if (!request) {
-            return
-        }
-
-        try {
-            const results = await request()
-            if (!results.posts) {
-                console.log(results)
+    const loadOptions = (inputValue, callback) => {
+        const fire = async () => {
+            if (!request) {
+                callback([])
                 return
             }
-            if (typeof results.posts === "object") {
-                results.posts = Object.values(results.posts)
+
+            try {
+                const results = await request({q: inputValue})
+                if (!results.posts) {
+                    console.log(results)
+                    callback([])
+                    return
+                }
+                if (typeof results.posts === "object") {
+                    results.posts = Object.values(results.posts)
+                }
+                callback(results.posts.filter(({value}) => {
+                    return !excludeOptions.includes((parseInt(value)))
+                }).map(optionMap))
+            } catch (ex) {
+                console.log(ex)
+                callback([])
             }
-            setOptions(results.posts.filter(({value}) => {
-                return !excludeOptions.includes((parseInt(value)))
-            }).map(optionMap))
-        } catch (ex) {
-            console.log(ex)
         }
-    }
 
-    useEffect(async () => {
-        return await makeRequest()
-    }, [request])
-
-    if (!options.length) {
-        return null
+        fire()
     }
 
 
     return <Fragment>
         <SelectField {...props}
-                     options={options}
+                     cacheOptions
+                     defaultOptions
+                     loadOptions={loadOptions}
+                     component={component ? component : AsyncSelect}
         />
     </Fragment>
 

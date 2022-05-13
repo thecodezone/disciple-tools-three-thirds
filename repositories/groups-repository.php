@@ -3,6 +3,12 @@
 class DT_33_Groups_Repository {
     private static $_instance = null;
 
+    private function args() {
+        return [
+            'sort' => 'name'
+        ];
+    }
+
     public static function instance() {
         if ( is_null( self::$_instance ) ) {
             self::$_instance = new self();
@@ -15,9 +21,16 @@ class DT_33_Groups_Repository {
     }
 
     public function all() {
-        return DT_Posts::list_posts( 'groups', [
-            'sort' => 'name'
-        ] )['posts'];
+        return DT_Posts::list_posts( 'groups', $this->args() )['posts'];
+    }
+
+    /**
+     * Search meetings
+     * @param $search
+     * @return array|WP_Error|WP_Query
+     */
+    public function search( $search ) {
+        return DT_Posts::get_viewable_compact( 'groups', $search, $this->args());
     }
 
     /**

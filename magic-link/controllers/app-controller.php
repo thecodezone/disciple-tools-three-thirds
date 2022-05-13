@@ -34,7 +34,7 @@ class DT_33_App_Controller {
      * @return array|WP_Error
      * @throws Exception
      */
-    public function get_search_meetings( WP_REST_Request $request ) {
+    public function get_search_meetings_with_groups( WP_REST_Request $request ) {
         //Defaults
         $sort = $request->has_param( 'sort' ) ? $request->get_param( 'sort' ) : '-date';
         $initial_posts_per_page = 5;
@@ -67,8 +67,20 @@ class DT_33_App_Controller {
      * @return array|WP_Error
      * @throws Exception
      */
-    public function get_meetings( WP_REST_Request $request ) {
+    public function get_search_meetings( WP_REST_Request $request ) {
         return $this->transformers->meetings(
+            $this->meetings->search($request->get_param('q'))
+        );
+    }
+
+    /**
+     * Handles GET request to fetch meetings lead to the current user.
+     * @param WP_REST_Request $request
+     * @return array|WP_Error
+     * @throws Exception
+     */
+    public function get_meetings( WP_REST_Request $request ) {
+        return $this->transformers->groups(
             $this->meetings->all()
         );
     }
@@ -155,6 +167,18 @@ class DT_33_App_Controller {
         }
 
         return $this->transformers->meeting( $meeting );
+    }
+
+    /**
+     * Handles GET request to fetch meetings lead to the current user.
+     * @param WP_REST_Request $request
+     * @return array|WP_Error
+     * @throws Exception
+     */
+    public function get_search_groups( WP_REST_Request $request ) {
+        return $this->transformers->meetings(
+            $this->groups->search($request->get_param('q'))
+        );
     }
 
     /**

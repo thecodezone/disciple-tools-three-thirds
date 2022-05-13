@@ -1,7 +1,7 @@
 import magicLinkRequest from "./magicLinkRequest";
 
-export const searchMeetings = async (params) => {
-    return magicLinkRequest('search_meetings', params)
+export const searchMeetingsWithGroups = async (params) => {
+    return magicLinkRequest('search_meetings_with_groups', params)
 }
 
 export const getMeeting = async (id) => {
@@ -26,12 +26,20 @@ export const createAccount = async (data) => {
     return magicLinkRequest('register', data, 'POST')
 }
 
+export const searchGroups = async (data) => {
+  return magicLinkRequest('search_groups', data, 'GET')
+}
+
 export const getGroups = async (data) => {
     return magicLinkRequest('groups', data, 'GET')
 }
 
 export const saveMeeting = async (data) => {
     return magicLinkRequest('meeting', data, 'PUT')
+}
+
+export const searchMeetings = async (data) => {
+  return magicLinkRequest('search_meetings', data, 'GET')
 }
 
 export const createMeeting = async (data) => {
