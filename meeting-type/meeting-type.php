@@ -66,7 +66,7 @@ class DT_33_Meeting_Type {
                 ]
             ];
             $tiles["looking_ahead"] = [
-                "label"       => __( "Looking Up", "disciple_tools_three_thirds" ),
+                "label"       => __( "Looking Ahead", "disciple_tools_three_thirds" ),
                 "description" => __( "A look towards the future." ),
                 "display_for" => [
                     "type" => [ DT_33_Meeting_Type::MEETING_TYPE ],
