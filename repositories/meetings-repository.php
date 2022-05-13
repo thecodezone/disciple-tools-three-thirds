@@ -222,6 +222,10 @@ class DT_33_Meetings_Repository {
      * @return array|int[]|WP_Error
      */
     public function save( $id, $fields ) {
+        $meeting = $this->find($id);
+        if (!$meeting['type'] || !$meeting['type']['key'] === DT_33_Meeting_Type::MEETING_TYPE) {
+            return new WP_Error(500, 'Incorrect meeting type');
+        }
         return DT_Posts::update_post(
             DT_33_Meeting_Type::POST_TYPE,
             $id,
@@ -235,6 +239,7 @@ class DT_33_Meetings_Repository {
      * @return array|false|int|WP_Error|null
      */
     public function create( $fields ) {
+        $fields['type'] = DT_33_Meeting_Type::MEETING_TYPE;
         return DT_Posts::create_post(
             DT_33_Meeting_Type::POST_TYPE,
             $this->prepare_fields( $fields )
