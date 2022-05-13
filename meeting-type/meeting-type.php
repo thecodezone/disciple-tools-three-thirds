@@ -147,11 +147,9 @@ class DT_33_Meeting_Type {
             "name"           => __( "Topic", DT_33::DOMAIN ),
             "description"    => __( "The topic of the meeting.", DT_33::DOMAIN ),
             "type"           => "text",
-            "required"       => true,
             "tile"           => "looking_up",
             "icon"           => get_template_directory_uri() . '/dt-assets/images/trainings-hollow.svg',
-            "only_for_types" => [ self::MEETING_TYPE ],
-            "in_create_form" => true
+            "only_for_types" => [ self::MEETING_TYPE ]
         ];
         $fields['three_thirds_looking_up_content'] = [
             "name"           => __( "Content", DT_33::DOMAIN ),
