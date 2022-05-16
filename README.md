@@ -1,5 +1,11 @@
 [![Build Status](https://travis-ci.com/TheCodeZone/disciple-tools-three-thirds.svg?branch=master)](https://travis-ci.com/TheCodeZone/disciple-tools-three-thirds)
 
+## Quickstart
+
+```
+npm install && composer install && npm run dev
+```
+
 ## 3/3rds Meetings
 This is a starter plugin to jumpstart your work with Disciple.Tools.
 Click the "Use this template" button above.
