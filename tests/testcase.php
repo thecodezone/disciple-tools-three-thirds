@@ -8,11 +8,11 @@ abstract class TestCase extends WP_UnitTestCase {
     protected $factories;
     protected $users = [];
 
-    public function __construct( $name = null, array $data = [], $dataName = '' ) {
+    public function __construct( $name = null, array $data = [], $data_name = '' ) {
         $this->faker = Faker\Factory::create();
         $this->factories = new factories();
 
-        parent::__construct( $name, $data, $dataName );
+        parent::__construct( $name, $data, $data_name );
 
         activate_plugin( 'disciple-tools-three-thirds/disciple-tools-three-thirds.php' );
         activate_plugin( 'disciple-tools-meetings/disciple-tools-meetings.php' );

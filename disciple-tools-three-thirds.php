@@ -66,14 +66,14 @@ add_action( 'after_setup_theme', 'disciple_tools_three_thirds', 20 );
  */
 class DT_33 {
     const DOMAIN = "disciple_tools_three_thirds";
-    static $URL;
-    static $DIR;
+    public static $url;
+    public static $dir;
 
     private static $_instance = null;
 
     public static function instance() {
-        static::$URL = plugin_dir_url( __FILE__ );
-        static::$DIR = plugin_dir_path( __FILE__ );
+        static::$url = plugin_dir_url( __FILE__ );
+        static::$dir = plugin_dir_path( __FILE__ );
 
         if ( is_null( self::$_instance ) ) {
             self::$_instance = new self();

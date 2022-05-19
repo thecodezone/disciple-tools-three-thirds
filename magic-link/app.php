@@ -37,7 +37,7 @@ class DT_33_Magic_App extends DT_33_Magic_Link {
 
     public function __construct() {
         $this->controller = DT_33_App_Controller::instance();
-        
+
         $this->meta = [
             'app_type'      => 'magic_link',
             'post_type'     => $this->post_type,
@@ -99,7 +99,7 @@ class DT_33_Magic_App extends DT_33_Magic_Link {
 
     public function wp_enqueue_scripts() {
         parent::wp_enqueue_scripts();
-        wp_enqueue_script( DT_33::DOMAIN . "_app", DT_33::$URL . 'dist/app.js', [], filemtime( DT_33::$DIR . 'dist/app.js' ), true );
+        wp_enqueue_script( DT_33::DOMAIN . "_app", DT_33::$url . 'dist/app.js', [], filemtime( DT_33::$dir . 'dist/app.js' ), true );
         wp_localize_script( DT_33::DOMAIN . "_app", 'magicLink', $this->localizations() );
     }
 
@@ -108,7 +108,7 @@ class DT_33_Magic_App extends DT_33_Magic_Link {
      * @return bool
      */
     public static function is_activated() {
-        return !! get_user_option( self::META_KEY );
+        return !empty( get_user_option( self::META_KEY ) );
     }
 
     /**
@@ -125,7 +125,7 @@ class DT_33_Magic_App extends DT_33_Magic_Link {
      * Login without setting the auth cookie
      */
     private function login_for_request( WP_REST_Request $request ) {
-        $user_id = $request->get_param('parts')['post_id'];
+        $user_id = $request->get_param( 'parts' )['post_id'];
         $user = get_user_by( 'id', $user_id );
         if ( $user ) {
             wp_set_current_user( $user_id, $user->user_login );

@@ -57,7 +57,7 @@ class GroupsTest extends TestCase {
             'title' => $this->faker->sentence
         ] );
 
-        $post = DT_Posts::get_post('groups', $group['ID']);
+        $post = DT_Posts::get_post( 'groups', $group['ID'] );
 
         $this->assertEquals( $group['ID'], $post['ID'] );
     }

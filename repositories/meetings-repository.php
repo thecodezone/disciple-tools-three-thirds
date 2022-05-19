@@ -4,14 +4,13 @@ class DT_33_Meetings_Repository {
     private static $_instance = null;
     private $cache;
 
-
     /**
      * Fields defaults that should be included when saving meetings.
      * @var array[]
      */
-    static $force_fields = [
-        'groups'                                  => [],
-        'three_thirds_previous_meetings'          => [],
+    public static $force_fields = [
+        'groups' => [],
+        'three_thirds_previous_meetings' => [],
         'three_thirds_looking_back_new_believers' => []
     ];
 
@@ -19,7 +18,7 @@ class DT_33_Meetings_Repository {
      * Fields that are arrays
      * @var string[]
      */
-    static $array_fields = [
+    public static $array_fields = [
         'groups',
         'three_thirds_previous_meetings',
         'three_thirds_looking_back_new_believers'
@@ -29,7 +28,7 @@ class DT_33_Meetings_Repository {
      * Fields that are allowed be included when saving meetings.
      * @var string[]
      */
-    static $whitelist = [
+    public static $whitelist = [
         'type',
         'name',
         'groups',
@@ -152,7 +151,7 @@ class DT_33_Meetings_Repository {
         $group_ids = array_column( $groups, 'ID' );
         return array_filter( self::all(), function ( $meeting ) use ( $group_ids ) {
             $meeting_group_ids = array_column( $meeting['groups'], 'ID' );
-            return !!count( array_intersect( $group_ids, $meeting_group_ids ) );
+            return ! !count( array_intersect( $group_ids, $meeting_group_ids ) );
         } );
     }
 

@@ -18,7 +18,6 @@ class DT_33_Transformers {
      * Format meetings data for the front-end
      * @param $meeting
      * @return mixed
-     * @throws Exception
      */
     public function meetings( $meetings, $with = [] ) {
         return $this->transform_posts( $meetings, 'meeting', $with );
@@ -28,12 +27,11 @@ class DT_33_Transformers {
      * Format meeting data for the front-end
      * @param $meeting
      * @return mixed
-     * @throws Exception
      */
     public function meeting( $meeting, $with = [] ) {
         $date = $meeting['date'] ?? null;
-        if (is_array($date) && isset($date['timestamp'])) {
-            $date['formatted'] = gmdate( get_option('date_format'), $date['timestamp'] );
+        if ( is_array( $date ) && isset( $date['timestamp'] ) ) {
+            $date['formatted'] = gmdate( get_option( 'date_format' ), $date['timestamp'] );
         }
         $label = $meeting['name'] ?? '';
         if ( $date['formatted'] ) {
@@ -68,7 +66,6 @@ class DT_33_Transformers {
     /**
      * Format meeting data for the front-end
      * @return mixed
-     * @throws Exception
      */
     public function groups( $groups, $with = [] ) {
         return $this->transform_posts( $groups, 'group', $with );
@@ -77,7 +74,6 @@ class DT_33_Transformers {
     /**
      * Format meeting data for the front-end
      * @return mixed
-     * @throws Exception
      */
     public function ids( $posts ) {
         return array_map( function ( $post ) {
@@ -89,7 +85,6 @@ class DT_33_Transformers {
      * Format meeting data for the front-end
      * @param $meeting
      * @return mixed
-     * @throws Exception
      */
     public function group( $group ) {
         return [
