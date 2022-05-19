@@ -8,7 +8,7 @@ class DT_33_Meetings_Repository {
      * Fields defaults that should be included when saving meetings.
      * @var array[]
      */
-    static $force_fields = [
+    public static $force_fields = [
         'groups' => [],
         'three_thirds_previous_meetings' => [],
         'three_thirds_looking_back_new_believers' => []
@@ -18,7 +18,7 @@ class DT_33_Meetings_Repository {
      * Fields that are arrays
      * @var string[]
      */
-    static $array_fields = [
+    public static $array_fields = [
         'groups',
         'three_thirds_previous_meetings',
         'three_thirds_looking_back_new_believers'
@@ -28,7 +28,7 @@ class DT_33_Meetings_Repository {
      * Fields that are allowed be included when saving meetings.
      * @var string[]
      */
-    static $whitelist = [
+    public static $whitelist = [
         'type',
         'name',
         'groups',
@@ -74,7 +74,7 @@ class DT_33_Meetings_Repository {
         $params = array_merge( [
             'fields_to_return' => array_keys( DT_Posts::get_post_settings( DT_33_Meeting_Type::POST_TYPE )['fields'] ),
             'sort' => '-date',
-            'type' => ['key' => DT_33_Meeting_Type::MEETING_TYPE]
+            'type' => [ 'key' => DT_33_Meeting_Type::MEETING_TYPE ]
         ], $params );
         return DT_Posts::list_posts( DT_33_Meeting_Type::POST_TYPE, $params )['posts'];
     }
@@ -99,7 +99,7 @@ class DT_33_Meetings_Repository {
             $filtered = array_filter( $filtered, function ( $meeting ) use ( $filter ) {
                 $groups = $meeting['groups'] ?? [];
                 $groups = array_filter( $groups, function ( $group ) use ( $filter ) {
-                    return (string)$group["ID"] === (string)$filter;
+                    return (string) $group["ID"] === (string) $filter;
                 } );
                 return count( $groups );
             } );
@@ -119,7 +119,7 @@ class DT_33_Meetings_Repository {
      * Find a three things meetings by ID
      */
     public function find( $id ) {
-        return DT_Posts::get_post( DT_33_Meeting_Type::POST_TYPE, (int)$id, true );
+        return DT_Posts::get_post( DT_33_Meeting_Type::POST_TYPE, (int) $id, true );
     }
 
     /**
@@ -132,7 +132,7 @@ class DT_33_Meetings_Repository {
         $group_ids = array_column( $groups, 'ID' );
         return array_filter( self::all(), function ( $meeting ) use ( $group_ids ) {
             $meeting_group_ids = array_column( $meeting['groups'], 'ID' );
-            return !!count( array_intersect( $group_ids, $meeting_group_ids ) );
+            return ! !count( array_intersect( $group_ids, $meeting_group_ids ) );
         } );
     }
 
@@ -205,7 +205,7 @@ class DT_33_Meetings_Repository {
         return DT_Posts::update_post(
             DT_33_Meeting_Type::POST_TYPE,
             $id,
-            $this->prepare_fields($fields)
+            $this->prepare_fields( $fields )
         );
     }
 
@@ -217,7 +217,7 @@ class DT_33_Meetings_Repository {
     public function create( $fields ) {
         return DT_Posts::create_post(
             DT_33_Meeting_Type::POST_TYPE,
-            $this->prepare_fields($fields)
+            $this->prepare_fields( $fields )
         );
     }
 
@@ -226,8 +226,8 @@ class DT_33_Meetings_Repository {
      * @param $fields
      * @return array
      */
-    protected function prepare_fields( $fields) {
-        $fields = array_merge(self::$force_fields, $fields);
+    protected function prepare_fields( $fields ) {
+        $fields = array_merge( self::$force_fields, $fields );
         $fields = array_intersect_key( $fields, array_flip( self::$whitelist ) );
 
         foreach ( self::$array_fields as $name ) {

@@ -40,13 +40,13 @@ class DT_33_Magic_Login extends DT_33_Magic_Link {
         parent::__construct();
 
         if ( $this->is_route() ) {
-            if (!dt_is_rest() && is_user_logged_in()) {
-                wp_redirect('/3/3');
+            if ( !dt_is_rest() && is_user_logged_in() ) {
+                wp_redirect( '/3/3' );
                 exit;
             }
 
 
-            if ($this->validate_parts()) {
+            if ( $this->validate_parts() ) {
                 return;
             }
 
@@ -85,9 +85,9 @@ class DT_33_Magic_Login extends DT_33_Magic_Link {
 
 
     public function wp_enqueue_scripts() {
-       parent::wp_enqueue_scripts();
-       wp_enqueue_script( DT_33::DOMAIN . "_login", DT_33::$URL . 'dist/login.js', [], filemtime( DT_33::$DIR . 'dist/login.js' ), true );
-       wp_localize_script( DT_33::DOMAIN . "_login", 'magicLink', $this->localizations() );
+        parent::wp_enqueue_scripts();
+        wp_enqueue_script( DT_33::DOMAIN . "_login", DT_33::$url . 'dist/login.js', [], filemtime( DT_33::$dir . 'dist/login.js' ), true );
+        wp_localize_script( DT_33::DOMAIN . "_login", 'magicLink', $this->localizations() );
     }
 
 

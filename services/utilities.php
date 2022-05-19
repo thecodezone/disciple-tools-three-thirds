@@ -23,29 +23,29 @@ class DT_33_Utilities {
         return in_array( 'three_thirds', $field );
     }
 
-    public function paginate_posts_array( $posts, $paged, $per_page, $inital_offset = 0) {
-        $offset = (($paged - 1) * $per_page) + $inital_offset;
+    public function paginate_posts_array( $posts, $paged, $per_page, $inital_offset = 0 ) {
+        $offset = ( ( $paged - 1 ) * $per_page ) + $inital_offset;
         $limit = $offset + $per_page;
-        $page = array_slice($posts, $offset, $limit);
+        $page = array_slice( $posts, $offset, $limit );
 
         return [
             'posts' => $page,
             'per_page' => $per_page,
             'paged' => $paged,
-            'total' => count($posts),
-            'count' => count($page),
+            'total' => count( $posts ),
+            'count' => count( $page ),
             'offset' => $offset,
             'limit' => $limit
         ];
     }
 
-    public function format_array_field_value($value, $force = true) {
+    public function format_array_field_value( $value, $force = true ) {
         return [
             'values' => array_map( function ( $value ) {
                 return [
                     'value' => $value ? $value : []
                 ];
-            }, array_unique( array_filter($value) ) ),
+            }, array_unique( array_filter( $value ) ) ),
             'force_values' => $force
         ];
     }

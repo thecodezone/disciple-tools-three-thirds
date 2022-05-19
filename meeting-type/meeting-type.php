@@ -23,8 +23,8 @@ class DT_33_Meeting_Type {
 
     public function disciple_tools_meetings_types( $types ) {
         $types[ self::MEETING_TYPE ] = [
-            "label"       => __( '3/3rds Meeting', DT_33::DOMAIN ),
-            "description" => __( '3/3rds format meeting', DT_33::DOMAIN )
+            "label"       => __( '3/3rds Meeting', 'disciple_tools_three_thirds' ),
+            "description" => __( '3/3rds format meeting', 'disciple_tools_three_thirds' )
         ];
         return $types;
     }
@@ -55,21 +55,21 @@ class DT_33_Meeting_Type {
                 "label"       => __( "Looking Back", "disciple_tools_three_thirds" ),
                 "description" => __( "A look back at the last meeting." ),
                 "display_for" => [
-                    "type" => [ DT_33_Meeting_Type::MEETING_TYPE ],
+                    "type" => [ self::MEETING_TYPE ],
                 ]
             ];
             $tiles["looking_up"] = [
                 "label"       => __( "Looking Up", "disciple_tools_three_thirds" ),
                 "description" => __( "A look towards God for wisdom and growth." ),
                 "display_for" => [
-                    "type" => [ DT_33_Meeting_Type::MEETING_TYPE ],
+                    "type" => [ self::MEETING_TYPE ],
                 ]
             ];
             $tiles["looking_ahead"] = [
                 "label"       => __( "Looking Ahead", "disciple_tools_three_thirds" ),
                 "description" => __( "A look towards the future." ),
                 "display_for" => [
-                    "type" => [ DT_33_Meeting_Type::MEETING_TYPE ],
+                    "type" => [ self::MEETING_TYPE ],
                 ]
             ];
 
@@ -102,32 +102,32 @@ class DT_33_Meeting_Type {
 
         //Looking back
         $fields['three_thirds_looking_back_content'] = [
-            "name"           => __( "Content", DT_33::DOMAIN ),
-            "description"    => __( "Content or notes to guide the meeting leader.", DT_33::DOMAIN ),
+            "name"           => __( "Content", 'disciple_tools_three_thirds' ),
+            "description"    => __( "Content or notes to guide the meeting leader.", 'disciple_tools_three_thirds' ),
             "type"           => "textarea",
             "tile"           => "looking_back",
             "icon"           => get_template_directory_uri() . '/dt-assets/images/reading.svg',
             "only_for_types" => [ self::MEETING_TYPE ]
         ];
         $fields['three_thirds_looking_back_number_shared'] = [
-            "name"           => __( "Number Shared", DT_33::DOMAIN ),
-            "description"    => __( "The number of times the gospel was shared by meeting members since the last meeting.", DT_33::DOMAIN ),
+            "name"           => __( "Number Shared", 'disciple_tools_three_thirds' ),
+            "description"    => __( "The number of times the gospel was shared by meeting members since the last meeting.", 'disciple_tools_three_thirds' ),
             "type"           => "number",
             "tile"           => "looking_back",
             "icon"           => get_template_directory_uri() . '/dt-assets/images/tally.svg',
             "only_for_types" => [ self::MEETING_TYPE ]
         ];
         $fields['three_thirds_looking_back_new_believers'] = [
-            "name"           => __( "New Believers", DT_33::DOMAIN ),
-            "description"    => __( "The names of new believers.", DT_33::DOMAIN ),
+            "name"           => __( "New Believers", 'disciple_tools_three_thirds' ),
+            "description"    => __( "The names of new believers.", 'disciple_tools_three_thirds' ),
             "type"           => "tags",
             "tile"           => "looking_back",
             "icon"           => get_template_directory_uri() . '/dt-assets/images/cross.svg',
             "only_for_types" => [ self::MEETING_TYPE ]
         ];
         $fields['three_thirds_looking_back_notes'] = [
-            "name"           => __( "Notes", DT_33::DOMAIN ),
-            "description"    => __( "For use by the meeting leader during the meeting.", DT_33::DOMAIN ),
+            "name"           => __( "Notes", 'disciple_tools_three_thirds' ),
+            "description"    => __( "For use by the meeting leader during the meeting.", 'disciple_tools_three_thirds' ),
             "type"           => "textarea",
             "tile"           => "looking_back",
             "icon"           => get_template_directory_uri() . '/dt-assets/images/comment.svg',
@@ -136,16 +136,16 @@ class DT_33_Meeting_Type {
 
         //Looking up
         $fields['three_thirds_looking_up_number_attendees'] = [
-            "name"           => __( "Number in attendance", DT_33::DOMAIN ),
-            "description"    => __( "The number of members at the meeting.", DT_33::DOMAIN ),
+            "name"           => __( "Number in attendance", 'disciple_tools_three_thirds' ),
+            "description"    => __( "The number of members at the meeting.", 'disciple_tools_three_thirds' ),
             "type"           => "number",
             "tile"           => "looking_up",
             "icon"           => get_template_directory_uri() . '/dt-assets/images/group.svg',
             "only_for_types" => [ self::MEETING_TYPE ]
         ];
         $fields['three_thirds_looking_up_topic'] = [
-            "name"           => __( "Topic", DT_33::DOMAIN ),
-            "description"    => __( "The topic of the meeting.", DT_33::DOMAIN ),
+            "name"           => __( "Topic", 'disciple_tools_three_thirds' ),
+            "description"    => __( "The topic of the meeting.", 'disciple_tools_three_thirds' ),
             "type"           => "text",
             "required"       => true,
             "tile"           => "looking_up",
@@ -154,24 +154,24 @@ class DT_33_Meeting_Type {
             "in_create_form" => true
         ];
         $fields['three_thirds_looking_up_content'] = [
-            "name"           => __( "Content", DT_33::DOMAIN ),
-            "description"    => __( "Content or notes to guide the meeting leader.", DT_33::DOMAIN ),
+            "name"           => __( "Content", 'disciple_tools_three_thirds' ),
+            "description"    => __( "Content or notes to guide the meeting leader.", 'disciple_tools_three_thirds' ),
             "type"           => "textarea",
             "tile"           => "looking_up",
             "icon"           => get_template_directory_uri() . '/dt-assets/images/reading.svg',
             "only_for_types" => [ self::MEETING_TYPE ]
         ];
         $fields['three_thirds_looking_up_practice'] = [
-            "name"           => __( "Practice", DT_33::DOMAIN ),
-            "description"    => __( "The practice areas used at the meeting.", DT_33::DOMAIN ),
+            "name"           => __( "Practice", 'disciple_tools_three_thirds' ),
+            "description"    => __( "The practice areas used at the meeting.", 'disciple_tools_three_thirds' ),
             "type"           => "textarea",
             "tile"           => "looking_up",
             "icon"           => get_template_directory_uri() . '/dt-assets/images/coaching.svg',
             "only_for_types" => [ self::MEETING_TYPE ]
         ];
         $fields['three_thirds_looking_up_notes'] = [
-            "name"           => __( "Notes", DT_33::DOMAIN ),
-            "description"    => __( "For use by the meeting leader during the meeting.", DT_33::DOMAIN ),
+            "name"           => __( "Notes", 'disciple_tools_three_thirds' ),
+            "description"    => __( "For use by the meeting leader during the meeting.", 'disciple_tools_three_thirds' ),
             "type"           => "textarea",
             "tile"           => "looking_up",
             "icon"           => get_template_directory_uri() . '/dt-assets/images/comment.svg',
@@ -180,40 +180,40 @@ class DT_33_Meeting_Type {
 
         //Looking ahead
         $fields['three_thirds_looking_ahead_content'] = [
-            "name"           => __( "Content", DT_33::DOMAIN ),
-            "description"    => __( "Content or notes to guide the meeting leader.", DT_33::DOMAIN ),
+            "name"           => __( "Content", 'disciple_tools_three_thirds' ),
+            "description"    => __( "Content or notes to guide the meeting leader.", 'disciple_tools_three_thirds' ),
             "type"           => "textarea",
             "tile"           => "looking_ahead",
             "icon"           => get_template_directory_uri() . '/dt-assets/images/reading.svg',
             "only_for_types" => [ self::MEETING_TYPE ]
         ];
         $fields['three_thirds_looking_ahead_share_goal'] = [
-            "name"           => __( "Share goal", DT_33::DOMAIN ),
-            "description"    => __( "The number of members in .", DT_33::DOMAIN ),
+            "name"           => __( "Share goal", 'disciple_tools_three_thirds' ),
+            "description"    => __( "The number of members in .", 'disciple_tools_three_thirds' ),
             "type"           => "number",
             "tile"           => "looking_ahead",
             "icon"           => get_template_directory_uri() . '/dt-assets/images/tally.svg',
             "only_for_types" => [ self::MEETING_TYPE ]
         ];
         $fields['three_thirds_looking_ahead_applications'] = [
-            "name"           => __( "Application", DT_33::DOMAIN ),
-            "description"    => __( "The application for the meeting.", DT_33::DOMAIN ),
+            "name"           => __( "Application", 'disciple_tools_three_thirds' ),
+            "description"    => __( "The application for the meeting.", 'disciple_tools_three_thirds' ),
             "type"           => "textarea",
             "tile"           => "looking_ahead",
             "icon"           => get_template_directory_uri() . '/dt-assets/images/coach.svg',
             "only_for_types" => [ self::MEETING_TYPE ]
         ];
         $fields['three_thirds_looking_ahead_prayer_topics'] = [
-            "name"           => __( "Prayer topics", DT_33::DOMAIN ),
-            "description"    => __( "Prayer topics or requests.", DT_33::DOMAIN ),
+            "name"           => __( "Prayer topics", 'disciple_tools_three_thirds' ),
+            "description"    => __( "Prayer topics or requests.", 'disciple_tools_three_thirds' ),
             "type"           => "textarea",
             "tile"           => "looking_ahead",
             "icon"           => get_template_directory_uri() . '/dt-assets/images/list.svg',
             "only_for_types" => [ self::MEETING_TYPE ]
         ];
         $fields['three_thirds_looking_ahead_notes'] = [
-            "name"           => __( "Notes", DT_33::DOMAIN ),
-            "description"    => __( "For use by the meeting leader during the meeting.", DT_33::DOMAIN ),
+            "name"           => __( "Notes", 'disciple_tools_three_thirds' ),
+            "description"    => __( "For use by the meeting leader during the meeting.", 'disciple_tools_three_thirds' ),
             "type"           => "textarea",
             "tile"           => "looking_ahead",
             "icon"           => get_template_directory_uri() . '/dt-assets/images/comment.svg',

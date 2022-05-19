@@ -46,8 +46,7 @@ class DT_33_Groups_Repository {
         return $groups;
     }
 
-    public function create( $params )
-    {
+    public function create( $params ) {
         return DT_Posts::create_post( 'groups', $params, false, false );
     }
 
@@ -55,11 +54,11 @@ class DT_33_Groups_Repository {
      * Find by ID
      */
     public function find( $id ) {
-        $filtered = array_filter($this->all(), function($group) use ($id) {
+        $filtered = array_filter( $this->all(), function( $group ) use ( $id ) {
             return (int) $group['ID'] === (int) $id;
-        });
-        if (count($filtered)) {
-            return array_values($filtered)[0];
+        } );
+        if ( count( $filtered ) ) {
+            return array_values( $filtered )[0];
         }
         return null;
     }
@@ -70,10 +69,10 @@ class DT_33_Groups_Repository {
     public function find_by_title( $title ) {
         $post = get_page_by_title( $title, OBJECT, 'groups' );
 
-        if (!$post) {
+        if ( !$post ) {
             return $post;
         }
 
-        return $this->find($post->ID);
+        return $this->find( $post->ID );
     }
 }

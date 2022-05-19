@@ -14,7 +14,7 @@ abstract class DT_33_Magic_Link extends DT_Magic_Url_Base {
         $this->parts = $this->magic->parse_url_parts();
         $this->translations = DT_33_Translations::instance();
 
-        if ($this->controller &&  dt_is_rest()) {
+        if ( $this->controller && dt_is_rest() ) {
             add_action( 'rest_api_init', [ $this, 'add_endpoints' ] );
             add_filter( 'dt_allow_rest_access', [ $this, 'authorize_url' ], 10, 1 );
         }
@@ -51,7 +51,8 @@ abstract class DT_33_Magic_Link extends DT_Magic_Url_Base {
         $allowed_css[] = DT_33::DOMAIN . '_foundation';
 
         foreach ( $blocked_css as $blocked ) {
-            if ( ( $key = array_search( $blocked, $allowed_css ) ) !== false ) {
+            $key = array_search( $blocked, $allowed_css );
+            if ( $key !== false ) {
                 unset( $allowed_css[ $key ] );
             }
         }
@@ -75,18 +76,19 @@ abstract class DT_33_Magic_Link extends DT_Magic_Url_Base {
             'reset_url'    => wp_lostpassword_url( DT_33_Magic_Redirect::PATH ),
             'redirect_url' => DT_33_Magic_Redirect::PATH,
             'files'        => [
-                'logo' => DT_33::$URL . '/images/banner.png',
-                'icon' => DT_33::$URL . '/images/icon.png'
-            ], []
+                'logo' => DT_33::$url . '/images/banner.png',
+                'icon' => DT_33::$url . '/images/icon.png'
+            ],
+            []
         ];
     }
 
     public function wp_enqueue_scripts() {
         wp_enqueue_style( 'font-poppins', 'https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap', [], 1 );
 
-        wp_enqueue_style( DT_33::DOMAIN . '_foundation', DT_33::$URL . 'dist/foundation.css', [], filemtime( DT_33::$DIR . 'dist/foundation.css' ) );
-        wp_enqueue_style( DT_33::DOMAIN, DT_33::$URL . 'dist/styles.css', [], filemtime( DT_33::$DIR . 'dist/styles.css' ) );
-        wp_enqueue_script( DT_33::DOMAIN . '_fa', 'https://kit.fontawesome.com/dbfbaa4587.js' );
+        wp_enqueue_style( DT_33::DOMAIN . '_foundation', DT_33::$url . 'dist/foundation.css', [], filemtime( DT_33::$dir . 'dist/foundation.css' ) );
+        wp_enqueue_style( DT_33::DOMAIN, DT_33::$url . 'dist/styles.css', [], filemtime( DT_33::$dir . 'dist/styles.css' ) );
+        wp_enqueue_script( DT_33::DOMAIN . '_fa', 'https://kit.fontawesome.com/dbfbaa4587.js', [], 1 );
     }
 
     public function body() {

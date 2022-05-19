@@ -1,6 +1,6 @@
 <?php
 
-class factories {
+class Factories {
     public $faker;
 
     public function __construct() {
@@ -8,9 +8,9 @@ class factories {
     }
 
     public function post( $type, $defaults = [], $params = [] ) {
-        $result = DT_Posts::create_post( $type, array_merge($defaults, $params), false, false);
+        $result = DT_Posts::create_post( $type, array_merge( $defaults, $params ), false, false );
         if ( $result instanceof WP_Error ) {
-           // dd( $result );
+            print ""; // dd( $result );
         }
 
         return $result;
@@ -22,10 +22,11 @@ class factories {
                 'name'          => $this->faker->sentence,
                 'date'          => $this->faker->date( 'yyyy-mm-dd' ),
                 'meeting_notes' => $this->faker->paragraph
-            ], $params);
+            ],
+            $params );
 
         if ( $result instanceof WP_Error ) {
-           // dd( $result );
+            echo ""; // dd( $result );
         }
 
         add_post_meta( $result['ID'], 'type', $type );
@@ -34,7 +35,7 @@ class factories {
     }
 
     public function group( $params = [] ) {
-        return $this->post( 'groups',[
+        return $this->post( 'groups', [
             'title' => $this->faker->sentence
         ], $params);
     }
