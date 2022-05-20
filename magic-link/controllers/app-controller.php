@@ -32,7 +32,6 @@ class DT_33_App_Controller {
      * Handles GET requests to Search meetings lead to the current user.
      * @param WP_REST_Request $request
      * @return array|WP_Error
-     * @throws Exception
      */
     public function get_search_meetings_with_groups( WP_REST_Request $request ) {
         //Defaults
@@ -51,7 +50,7 @@ class DT_33_App_Controller {
         $paginated = $this->utilities->paginate_posts_array( $filtered, $paged, $posts_per_page, $initial_posts_per_page );
         $groups = $this->groups->with_meetings();
 
-        $meetings = $this->transformers->meetings( $paginated, ['groups'] );
+        $meetings = $this->transformers->meetings( $paginated, [ 'groups' ] );
         $meetings['q'] = $search;
         $meetings['filter'] = $filter;
 
@@ -65,11 +64,10 @@ class DT_33_App_Controller {
      * Handles GET request to fetch meetings lead to the current user.
      * @param WP_REST_Request $request
      * @return array|WP_Error
-     * @throws Exception
      */
     public function get_search_meetings( WP_REST_Request $request ) {
         return $this->transformers->meetings(
-            $this->meetings->search($request->get_param('q'))
+            $this->meetings->search( $request->get_param( 'q' ) )
         );
     }
 
@@ -77,7 +75,6 @@ class DT_33_App_Controller {
      * Handles GET request to fetch meetings lead to the current user.
      * @param WP_REST_Request $request
      * @return array|WP_Error
-     * @throws Exception
      */
     public function get_meetings( WP_REST_Request $request ) {
         return $this->transformers->groups(
@@ -90,7 +87,6 @@ class DT_33_App_Controller {
      * @param WP_REST_Request $request
      * Error
      * @return array|mixed
-     * @throws Exception
      */
     public function get_meeting( WP_REST_Request $request ) {
         $meeting = $this->meetings->find( $request->get_param( 'meeting_id' ) );
@@ -134,7 +130,7 @@ class DT_33_App_Controller {
                 $group = $this->groups->find_by_title( $value );
 
                 if ( $group ) {
-                    return (string)$group['ID'];
+                    return (string) $group['ID'];
                 }
 
                 //It's a title to be created.
@@ -146,7 +142,7 @@ class DT_33_App_Controller {
                     return '';
                 }
 
-                return (string)$group['ID'];
+                return (string) $group['ID'];
             }, $params['groups'] );
         }
 
@@ -161,7 +157,7 @@ class DT_33_App_Controller {
 
     public function post_meeting( WP_REST_Request $request ) {
         $params = $request->get_params();
-        $meeting = $this->meetings->create($params);
+        $meeting = $this->meetings->create( $params );
         if ( is_wp_error( $meeting ) ) {
             return $meeting;
         }
@@ -173,11 +169,10 @@ class DT_33_App_Controller {
      * Handles GET request to fetch meetings lead to the current user.
      * @param WP_REST_Request $request
      * @return array|WP_Error
-     * @throws Exception
      */
     public function get_search_groups( WP_REST_Request $request ) {
         return $this->transformers->meetings(
-            $this->groups->search($request->get_param('q'))
+            $this->groups->search( $request->get_param( 'q' ) )
         );
     }
 

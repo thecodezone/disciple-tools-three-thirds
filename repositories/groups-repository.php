@@ -30,7 +30,7 @@ class DT_33_Groups_Repository {
      * @return array|WP_Error|WP_Query
      */
     public function search( $search ) {
-        return DT_Posts::get_viewable_compact( 'groups', $search, $this->args());
+        return DT_Posts::get_viewable_compact( 'groups', $search, $this->args() );
     }
 
     /**

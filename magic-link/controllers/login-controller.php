@@ -25,13 +25,13 @@ class DT_33_Login_Controller
      * @return array|WP_Error
      */
     public function post_login( WP_REST_Request $request ) {
-        $user = wp_authenticate($request->get_param('username'), $request->get_param('password'));
+        $user = wp_authenticate( $request->get_param( 'username' ), $request->get_param( 'password' ) );
 
-        if ( is_wp_error($user) ) {
+        if ( is_wp_error( $user ) ) {
             $error = $user->get_error_message();
 
             //If the error links to lost password, inject the 3/3rds redirect
-            $error = str_replace('?action=lostpassword', '?action=lostpassword?&redirect_to=/3/3', $error);
+            $error = str_replace( '?action=lostpassword', '?action=lostpassword?&redirect_to=/3/3', $error );
             return [
                 'error' => $error
             ];
@@ -52,9 +52,9 @@ class DT_33_Login_Controller
      * @return array|WP_Error
      */
     public function post_register( WP_REST_Request $request ) {
-        $user = wp_create_user( $request->get_param('username'), $request->get_param('password'), $request->get_param('email') );
+        $user = wp_create_user( $request->get_param( 'username' ), $request->get_param( 'password' ), $request->get_param( 'email' ) );
 
-        if ( is_wp_error($user) ) {
+        if ( is_wp_error( $user ) ) {
             return [
                 'error' => $user->get_error_message()
             ];
@@ -62,9 +62,9 @@ class DT_33_Login_Controller
 
         wp_set_current_user( $user );
 
-        if ($request->has_param('groups')) {
-            foreach($request->get_param('groups') as $group_title) {
-                if ($group_title) {
+        if ( $request->has_param( 'groups' ) ) {
+            foreach ( $request->get_param( 'groups' ) as $group_title ) {
+                if ( $group_title ) {
                     $group = DT_33_Groups_Repository::instance()->create( [
                         'title' => $group_title,
                     ] );
@@ -73,7 +73,7 @@ class DT_33_Login_Controller
         }
 
         return [
-            'success' => !!$user
+            'success' => ! !$user
         ];
     }
 }

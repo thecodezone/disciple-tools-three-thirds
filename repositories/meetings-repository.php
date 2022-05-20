@@ -98,12 +98,12 @@ class DT_33_Meetings_Repository {
                 $groups = $meeting['groups'] ?? [];
                 return !count( $groups );
             } );
-        } elseif ($filter && is_numeric( $filter ) ) {
+        } elseif ( $filter && is_numeric( $filter ) ) {
             //Only posts in a group
             $filtered = array_filter( $filtered, function ( $meeting ) use ( $filter ) {
                 $groups = $meeting['groups'] ?? [];
                 $groups = array_filter( $groups, function ( $group ) use ( $filter ) {
-                    return (string)$group["ID"] === (string)$filter;
+                    return (string) $group["ID"] === (string) $filter;
                 } );
                 return count( $groups );
             } );
@@ -132,10 +132,10 @@ class DT_33_Meetings_Repository {
      * Find a three things meetings by ID
      */
     public function find( $id ) {
-        $post = DT_Posts::get_post( DT_33_Meeting_Type::POST_TYPE, (int)$id, true );
-        if ($post['three_thirds_previous_meetings']) {
-            $post['three_thirds_previous_meetings'] = array_map(function($previous) {
-                return DT_Posts::get_post( DT_33_Meeting_Type::POST_TYPE, (int)$previous['ID'], true );
+        $post = DT_Posts::get_post( DT_33_Meeting_Type::POST_TYPE, (int) $id, true );
+        if ( $post['three_thirds_previous_meetings'] ) {
+            $post['three_thirds_previous_meetings'] = array_map(function( $previous ) {
+                return DT_Posts::get_post( DT_33_Meeting_Type::POST_TYPE, (int) $previous['ID'], true );
             }, $post['three_thirds_previous_meetings']);
         }
         return $post;
@@ -221,9 +221,9 @@ class DT_33_Meetings_Repository {
      * @return array|int[]|WP_Error
      */
     public function save( $id, $fields ) {
-        $meeting = $this->find($id);
-        if (!$meeting['type'] || !$meeting['type']['key'] === DT_33_Meeting_Type::MEETING_TYPE) {
-            return new WP_Error(500, 'Incorrect meeting type');
+        $meeting = $this->find( $id );
+        if ( !$meeting['type'] || !$meeting['type']['key'] === DT_33_Meeting_Type::MEETING_TYPE ) {
+            return new WP_Error( 500, 'Incorrect meeting type' );
         }
         return DT_Posts::update_post(
             DT_33_Meeting_Type::POST_TYPE,
