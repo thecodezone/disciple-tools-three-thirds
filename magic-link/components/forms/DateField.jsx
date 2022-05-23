@@ -24,7 +24,6 @@ const DateField = ({
             {onChange ? <HandleFieldChange name={field.name}
                                onChange={onChange}/> : null }
             <SingleDatePicker
-                isOutsideRange={() => false}
                 date={date}
                 onDateChange={handleDateChange}
                 focused={focused}

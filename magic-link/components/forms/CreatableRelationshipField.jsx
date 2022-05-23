@@ -1,11 +1,12 @@
 import React from 'react'
-import CreatableSelect from "react-select/creatable";
+import AsyncCreatableSelect from "react-select/async-creatable";
+
 import RelationshipField from "./RelationshipField";
 
 const CreatableRelationshipField = (props) => {
     return (<RelationshipField
         {...props}
-        component={CreatableSelect}
+        component={AsyncCreatableSelect}
         isMulti
         isClearable={false}
     />)

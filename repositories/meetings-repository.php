@@ -50,6 +50,14 @@ class DT_33_Meetings_Repository {
         'three_thirds_looking_up_notes',
     ];
 
+    private function args() {
+        return [
+            'fields_to_return' => array_keys( DT_Posts::get_post_settings( DT_33_Meeting_Type::POST_TYPE )['fields'] ),
+            'sort'             => '-date',
+            'type'             => [ 'key' => DT_33_Meeting_Type::MEETING_TYPE ],
+        ];
+    }
+
     /**
      * @return DT_33_Meetings_Repository|null
      */
@@ -71,11 +79,7 @@ class DT_33_Meetings_Repository {
      * Return all three-thirds meetings
      */
     public function all( $params = [] ) {
-        $params = array_merge( [
-            'fields_to_return' => array_keys( DT_Posts::get_post_settings( DT_33_Meeting_Type::POST_TYPE )['fields'] ),
-            'sort' => '-date',
-            'type' => [ 'key' => DT_33_Meeting_Type::MEETING_TYPE ]
-        ], $params );
+        $params = array_merge( $this->args(), $params );
         return DT_Posts::list_posts( DT_33_Meeting_Type::POST_TYPE, $params )['posts'];
     }
 
@@ -94,7 +98,7 @@ class DT_33_Meetings_Repository {
                 $groups = $meeting['groups'] ?? [];
                 return !count( $groups );
             } );
-        } elseif ( is_numeric( $filter ) ) {
+        } elseif ( $filter && is_numeric( $filter ) ) {
             //Only posts in a group
             $filtered = array_filter( $filtered, function ( $meeting ) use ( $filter ) {
                 $groups = $meeting['groups'] ?? [];
@@ -116,10 +120,25 @@ class DT_33_Meetings_Repository {
     }
 
     /**
+     * Search meetings
+     * @param $search
+     * @return array|WP_Error|WP_Query
+     */
+    public function search( $search ) {
+        return DT_Posts::get_viewable_compact( 'meetings', $search, $this->args() );
+    }
+
+    /**
      * Find a three things meetings by ID
      */
     public function find( $id ) {
-        return DT_Posts::get_post( DT_33_Meeting_Type::POST_TYPE, (int) $id, true );
+        $post = DT_Posts::get_post( DT_33_Meeting_Type::POST_TYPE, (int) $id, true );
+        if ( $post['three_thirds_previous_meetings'] ) {
+            $post['three_thirds_previous_meetings'] = array_map(function( $previous ) {
+                return DT_Posts::get_post( DT_33_Meeting_Type::POST_TYPE, (int) $previous['ID'], true );
+            }, $post['three_thirds_previous_meetings']);
+        }
+        return $post;
     }
 
     /**
@@ -202,6 +221,10 @@ class DT_33_Meetings_Repository {
      * @return array|int[]|WP_Error
      */
     public function save( $id, $fields ) {
+        $meeting = $this->find( $id );
+        if ( !$meeting['type'] || !$meeting['type']['key'] === DT_33_Meeting_Type::MEETING_TYPE ) {
+            return new WP_Error( 500, 'Incorrect meeting type' );
+        }
         return DT_Posts::update_post(
             DT_33_Meeting_Type::POST_TYPE,
             $id,
@@ -215,6 +238,7 @@ class DT_33_Meetings_Repository {
      * @return array|false|int|WP_Error|null
      */
     public function create( $fields ) {
+        $fields['type'] = DT_33_Meeting_Type::MEETING_TYPE;
         return DT_Posts::create_post(
             DT_33_Meeting_Type::POST_TYPE,
             $this->prepare_fields( $fields )
@@ -246,6 +270,5 @@ class DT_33_Meetings_Repository {
 
         return $fields;
     }
-
 
 }

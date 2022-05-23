@@ -6,20 +6,25 @@ import {useInitialized, useTimer} from "../../src/hooks";
 import HandleFieldChange from "./HandleFieldChange";
 
 export const SelectField = ({
-                            options,
+                            options = null,
                             isMulti = false,
                             onChange = () => {},
                             field,
                             form,
                             component = ReactSelect,
-                            defaultValue
+                            defaultValue,
+                            cacheOptions,
+                            defaultOptions,
+                            loadOptions
                         }) => {
 
     const {initialValues, values} = useFormikContext()
     const Select = component
 
-
     const getValue = () => {
+        if (!options) {
+            return
+        }
         let current = field.value ? field.value : values[field.name]
 
         if (options) {
@@ -50,6 +55,9 @@ export const SelectField = ({
             styles={styles}
             isMulti={isMulti}
             isClearable={false}
+            loadOptions={loadOptions}
+            cacheOptions={cacheOptions}
+            defaultOptions={defaultOptions}
         />
         <HandleFieldChange name={field.name}
                            onChange={onChange}/>

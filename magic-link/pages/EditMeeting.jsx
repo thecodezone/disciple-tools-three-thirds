@@ -11,7 +11,7 @@ import FieldGroup from "../components/forms/FieldGroup";
 import TextAreaField from "../components/forms/TextAreaField";
 import RepeatingField from "../components/forms/RepeatingField";
 import ApplicationLayout from "../layouts/ApplicationLayout";
-import {saveMeeting, getGroups, getMeetings} from "../src/api";
+import {saveMeeting, searchGroups, searchMeetings} from "../src/api";
 import RelationshipField from "../components/forms/RelationshipField";
 import CreatableRelationshipField from "../components/forms/CreatableRelationshipField";
 import MeetingsContext from "../contexts/MeetingsContext";
@@ -95,8 +95,8 @@ const EditMeetingPage = () => {
                                             </CardHeading>
                                             <CardSection>
                                                 <FieldGroup name="groups"
-                                                            request={getGroups}
-                                                            defaultValues={meeting.groups}
+                                                            request={searchGroups}
+                                                            defaultValue={meeting.groups?.posts}
                                                             component={CreatableRelationshipField}
                                                             isMulti
                                                             onChange={save}
@@ -111,8 +111,8 @@ const EditMeetingPage = () => {
                                             <CardSection>
                                                 <FieldGroup name="three_thirds_previous_meetings"
                                                             excludeOptions={[meeting.ID]}
-                                                            request={getMeetings}
-                                                            defaultValues={meeting.three_thirds_previous_meetings}
+                                                            request={searchMeetings}
+                                                            defaultValue={meeting.three_thirds_previous_meetings?.posts}
                                                             component={RelationshipField}
                                                             isMulti
                                                             onChange={save}

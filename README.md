@@ -3,8 +3,27 @@
 ## Quickstart
 
 ```
-npm install && composer install && npm run dev
+npm install && composer install && npm run foundation && npm run dev
 ```
+
+## Getting Setup
+
+Install NPM and Composer Dependencies
+```
+npm install && composer install
+```
+
+
+Run foundation, since it's a longer-running script
+```
+npm run foundation
+```
+
+Run dev so our dev tools are running for us in the background
+```
+npm run dev
+```
+
 
 ## 3/3rds Meetings
 This is a starter plugin to jumpstart your work with Disciple.Tools.

@@ -9,7 +9,7 @@ import classNames from "classnames";
 const ApplicationTopBar = ({title = "", titleTo, titleIcon, iconLabel = "", breadcrumbs = []}) => {
     const {isOpen, setIsOpen} = useContext(MenuContext)
 
-    const heading = <h1 className={"text-black"}>
+    const heading = <h1 className={"top-bar__heading text-black"}>
         {title}
     </h1>
 

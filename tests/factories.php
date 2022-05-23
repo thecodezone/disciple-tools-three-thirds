@@ -1,5 +1,10 @@
 <?php
+// phpcs:ignoreFile
 
+/**
+ * todo: Figure out why phpcs keeps complaining about tabs/spaces
+ * Class Factories
+ */
 class Factories {
     public $faker;
 
@@ -17,13 +22,13 @@ class Factories {
     }
 
     public function meeting( $params = [], $type = 'default' ) {
+        // phpcs:ignore
         $result = $this->post(
             'meetings', [
-                'name'          => $this->faker->sentence,
-                'date'          => $this->faker->date( 'yyyy-mm-dd' ),
-                'meeting_notes' => $this->faker->paragraph
-            ],
-            $params );
+            'name'          => $this->faker->sentence,
+            'date'          => $this->faker->date( 'yyyy-mm-dd' ),
+            'meeting_notes' => $this->faker->paragraph
+        ], $params );
 
         if ( $result instanceof WP_Error ) {
             echo ""; // dd( $result );
@@ -37,7 +42,7 @@ class Factories {
     public function group( $params = [] ) {
         return $this->post( 'groups', [
             'title' => $this->faker->sentence
-        ], $params);
+        ], $params );
     }
 
     public function three_thirds_meeting( $params = [] ) {

@@ -147,11 +147,9 @@ class DT_33_Meeting_Type {
             "name"           => __( "Topic", 'disciple_tools_three_thirds' ),
             "description"    => __( "The topic of the meeting.", 'disciple_tools_three_thirds' ),
             "type"           => "text",
-            "required"       => true,
             "tile"           => "looking_up",
             "icon"           => get_template_directory_uri() . '/dt-assets/images/trainings-hollow.svg',
-            "only_for_types" => [ self::MEETING_TYPE ],
-            "in_create_form" => true
+            "only_for_types" => [ self::MEETING_TYPE ]
         ];
         $fields['three_thirds_looking_up_content'] = [
             "name"           => __( "Content", 'disciple_tools_three_thirds' ),
