@@ -82,18 +82,22 @@ class DT_33 {
     }
 
     private function __construct() {
-        require_once( 'repositories/meetings-repository.php' );
-        require_once( 'repositories/groups-repository.php' );
-        require_once( 'services/translations.php' );
-        require_once( 'services/utilities.php' );
-        require_once( 'services/auth.php' );
-        require_once( 'meeting-type/meeting-type.php' );
+        require_once 'repositories/meetings-repository.php';
+        require_once 'repositories/groups-repository.php';
+        require_once 'services/translations.php';
+        require_once 'services/utilities.php';
+        require_once 'services/auth.php';
+        require_once 'meeting-type/meeting-type.php';
         require_once 'magic-link/transformers.php';
-        require_once( 'magic-link/magic-link.php' );
-        require_once( 'magic-link/app.php' );
-        require_once( 'magic-link/login.php' );
-        require_once( 'magic-link/redirect.php' );
+        require_once 'magic-link/magic-link.php';
+        require_once 'magic-link/app.php';
+        require_once 'magic-link/login.php';
+        require_once 'magic-link/redirect.php';
         $this->i18n();
+        if ( is_admin() ) { // adds starter admin page and section for plugin
+            require_once 'admin/admin-menu-and-tabs.php';
+            add_filter( 'plugin_row_meta', [ $this, 'plugin_settings_links' ], 10, 4 );
+        }
     }
 
     /**
@@ -107,6 +111,14 @@ class DT_33 {
 
         return $links_array;
     }
+    public function plugin_settings_links( $links_array, $plugin_file_name, $plugin_data, $status ) {
+        if ( strpos( $plugin_file_name, basename( __FILE__ ) ) ) {
+            $links_array[] = '<a href="admin.php?page=dt33_settings">Settings</a>';
+        }
+
+        return $links_array;
+    }
+
 
     /**
      * Method that runs only when the plugin is activated.
