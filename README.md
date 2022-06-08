@@ -2,27 +2,24 @@
 
 
 ## 3/3rds Meetings
-This is a starter plugin to jumpstart your work with Disciple.Tools.
-Click the "Use this template" button above.
-See instructions for refactoring and getting started in the [wiki](https://github.com/TheCodeZone/disciple-tools-three-thirds/wiki)
-See instructions for creating releases and publishing your plugin: [wiki](https://github.com/TheCodeZone/disciple-tools-three-thirds/wiki)
-In order to display the banner correctly on the Disciple.Tools Community Plugins Site, don't change the 'Plugin Banner' text on line 12; only the URL.
+Adds 3/3rds meeting management and facilitation to the Disciple.Tools [Meetings Tracker plugin](https://disciple.tools/plugins/comments-tracker/). Learn more about [3/3rds meetings on Zúme](https://zume.training/3-3-group-meeting-pattern/).
 
-![Plugin Banner](https://raw.githubusercontent.com/TheCodeZone/disciple-tools-three-thirds/b30402d97895e3f911efcb47fb8f29ccd1eb92e5/images/banner.png)
-
-# Disciple.Tools - 3/3rds Meetings
+![Plugin Banner](https://raw.githubusercontent.com/thecodezone/disciple-tools-three-thirds/master/images/banner.png)
 
 
 
-## Purpose
+## Features
 
-Purpose purpose purpose purpose purpose purpose purpose purpose purpose purpose purpose
-Purpose purpose purpose purpose purpose purpose purpose purpose purpose purpose purpose
+- Adds meeting fields to support **Looking back**, **Looking up**, and **Looking ahead** meeting phases.
+- Adds a magic link app that meeting users can use to facilitate meetings.
+- Meeting leaders can login, register, edit, create and view meetings all from within the magic link.
 
-Purpose purpose purpose purpose purpose purpose purpose purpose purpose purpose purpose
-Purpose purpose purpose purpose purpose purpose purpose purpose purpose purpose purpose
 
 ## Usage
+- A new meetings link will appear in your Disciple.Tools menu bar.
+- Visit yourdiscipletools.com/3/3 to access the magic link application.
+
+## Development
 
 ### Quickstart
 
@@ -38,33 +35,19 @@ npm install && composer install
 ```
 
 
-Run foundation, since it's a longer-running script
+Build front-end assets
 ```
 npm run foundation
-```
-
-Run dev so our dev tools are running for us in the background
-```
 npm run dev
 ```
-
-#### Will Do
-
-- Item
-- Item
-- Item
-
-#### Will Not Do
-
-- Item
-- Item
 
 ## Requirements
 
 - Disciple.Tools Theme installed on a Wordpress Server
+- The Disciple.Tools [Meetings Tracker plugin](https://disciple.tools/plugins/comments-tracker/).
 
 ## Installing
-
+- Install the [Meetings Tracker plugin](https://disciple.tools/plugins/comments-tracker/).
 - Install as a standard Disciple.Tools/Wordpress plugin in the system Admin/Plugins area.
 - Requires the user role of Administrator.
 
