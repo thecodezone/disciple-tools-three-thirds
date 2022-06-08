@@ -95,7 +95,8 @@ class DT_33 {
         require_once 'magic-link/redirect.php';
         $this->i18n();
         if ( is_admin() ) { // adds starter admin page and section for plugin
-            require_once 'admin/admin-menu-and-tabs.php';
+            //todo version 1.1
+            //require_once 'admin/admin-menu-and-tabs.php';
             add_filter( 'plugin_row_meta', [ $this, 'plugin_settings_links' ], 10, 4 );
         }
     }
