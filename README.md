@@ -1,12 +1,7 @@
+![Plugin Banner](https://raw.githubusercontent.com/thecodezone/disciple-tools-three-thirds/master/images/banner.png)
 [![Build Status](https://travis-ci.com/TheCodeZone/disciple-tools-three-thirds.svg?branch=master)](https://travis-ci.com/TheCodeZone/disciple-tools-three-thirds)
 
-
-## 3/3rds Meetings
 Adds 3/3rds meeting management and facilitation to the Disciple.Tools [Meetings Tracker plugin](https://disciple.tools/plugins/comments-tracker/). Learn more about [3/3rds meetings on Zúme](https://zume.training/3-3-group-meeting-pattern/).
-
-![Plugin Banner](https://raw.githubusercontent.com/thecodezone/disciple-tools-three-thirds/master/images/banner.png)
-
-
 
 ## Features
 
