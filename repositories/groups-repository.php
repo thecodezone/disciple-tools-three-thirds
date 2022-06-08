@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Fetch data related to DT groups
+ * Class DT_33_Groups_Repository
+ */
 class DT_33_Groups_Repository {
     private static $_instance = null;
 

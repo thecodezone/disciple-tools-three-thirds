@@ -1,5 +1,12 @@
 const requests = {}
 
+/**
+ * Make requests to the server authorized by the current magic link page
+ * @param action
+ * @param data
+ * @param method
+ * @returns {Promise<unknown>}
+ */
 const request = (action, data = {}, method = "GET") => {
   if (requests[action] !== undefined)  {
     requests[action].abort()

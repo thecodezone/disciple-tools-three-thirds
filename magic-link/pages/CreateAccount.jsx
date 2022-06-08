@@ -14,6 +14,11 @@ import Card from "../components/layout/cards/Card";
 import CardHeading from "../components/layout/cards/CardHeading";
 import RepeatingField from "../components/forms/RepeatingField";
 
+/**
+ * The create account page.
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const CreateAccount = () => {
     const {magicLink} = useContext(AppContext)
     const [success, setSuccess] = useState(false)

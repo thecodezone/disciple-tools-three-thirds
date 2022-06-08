@@ -7,6 +7,11 @@ import AppContext from "../contexts/AppContext";
 import {Button, ButtonGroup} from "react-foundation";
 import {Link} from "react-router-dom";
 
+/**
+ * The dashboard page
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const Dashboard = () => {
     const {magicLink, translations} = useContext(AppContext)
 

@@ -3,6 +3,10 @@ import {getMeeting, getMeetings} from "../src/api";
 import {chunkArray} from "../src/helpers";
 import {useNavigate, useParams, useLocation} from "react-router-dom";
 
+/**
+ * @see https://reactjs.org/docs/context.html
+ * @type {{tab: string, tabs: [{translation: string, icon: string, key: string}, {translation: string, icon: string, key: string}, {translation: string, icon: string, key: string}, {translation: string, icon: string, key: string}], submission: {}, meeting: boolean}}
+ */
 const state = {
   meeting: false,
   tabs: [

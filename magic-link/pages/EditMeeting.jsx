@@ -19,6 +19,11 @@ import { useAlert } from 'react-alert'
 import HandleFieldChange from "../components/forms/HandleFieldChange";
 import DateField from '../components/forms/DateField'
 
+/**
+ * The edit meeting page
+ * @returns {JSX.Element|null}
+ * @constructor
+ */
 const EditMeetingPage = () => {
     const {translations} = useContext(AppContext)
     const {meetings} = useContext(MeetingsContext)

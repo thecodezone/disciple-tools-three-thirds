@@ -6,13 +6,27 @@ import classNames from "classnames";
 import LogoutButton from "./LogoutLink";
 import Brand from "./Brand";
 
+/**
+ * The menu component.
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const Menu = () => {
     const location = useLocation()
 
+    /**
+     * The magic link data from the server
+     * @see /magic-link/magic-link.php#localazations()
+     */
     const {
         magicLink
     } = useContext(AppContext)
 
+
+    /**
+     * The open state is stored in it's own context.
+     * @see https://reactjs.org/docs/context.html
+     */
     const {
         close,
         isOpen

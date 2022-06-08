@@ -1,7 +1,9 @@
-import TopBar from "../components/TopBar";
-import Menu from '../components/Menu'
-import ApplicationTopBar from "../components/ApplicationTopBar";
-
+/**
+ * Base layout used by the other layouts
+ * @param children
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const Layout = ({children}) => {
   return (
     <div id="layout" className={"padding-top-2"}>

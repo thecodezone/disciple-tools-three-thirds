@@ -2,6 +2,7 @@
 @import "./_setup";
 @import '../../node_modules/foundation-sites/scss/foundation';
 
+//We don't need all of foundation
 @include foundation-global-styles;
 @include foundation-forms;
 @include foundation-typography;

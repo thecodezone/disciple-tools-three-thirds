@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Generic helper functions
+ * Class DT_33_Utilities
+ */
 class DT_33_Utilities {
     private static $_instance = null;
 
@@ -23,6 +27,14 @@ class DT_33_Utilities {
         return in_array( 'three_thirds', $field );
     }
 
+    /**
+     * Paginate a generic array of non-posts.
+     * @param $posts
+     * @param $paged
+     * @param $per_page
+     * @param int $inital_offset
+     * @return array
+     */
     public function paginate_posts_array( $posts, $paged, $per_page, $inital_offset = 0 ) {
         $offset = ( ( $paged - 1 ) * $per_page ) + $inital_offset;
         $limit = $offset + $per_page;
@@ -39,6 +51,12 @@ class DT_33_Utilities {
         ];
     }
 
+    /**
+     * Prepare an array of values for the DT post field
+     * @param $value
+     * @param bool $force
+     * @return array
+     */
     public function format_array_field_value( $value, $force = true ) {
         return [
             'values'       => array_map( function ( $value ) {

@@ -1,6 +1,18 @@
 import React from "react";
 import classNames from "classnames";
 
+/**
+ * A dismissible alert
+ *
+ * @param theme
+ * @param size
+ * @param children
+ * @param message
+ * @param className
+ * @param active
+ * @returns {JSX.Element|string}
+ * @constructor
+ */
 const Alert = ({theme = 'alert', size = "", children, message, className, active = true}) => {
     if (!active || (!children && !message)) {
         return "";

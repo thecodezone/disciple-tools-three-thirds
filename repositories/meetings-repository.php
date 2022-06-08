@@ -1,8 +1,11 @@
 <?php
 
+/**
+ * Fetch data related to 3/3ds meetings
+ * Class DT_33_Meetings_Repository
+ */
 class DT_33_Meetings_Repository {
     private static $_instance = null;
-    private $cache;
 
     /**
      * Fields defaults that should be included when saving meetings.

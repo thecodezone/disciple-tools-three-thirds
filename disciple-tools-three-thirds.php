@@ -93,7 +93,10 @@ class DT_33 {
         require_once 'magic-link/app.php';
         require_once 'magic-link/login.php';
         require_once 'magic-link/redirect.php';
+
+        //Translations support
         $this->i18n();
+
         if ( is_admin() ) { // adds starter admin page and section for plugin
             //todo version 1.1
             //require_once 'admin/admin-menu-and-tabs.php';
@@ -112,6 +115,16 @@ class DT_33 {
 
         return $links_array;
     }
+
+    /**
+     * Add the settings link to the plugin page.
+     *
+     * @param $links_array
+     * @param $plugin_file_name
+     * @param $plugin_data
+     * @param $status
+     * @return mixed
+     */
     public function plugin_settings_links( $links_array, $plugin_file_name, $plugin_data, $status ) {
         if ( strpos( $plugin_file_name, basename( __FILE__ ) ) ) {
             $links_array[] = '<a href="admin.php?page=dt33_settings">Settings</a>';

@@ -1,9 +1,10 @@
-import {createContext, useState, useEffect, useContext} from "react"
-import AppContext from "./AppContext";
-import {getMeetings} from "../src/api";
-import {chunkArray} from "../src/helpers";
+import {createContext, useState, useEffect} from "react"
 import {useLocation} from "react-router-dom";
 
+/**
+ * @see https://reactjs.org/docs/context.html
+ * @type {{isOpen: boolean, setIsOpen: state.setIsOpen, pageTitle: string}}
+ */
 const state = {
   pageTitle: '',
   isOpen: false,

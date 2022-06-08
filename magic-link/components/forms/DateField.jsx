@@ -6,6 +6,16 @@ import moment from 'moment'
 import HandleFieldChange from "./HandleFieldChange";
 import CardSection from "../layout/cards/CardSection";
 
+/**
+ * A datepicker field.
+ * @see https://github.com/react-dates/react-dates
+ * @param setFieldValue
+ * @param values
+ * @param field
+ * @param onChange
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const DateField = ({
                        form: {setFieldValue, values},
                        field,

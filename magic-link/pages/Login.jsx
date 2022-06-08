@@ -10,6 +10,11 @@ import Card from "../components/layout/cards/Card";
 import CardSection from "../components/layout/cards/CardSection";
 import Brand from "../components/Brand";
 
+/**
+ * THe login page
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const Login = () => {
     const {magicLink} = useContext(AppContext)
 

@@ -10,10 +10,23 @@ import MeetingsFilterObserver from "./MeetingsFilterObserver";
 import SelectField from '../forms/SelectField'
 import Alert from "../layout/Alert";
 
+/**
+ * The meetings search screen
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const Meetings = () => {
+    /**
+     * The magic link data from the server
+     * @see /magic-link/magic-link.php#localazations()
+     */
     const {
         magicLink,
     } = useContext(AppContext)
+
+    /**
+     * @see https://reactjs.org/docs/context.html
+     */
     const {
         meta,
         meetings,
@@ -21,6 +34,9 @@ const Meetings = () => {
         search
     } = useContext(MeetingsContext)
 
+    /**
+     * Fetch the next page of meetings from the server
+     */
     const loadMore = () => {
         search({
             q: meta.q,

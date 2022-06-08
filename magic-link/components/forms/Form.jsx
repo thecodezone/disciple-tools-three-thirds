@@ -3,6 +3,20 @@ import {Formik, Form as FormikForm, isFunction} from "formik";
 import React, {Fragment, useContext, useState} from "react";
 import AppContext from "../../contexts/AppContext";
 
+/**
+ * A Form component
+ *
+ * @see https://formik.org/
+ * @param children
+ * @param onSubmit
+ * @param onSuccess
+ * @param onError
+ * @param onChange
+ * @param request
+ * @param props
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const Form = ({
       children = () => {},
       onSubmit,

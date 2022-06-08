@@ -20,6 +20,11 @@ const alertOptions = {
     transition: transitions.SCALE
 }
 
+/**
+ * The magic link react app
+ * @returns {JSX.Element}
+ * @constructor
+ */
 function App() {
     return (
         <HashRouter>

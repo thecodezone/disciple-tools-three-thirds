@@ -2,6 +2,20 @@ import SelectField from "./SelectField";
 import React, {useEffect, useState, Fragment} from "react";
 import AsyncSelect from "react-select/async";
 
+/**
+ * A searchable relationship multiselect field.
+ *
+ * @param excludeOptions
+ * @param request
+ * @param optionProp
+ * @param optionMap
+ * @param labelField
+ * @param valueField
+ * @param component
+ * @param props
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const RelationshipField = ({
                                excludeOptions = [],
                                request = false,

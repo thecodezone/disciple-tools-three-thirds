@@ -1,3 +1,10 @@
+/**
+ * Style react select.
+ *
+ * @see https://react-select.com/styles
+ * @param theme
+ * @returns {*&{borderRadius: string, colors: {[p: string]: *}}}
+ */
 export const theme = (theme) => ({
   ...theme,
   borderRadius:"8px",

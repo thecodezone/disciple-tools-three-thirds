@@ -1,6 +1,18 @@
 import Alert from "./layout/Alert";
 import {types} from 'react-alert'
 
+/**
+ * Custom alert template use with react-alert
+ *
+ * @see https://www.npmjs.com/package/react-alert
+ *
+ * @param style
+ * @param options
+ * @param message
+ * @param close
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const AlertTemplate = ({ style, options, message, close }) => {
     let theme = 'primary'
     switch (options.type) {

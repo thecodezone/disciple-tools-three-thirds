@@ -2,6 +2,14 @@ import FieldGroup from "./FieldGroup";
 import React, {Fragment} from "react";
 import {useFormik, useFormikContext} from "formik";
 
+/**
+ * A repeatable field group that maps to an array of values.
+ *
+ * @param name
+ * @param props
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const RepeatingField = ({name, ...props}) => {
     const {setFieldValue, values} = useFormikContext();
     const value = values[name] && values[name].length ? values[name] : [""]

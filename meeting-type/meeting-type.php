@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * Register the 3/3rds meeting type. This is not a post type, but a type of a post type.
+ *
+ * Class DT_33_Meeting_Type
+ */
 class DT_33_Meeting_Type {
     const POST_TYPE = "meetings";
     const MEETING_TYPE = "three_thirds";
@@ -21,6 +26,11 @@ class DT_33_Meeting_Type {
         add_action( 'p2p_init', [ $this, 'p2p_init' ] );
     }
 
+    /**
+     * Add the meeting type to the meeting type field
+     * @param $types
+     * @return mixed
+     */
     public function disciple_tools_meetings_types( $types ) {
         $types[ self::MEETING_TYPE ] = [
             "label"       => __( '3/3rds Meeting', 'disciple_tools_three_thirds' ),

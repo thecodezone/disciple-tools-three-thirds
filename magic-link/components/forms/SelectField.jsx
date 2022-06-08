@@ -5,6 +5,24 @@ import {useFormikContext} from "formik";
 import {useInitialized, useTimer} from "../../src/hooks";
 import HandleFieldChange from "./HandleFieldChange";
 
+/**
+ * A fancy select field based on react-select
+ *
+ * @see https://react-select.com/
+ *
+ * @param options
+ * @param isMulti
+ * @param onChange
+ * @param field
+ * @param form
+ * @param component
+ * @param defaultValue
+ * @param cacheOptions
+ * @param defaultOptions
+ * @param loadOptions
+ * @returns {JSX.Element}
+ * @constructor
+ */
 export const SelectField = ({
                             options = null,
                             isMulti = false,

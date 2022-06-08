@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * A place to keep all translatable strings
+ * Class DT_33_Translations
+ */
 class DT_33_Translations {
     private static $_instance = null;
 

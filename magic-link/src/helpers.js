@@ -1,3 +1,9 @@
+/**
+ * Split an array into chunks of a given size
+ * @param arr
+ * @param chunkSize
+ * @returns {[]}
+ */
 export const chunkArray = (arr, chunkSize) => {
   const res = [];
   for (let i = 0; i < arr.length; i += chunkSize) {
@@ -7,6 +13,11 @@ export const chunkArray = (arr, chunkSize) => {
   return res;
 }
 
+/**
+ * Because writing {__html: html} is ugly
+ * @param html
+ * @returns {{__html}}
+ */
 export const useHtml = ( html ) => {
   return {__html: html}
 }

@@ -1,6 +1,11 @@
 import { useRef, useEffect, useContext, useState } from 'react'
 import AppContext from '../contexts/AppContext'
 
+/**
+ * A hook that changes on the first tick
+ * @param callback
+ * @returns {boolean}
+ */
 export const useInitialized = (callback = ()=>{}) => {
   const [isInitialized, setIsInitialized] = useState(false)
 
@@ -14,6 +19,11 @@ export const useInitialized = (callback = ()=>{}) => {
   return isInitialized
 }
 
+/**
+ * A hook that fires delay a delay
+ * @param delay
+ * @returns {boolean}
+ */
 export const useTimer = (delay = 0) => {
   const [completed, setCompleted] = useState(false)
 
@@ -35,6 +45,10 @@ export const useTimer = (delay = 0) => {
   return completed
 }
 
+/**
+ * A hook to do things when the page title changes
+ * @param title
+ */
 export const usePageTitle = (title) => {
   const {setPageTitle} = useContext(AppContext);
 

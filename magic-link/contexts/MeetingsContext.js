@@ -1,9 +1,10 @@
 import {createContext, useState, useEffect} from "react"
-import {MenuContextProvider} from "./MenuContext";
-import {searchMeetings, searchMeetingsWithGroups} from "../src/api";
-import {chunkArray} from "../src/helpers";
-import Fuse from 'fuse.js'
+import {searchMeetingsWithGroups} from "../src/api";
 
+/**
+ * @see https://reactjs.org/docs/context.html
+ * @type {{q: string, per_page: number, total: number, paged: number, search: state.search, inProgress: boolean, offset: number, meta: {}, groups: [], meetings: []}}
+ */
 const state = {
   meetings: [],
   meta: {},

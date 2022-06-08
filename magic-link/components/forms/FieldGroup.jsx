@@ -3,6 +3,18 @@ import {ErrorMessage, Field} from "formik";
 import {useFormikContext} from 'formik'
 import classNames from "classnames";
 
+/**
+ * A field group that overloads to the formik Field component. Takes any prop that Formik <Field> takes.
+ *
+ * @param name
+ * @param label
+ * @param before
+ * @param after
+ * @param inputClassNames
+ * @param props
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const FieldGroup = ({name, label, before, after, inputClassNames, ...props}) => {
     const { errors, touched } = useFormikContext()
     const error = errors[name]

@@ -12,6 +12,11 @@ import DateField from "../components/forms/DateField";
 import {createMeeting} from '../src/api'
 import {useNavigate} from "react-router-dom";
 
+/**
+ * The create meeting page
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const CreateMeetingPage = () => {
     const {translations} = useContext(AppContext)
     let navigate = useNavigate();

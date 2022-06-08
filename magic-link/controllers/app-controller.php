@@ -155,6 +155,11 @@ class DT_33_App_Controller {
         return $this->transformers->meeting( $meeting );
     }
 
+    /**
+     * Handles POST requests to store a meeting
+     * @param WP_REST_Request $request
+     * @return array|false|int|mixed|WP_Error|null
+     */
     public function post_meeting( WP_REST_Request $request ) {
         $params = $request->get_params();
         $meeting = $this->meetings->create( $params );

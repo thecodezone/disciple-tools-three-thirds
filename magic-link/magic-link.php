@@ -35,6 +35,11 @@ abstract class DT_33_Magic_Link extends DT_Magic_Url_Base {
     }
 
 
+    /**
+     * JS the magic link is allowed to use
+     * @param $allowed_js
+     * @return mixed
+     */
     public function dt_magic_url_base_allowed_js( $allowed_js ) {
         $allowed_js[] = DT_33::DOMAIN;
         $allowed_js[] = DT_33::DOMAIN . "_app";
@@ -43,6 +48,11 @@ abstract class DT_33_Magic_Link extends DT_Magic_Url_Base {
         return $allowed_js;
     }
 
+    /**
+     * CSS the magic link is allowed to load
+     * @param $allowed_css
+     * @return mixed
+     */
     public function dt_magic_url_base_allowed_css( $allowed_css ) {
         $blocked_css = [ 'site-css' ];
 
@@ -61,6 +71,7 @@ abstract class DT_33_Magic_Link extends DT_Magic_Url_Base {
     }
 
     /**
+     * Data we're passing to JS
      * @return array
      */
     public function localizations() {
@@ -83,20 +94,30 @@ abstract class DT_33_Magic_Link extends DT_Magic_Url_Base {
         ];
     }
 
+    /**
+     * Enqueue the CSS and JS
+     */
     public function wp_enqueue_scripts() {
         wp_enqueue_style( 'font-poppins', 'https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap', [], 1 );
-
         wp_enqueue_style( DT_33::DOMAIN . '_foundation', DT_33::$url . 'dist/foundation.css', [], filemtime( DT_33::$dir . 'dist/foundation.css' ) );
         wp_enqueue_style( DT_33::DOMAIN, DT_33::$url . 'dist/styles.css', [], filemtime( DT_33::$dir . 'dist/styles.css' ) );
         wp_enqueue_script( DT_33::DOMAIN . '_fa', 'https://kit.fontawesome.com/dbfbaa4587.js', [], 1 );
     }
 
+    /**
+     * We are bootstrapping react
+     */
     public function body() {
         ?>
         <div id="app"></div>
         <?php
     }
 
+    /**
+     * This is extended to app and login
+     * @param WP_REST_Request $request
+     * @return bool
+     */
     public function validate_request( WP_REST_Request $request ) {
         return true;
     }
@@ -119,6 +140,13 @@ abstract class DT_33_Magic_Link extends DT_Magic_Url_Base {
         );
     }
 
+    /**
+     *  Overload API requests to the controllers
+     *
+     * @see /magic-link/controllers
+     * @param WP_REST_Request $request
+     * @return WP_REST_Response
+     */
     public function resolve_endpoint( WP_REST_Request $request ) {
         $method = strtolower( $request->get_method() ) . '_' . $request->get_param( 'action' );
         if ( method_exists( $this->controller, $method ) ) {

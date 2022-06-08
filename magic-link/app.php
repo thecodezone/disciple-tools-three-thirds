@@ -7,6 +7,7 @@ require_once 'controllers/app-controller.php';
 
 /**
  * Class DT_33_Magic_User_App
+ * Extends a base magic link to make some of the set up reusable.
  */
 class DT_33_Magic_App extends DT_33_Magic_Link {
     const META_KEY = 'threethirds_app_magic_key';
@@ -97,6 +98,9 @@ class DT_33_Magic_App extends DT_33_Magic_Link {
         return $apps_list;
     }
 
+    /**
+     * Enqueue the scripts needed by the magic link app
+     */
     public function wp_enqueue_scripts() {
         parent::wp_enqueue_scripts();
         wp_enqueue_script( DT_33::DOMAIN . "_app", DT_33::$url . 'dist/app.js', [], filemtime( DT_33::$dir . 'dist/app.js' ), true );
@@ -132,6 +136,11 @@ class DT_33_Magic_App extends DT_33_Magic_Link {
         }
     }
 
+    /**
+     * Check to make sure a request is a valid magic link request
+     * @param WP_REST_Request $request
+     * @return bool
+     */
     public function validate_request( WP_REST_Request $request ) {
         $verified = $this->validate_endpoint( $request );
         if ( $verified ) {

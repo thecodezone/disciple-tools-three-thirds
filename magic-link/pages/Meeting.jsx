@@ -13,6 +13,11 @@ import RepeatingField from "../components/forms/RepeatingField";
 import ApplicationLayout from "../layouts/ApplicationLayout";
 import {saveMeeting} from "../src/api";
 
+/**
+ * THe view page
+ * @returns {JSX.Element|null}
+ * @constructor
+ */
 const MeetingPage = () => {
     const {translations} = useContext(AppContext)
     const {meeting, tab, tabs, submission} = useContext(MeetingContext)

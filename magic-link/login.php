@@ -6,15 +6,7 @@ if ( !defined( 'ABSPATH' ) ) {
 require_once 'controllers/login-controller.php';
 
 /**
- * Adds a magic link home page to the Disciple Tools system.
- * @usage This could be used to add a microsite in front of the Disciple Tools system. Or used to hide the
- * Disciple Tools login behind a false store front. Or used to extend an entire application to the public out
- * in front of the Disciple Tools system.
- *
- * @example https://yoursite.com/(empty)
- *
- * @see https://disciple.tools/plugins/porch/
- * @see https://disciple.tools/plugins/disciple-tools-porch-template/
+ * The logged out magic link to handle the login/register pages.
  */
 class DT_33_Magic_Login extends DT_33_Magic_Link {
     const PATH = '/threethirds/login';
@@ -79,11 +71,17 @@ class DT_33_Magic_Login extends DT_33_Magic_Link {
         }
     }
 
+    /**
+     * Is the magic link URL valid?
+     * @return bool
+     */
     public function validate_parts() {
         return !$this->check_parts_match( false );
     }
 
-
+    /**
+     * Enqueue the scripts needed for the login pages
+     */
     public function wp_enqueue_scripts() {
         parent::wp_enqueue_scripts();
         wp_enqueue_script( DT_33::DOMAIN . "_login", DT_33::$url . 'dist/login.js', [], filemtime( DT_33::$dir . 'dist/login.js' ), true );
@@ -91,6 +89,9 @@ class DT_33_Magic_Login extends DT_33_Magic_Link {
     }
 
 
+    /**
+     * We're just bootstrapping the react app
+     */
     public function body() {
         ?>
         <div id="app"></div>

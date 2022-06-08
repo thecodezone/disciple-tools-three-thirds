@@ -3,6 +3,11 @@ if ( !defined( 'ABSPATH' ) ) {
     exit;
 } // Exit if accessed directly.
 
+/**
+ * Map posts to a format expected by the front-end
+ *
+ * Class DT_33_Transformers
+ */
 class DT_33_Transformers {
     private static $_instance = null;
     public $meta = []; // Allows for instance specific data.
@@ -95,6 +100,13 @@ class DT_33_Transformers {
         ];
     }
 
+    /**
+     * Trqnsform an array of posts
+     * @param $items
+     * @param $type
+     * @param array $with
+     * @return array
+     */
     public function transform_posts( $items, $type, $with = [] ) {
         if ( !$items ) {
             return [
@@ -125,12 +137,26 @@ class DT_33_Transformers {
         ];
     }
 
+    /**
+     * Take an array of posts and map it to the appropriate transformer
+     * @param $items
+     * @param $type
+     * @param array $with
+     * @return array
+     */
     public function map_posts( $items, $type, $with = [] ) {
         return array_map( function ( $items ) use ( $type, $with ) {
             return $this->transform( $items, $type, $with );
         }, $items );
     }
 
+    /**
+     * Transform an item by type
+     * @param $item
+     * @param $type
+     * @param array $with
+     * @return mixed
+     */
     public function transform( $item, $type, $with = [] ) {
         return $this->$type( $item, $with );
     }

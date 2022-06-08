@@ -7,6 +7,11 @@ import NotFound from './pages/NotFound'
 import Layout from "./layouts/Layout";
 import CreateAccount from './pages/CreateAccount'
 
+/**
+ * The logged-out part of the magic link react app
+ * @returns {JSX.Element}
+ * @constructor
+ */
 function App() {
     return (
         <HashRouter>

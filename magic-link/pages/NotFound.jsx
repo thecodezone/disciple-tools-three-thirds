@@ -5,6 +5,11 @@ import Card from "../components/layout/cards/Card";
 import CardHeading from "../components/layout/cards/CardHeading";
 import CardSection from "../components/layout/cards/CardSection";
 
+/**
+ * 404
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const NotFound = () => {
     const {magicLink} = useContext(AppContext)
     return (<Layout>

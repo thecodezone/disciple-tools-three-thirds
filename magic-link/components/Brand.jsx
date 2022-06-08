@@ -2,7 +2,18 @@ import React, {useContext} from "react";
 import AppContext from "../contexts/AppContext";
 import classNames from "classnames";
 
+/**
+ * The logo/text lockup.
+ *
+ * @param className
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const Brand = ({className}) => {
+    /**
+     * The magic link data from the server
+     * @see /magic-link/magic-link.php#localazations()
+     */
     const {magicLink} = useContext(AppContext)
 
     return (
