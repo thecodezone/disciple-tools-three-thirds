@@ -1,12 +1,36 @@
 [![Build Status](https://travis-ci.com/TheCodeZone/disciple-tools-three-thirds.svg?branch=master)](https://travis-ci.com/TheCodeZone/disciple-tools-three-thirds)
 
-## Quickstart
+
+## 3/3rds Meetings
+This is a starter plugin to jumpstart your work with Disciple.Tools.
+Click the "Use this template" button above.
+See instructions for refactoring and getting started in the [wiki](https://github.com/TheCodeZone/disciple-tools-three-thirds/wiki)
+See instructions for creating releases and publishing your plugin: [wiki](https://github.com/TheCodeZone/disciple-tools-three-thirds/wiki)
+In order to display the banner correctly on the Disciple.Tools Community Plugins Site, don't change the 'Plugin Banner' text on line 12; only the URL.
+
+![Plugin Banner](https://raw.githubusercontent.com/TheCodeZone/disciple-tools-three-thirds/b30402d97895e3f911efcb47fb8f29ccd1eb92e5/images/banner.png)
+
+# Disciple.Tools - 3/3rds Meetings
+
+
+
+## Purpose
+
+Purpose purpose purpose purpose purpose purpose purpose purpose purpose purpose purpose
+Purpose purpose purpose purpose purpose purpose purpose purpose purpose purpose purpose
+
+Purpose purpose purpose purpose purpose purpose purpose purpose purpose purpose purpose
+Purpose purpose purpose purpose purpose purpose purpose purpose purpose purpose purpose
+
+## Usage
+
+### Quickstart
 
 ```
 npm install && composer install && npm run foundation && npm run dev
 ```
 
-## Getting Setup
+### Getting Setup
 
 Install NPM and Composer Dependencies
 ```
@@ -23,33 +47,6 @@ Run dev so our dev tools are running for us in the background
 ```
 npm run dev
 ```
-
-
-## 3/3rds Meetings
-This is a starter plugin to jumpstart your work with Disciple.Tools.
-Click the "Use this template" button above.
-See instructions for refactoring and getting started in the [wiki](https://github.com/TheCodeZone/disciple-tools-three-thirds/wiki)
-See instructions for creating releases and publishing your plugin: [wiki](https://github.com/TheCodeZone/disciple-tools-three-thirds/wiki)
-In order to display the banner correctly on the Disciple.Tools Community Plugins Site, don't change the 'Plugin Banner' text on line 12; only the URL.
-
-## readme format:
-
-![Plugin Banner](https://raw.githubusercontent.com/TheCodeZone/disciple-tools-three-thirds/b30402d97895e3f911efcb47fb8f29ccd1eb92e5/documentation/banner.png)
-
-# Disciple.Tools - 3/3rds Meetings
-
-Description Description Description Description Description Description Description
-Description Description Description Description Description Description Description
-
-## Purpose
-
-Purpose purpose purpose purpose purpose purpose purpose purpose purpose purpose purpose
-Purpose purpose purpose purpose purpose purpose purpose purpose purpose purpose purpose
-
-Purpose purpose purpose purpose purpose purpose purpose purpose purpose purpose purpose
-Purpose purpose purpose purpose purpose purpose purpose purpose purpose purpose purpose
-
-## Usage
 
 #### Will Do
 
