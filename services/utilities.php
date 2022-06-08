@@ -29,24 +29,47 @@ class DT_33_Utilities {
         $page = array_slice( $posts, $offset, $limit );
 
         return [
-            'posts' => $page,
+            'posts'    => $page,
             'per_page' => $per_page,
-            'paged' => $paged,
-            'total' => count( $posts ),
-            'count' => count( $page ),
-            'offset' => $offset,
-            'limit' => $limit
+            'paged'    => $paged,
+            'total'    => count( $posts ),
+            'count'    => count( $page ),
+            'offset'   => $offset,
+            'limit'    => $limit
         ];
     }
 
     public function format_array_field_value( $value, $force = true ) {
         return [
-            'values' => array_map( function ( $value ) {
+            'values'       => array_map( function ( $value ) {
                 return [
                     'value' => $value ? $value : []
                 ];
             }, array_unique( array_filter( $value ) ) ),
             'force_values' => $force
         ];
+    }
+
+    /**
+     * Does an option exist?
+     * @param $name
+     * @return bool
+     */
+    public function has_option( $name ) {
+        return get_option($name) !== false;
+    }
+
+    /**
+     * Update or create an option
+     * @param $option
+     * @param string $value
+     * @param string $autoload
+     */
+    public function add_or_update_option( $option, $value = '', $autoload = '') {
+        if ($this->has_option($option)) {
+            update_option( $option, $value, $autoload );
+        } else {
+            add_option( $option, $value, false, $autoload );
+        }
     }
 }
