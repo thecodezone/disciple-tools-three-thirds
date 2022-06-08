@@ -74,7 +74,7 @@ class DT_33_Utilities {
      * @return bool
      */
     public function has_option( $name ) {
-        return get_option($name) !== false;
+        return get_option( $name ) !== false;
     }
 
     /**
@@ -83,11 +83,11 @@ class DT_33_Utilities {
      * @param string $value
      * @param string $autoload
      */
-    public function add_or_update_option( $option, $value = '', $autoload = '') {
-        if ($this->has_option($option)) {
+    public function add_or_update_option( $option, $value = '', $autoload = '' ) {
+        if ( $this->has_option( $option ) ) {
             update_option( $option, $value, $autoload );
         } else {
-            add_option( $option, $value, false, $autoload );
+            add_option( $option, $value, "", $autoload );
         }
     }
 }

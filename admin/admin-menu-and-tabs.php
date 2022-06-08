@@ -41,12 +41,12 @@ class Disciple_Tools_Three_Thirds_Settings_Menu {
         $this->utilities = DT_33_Utilities::instance();
 
         add_action( "admin_menu", [ $this, "register_menu" ] );
-        add_action( 'admin_enqueue_scripts', [$this, 'admin_enqueue_scripts'] );
+        add_action( 'admin_enqueue_scripts', [ $this, 'admin_enqueue_scripts' ] );
 
         $nonce = isset( $_POST['_wpnonce'] ) ? sanitize_key( $_POST['_wpnonce'] ) : null;
         $verify_nonce = $nonce && wp_verify_nonce( $nonce, 'dt33_settings' );
 
-        if ($verify_nonce) {
+        if ( $verify_nonce ) {
             // Change Custom Logo URL
             if ( isset( $_POST['custom_logo_url'] ) ) {
 
@@ -57,8 +57,15 @@ class Disciple_Tools_Three_Thirds_Settings_Menu {
             if ( isset( $_POST['default_logo_url'] ) ) {
                 delete_option( 'dt33_logo_url' );
             }
-            $this->utilities->add_or_update_option( 'dt33_redirect_path', esc_url( $_POST['dt33_redirect_path'] ) );
-            $this->utilities->add_or_update_option( 'dt33_allow_dt_access',  sanitize_key( $_POST['dt33_allow_dt_access'] ?? 'off' ) );
+            if ( isset( $_POST['dt33_redirect_path'] ) ) {
+                //phpcs ignore
+                $this->utilities->add_or_update_option( 'dt33_redirect_path', sanitize_text_field( wp_unslash( $_POST['dt33_redirect_path'] ) ) );
+            }
+            if ( isset( $_POST['dt33_allow_dt_access'] ) ) {
+                $this->utilities->add_or_update_option( 'dt33_allow_dt_access', sanitize_key( $_POST['dt33_allow_dt_access'] ) );
+            } else {
+                $this->utilities->add_or_update_option( 'dt33_allow_dt_access', 'off' );
+            }
         }
 
     } // End __construct()
