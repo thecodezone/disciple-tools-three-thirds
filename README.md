@@ -19,7 +19,23 @@ Adds 3/3rds meeting management and facilitation to the Disciple.Tools [Meetings 
 - A new meetings link will appear in your Disciple.Tools menu bar.
 - Visit yourdiscipletools.com/3/3 to access the magic link application.
 
-## Development
+## Requirements
+
+- Disciple.Tools Theme installed on a Wordpress Server
+- The Disciple.Tools [Meetings Tracker plugin](https://disciple.tools/plugins/comments-tracker/).
+
+## Installing
+- Install the [Meetings Tracker plugin](https://disciple.tools/plugins/comments-tracker/).
+- Install as a standard Disciple.Tools/Wordpress plugin in the system Admin/Plugins area.
+- Requires the user role of Administrator.
+
+## Contribution
+Contributions welcome. You can report issues and bugs in the
+[Issues](https://github.com/TheCodeZone/disciple-tools-three-thirds/issues) section of the repo. You can present ideas
+in the [Discussions](https://github.com/TheCodeZone/disciple-tools-three-thirds/discussions) section of the repo. And
+code contributions are welcome using the [Pull Request](https://github.com/TheCodeZone/disciple-tools-three-thirds/pulls)
+system for git. For a more details on contribution see the
+[contribution guidelines](https://github.com/TheCodeZone/disciple-tools-three-thirds/blob/master/CONTRIBUTING.md).
 
 ### Quickstart
 
@@ -40,25 +56,6 @@ Build front-end assets
 npm run foundation
 npm run dev
 ```
-
-## Requirements
-
-- Disciple.Tools Theme installed on a Wordpress Server
-- The Disciple.Tools [Meetings Tracker plugin](https://disciple.tools/plugins/comments-tracker/).
-
-## Installing
-- Install the [Meetings Tracker plugin](https://disciple.tools/plugins/comments-tracker/).
-- Install as a standard Disciple.Tools/Wordpress plugin in the system Admin/Plugins area.
-- Requires the user role of Administrator.
-
-## Contribution
-
-Contributions welcome. You can report issues and bugs in the
-[Issues](https://github.com/TheCodeZone/disciple-tools-three-thirds/issues) section of the repo. You can present ideas
-in the [Discussions](https://github.com/TheCodeZone/disciple-tools-three-thirds/discussions) section of the repo. And
-code contributions are welcome using the [Pull Request](https://github.com/TheCodeZone/disciple-tools-three-thirds/pulls)
-system for git. For a more details on contribution see the
-[contribution guidelines](https://github.com/TheCodeZone/disciple-tools-three-thirds/blob/master/CONTRIBUTING.md).
 
 
 ## Screenshots
