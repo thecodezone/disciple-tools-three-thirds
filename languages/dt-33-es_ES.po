@@ -1,349 +1,355 @@
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Disciple Tools - 3/3rds Meetings\n"
 "POT-Creation-Date: 2022-06-08 13:06-0500\n"
-"PO-Revision-Date: 2018-01-29 05:53-0700\n"
+"PO-Revision-Date: 2022-06-08 13:22-0500\n"
 "Last-Translator: \n"
 "Language-Team: \n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 3.1\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-Flags-xgettext: --add-comments=translators:\n"
 "X-Poedit-WPHeader: disciple-tools-three-thirds.php\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
-"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
-"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;"
+"_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 "X-Poedit-SearchPathExcluded-1: */libraries/*\n"
 
 #: admin/general-tab.php:44
 msgid "Logo"
-msgstr ""
+msgstr "Logo"
 
 #: admin/general-tab.php:45
 msgid "Logo link (must be https)"
-msgstr ""
+msgstr "Enlace del logotipo (debe ser https)"
 
 #: admin/general-tab.php:55
 msgid "Upload"
-msgstr ""
+msgstr "Subir"
 
 #: meeting-type/meeting-type.php:26
 msgid "3/3rds Meeting"
-msgstr ""
+msgstr "Reunión de 3/3"
 
 #: meeting-type/meeting-type.php:27
 msgid "3/3rds format meeting"
-msgstr ""
+msgstr "Reunión en formato 3/3"
 
 #: meeting-type/meeting-type.php:55 services/translations.php:37
 msgid "Looking Back"
-msgstr ""
+msgstr "Mirando hacia atrás"
 
 #: meeting-type/meeting-type.php:56
 msgid "A look back at the last meeting."
-msgstr ""
+msgstr "Una mirada retrospectiva a la última reunión."
 
 #: meeting-type/meeting-type.php:62 services/translations.php:38
 msgid "Looking Up"
-msgstr ""
+msgstr "Buscando"
 
 #: meeting-type/meeting-type.php:63
 msgid "A look towards God for wisdom and growth."
-msgstr ""
+msgstr "Una mirada hacia Dios en busca de sabiduría y crecimiento."
 
 #: meeting-type/meeting-type.php:69 services/translations.php:39
 msgid "Looking Ahead"
-msgstr ""
+msgstr "Mirando hacia atrás"
 
 #: meeting-type/meeting-type.php:70
 msgid "A look towards the future."
-msgstr ""
+msgstr "Una mirada hacia Dios en busca de sabiduría y crecimiento."
 
 #: meeting-type/meeting-type.php:105 meeting-type/meeting-type.php:155
 #: meeting-type/meeting-type.php:181
 msgid "Content"
-msgstr ""
+msgstr "Contenido"
 
 #: meeting-type/meeting-type.php:106 meeting-type/meeting-type.php:156
 #: meeting-type/meeting-type.php:182
 msgid "Content or notes to guide the meeting leader."
-msgstr ""
+msgstr "Contenido o notas para guiar al líder de la reunión."
 
 #: meeting-type/meeting-type.php:113
 msgid "Number Shared"
-msgstr ""
+msgstr "Número compartido"
 
 #: meeting-type/meeting-type.php:114
 msgid ""
-"The number of times the gospel was shared by meeting members since the last meeting."
+"The number of times the gospel was shared by meeting members since the last "
+"meeting."
 msgstr ""
+"El número de veces que los miembros de la reunión compartieron el evangelio "
+"desde la última reunión."
 
 #: meeting-type/meeting-type.php:121
 msgid "New Believers"
-msgstr ""
+msgstr "Nuevas creyentes"
 
 #: meeting-type/meeting-type.php:122
 msgid "The names of new believers."
-msgstr ""
+msgstr "Los nombres de las nuevas creyentes."
 
 #: meeting-type/meeting-type.php:129 meeting-type/meeting-type.php:171
 #: meeting-type/meeting-type.php:213 services/translations.php:61
 msgid "Notes"
-msgstr ""
+msgstr "notas"
 
 #: meeting-type/meeting-type.php:130 meeting-type/meeting-type.php:172
 #: meeting-type/meeting-type.php:214
 msgid "For use by the meeting leader during the meeting."
-msgstr ""
+msgstr "Para uso del líder de la reunión durante la reunión."
 
 #: meeting-type/meeting-type.php:139
 msgid "Number in attendance"
-msgstr ""
+msgstr "Número de asistentes"
 
 #: meeting-type/meeting-type.php:140
 msgid "The number of members at the meeting."
-msgstr ""
+msgstr "El número de miembros en la reunión."
 
 #: meeting-type/meeting-type.php:147 services/translations.php:70
 msgid "Topic"
-msgstr ""
+msgstr "Tema"
 
 #: meeting-type/meeting-type.php:148
 msgid "The topic of the meeting."
-msgstr ""
+msgstr "El tema de la reunión."
 
 #: meeting-type/meeting-type.php:163 services/translations.php:65
 msgid "Practice"
-msgstr ""
+msgstr "Práctica"
 
 #: meeting-type/meeting-type.php:164
 msgid "The practice areas used at the meeting."
-msgstr ""
+msgstr "Las áreas de práctica utilizadas en la reunión."
 
 #: meeting-type/meeting-type.php:189
 msgid "Share goal"
-msgstr ""
+msgstr "Compartir objetivo"
 
 #: meeting-type/meeting-type.php:190
 msgid "The number of members in ."
-msgstr ""
+msgstr "El número de miembros en ."
 
 #: meeting-type/meeting-type.php:197 services/translations.php:21
 msgid "Application"
-msgstr ""
+msgstr "Solicitud"
 
 #: meeting-type/meeting-type.php:198
 msgid "The application for the meeting."
-msgstr ""
+msgstr "La solicitud para la reunión."
 
 #: meeting-type/meeting-type.php:205
 msgid "Prayer topics"
-msgstr ""
+msgstr "temas de oracion"
 
 #: meeting-type/meeting-type.php:206
 msgid "Prayer topics or requests."
-msgstr ""
+msgstr "Temas de oración o peticiones."
 
 #: services/translations.php:19
 msgid "All"
-msgstr ""
+msgstr "Todos"
 
 #: services/translations.php:20
 msgid "Who accepted Christ?"
-msgstr ""
+msgstr "¿Quién aceptó a Cristo?"
 
 #: services/translations.php:22
 msgid "Create New Meeting"
-msgstr ""
+msgstr "Crear nueva reunión"
 
 #: services/translations.php:23
 msgid "Create Meeting"
-msgstr ""
+msgstr "Crear reunión"
 
 #: services/translations.php:24
 msgid "Create Account"
-msgstr ""
+msgstr "Crear una cuenta"
 
 #: services/translations.php:25
 msgid "Date"
-msgstr ""
+msgstr "Fecha"
 
 #: services/translations.php:26
 msgid "The app has not yet been activated. Activate the app in your"
-msgstr ""
+msgstr "La aplicación aún no se ha activado. Activa la aplicación en tu"
 
 #: services/translations.php:27
 msgid "Description"
-msgstr ""
+msgstr "Descripción"
 
 #: services/translations.php:28
 msgid "Details"
-msgstr ""
+msgstr "Detalles"
 
 #: services/translations.php:29
 msgid "disciple.tools"
-msgstr ""
+msgstr "disciple.tools"
 
 #: services/translations.php:30
 msgid "Edit"
-msgstr ""
+msgstr "Editar"
 
 #: services/translations.php:31
 msgid "Edit Meeting"
-msgstr ""
+msgstr "Editar reunión"
 
 #: services/translations.php:32
 msgid "There was an error. Please try again."
-msgstr ""
+msgstr "Hubo un error. Inténtalo de nuevo."
 
 #: services/translations.php:33
 msgid "Click here to login."
-msgstr ""
+msgstr "Haga clic aquí para ingresar."
 
 #: services/translations.php:34
 msgid "Group"
-msgstr ""
+msgstr "Grupo"
 
 #: services/translations.php:35
 msgid "Load more"
-msgstr ""
+msgstr "Carga más"
 
 #: services/translations.php:36
 msgid "Learn more about"
-msgstr ""
+msgstr "Aprender más acerca de"
 
 #: services/translations.php:40
 msgid "Login"
-msgstr ""
+msgstr "Acceso"
 
 #: services/translations.php:41
 msgid "Logout"
-msgstr ""
+msgstr "Cerrar sesión"
 
 #: services/translations.php:42
 msgid "Next"
-msgstr ""
+msgstr "Próxima"
 
 #: services/translations.php:43
 msgid "No Group"
-msgstr ""
+msgstr "Sin grupo"
 
 #: services/translations.php:44
 msgid "on Zúme"
-msgstr ""
+msgstr "En Zúme"
 
 #: services/translations.php:45
 msgid "Page not found."
-msgstr ""
+msgstr "Página no encontrada."
 
 #: services/translations.php:46
 msgid "People"
-msgstr ""
+msgstr "Gente"
 
 #: services/translations.php:47
 msgid "Powered by"
-msgstr ""
+msgstr "Energizado por"
 
 #: services/translations.php:48
 msgid "Prayer Requests"
-msgstr ""
+msgstr "PowerPrayer Solicitado por"
 
 #: services/translations.php:49
 msgid "Prayer requests go here."
-msgstr ""
+msgstr "Las peticiones de oración van aquí."
 
 #: services/translations.php:50
 msgid "Previous"
-msgstr ""
+msgstr "Previo"
 
 #: services/translations.php:51
 msgid "Previous Meeting"
-msgstr ""
+msgstr "Reunión anterior"
 
 #: services/translations.php:52
 msgid "Meeting"
-msgstr ""
+msgstr "Reunión"
 
 #: services/translations.php:53
 msgid "Meeting Date"
-msgstr ""
+msgstr "Fecha de la reunión"
 
 #: services/translations.php:54
 msgid "meeting found"
-msgstr ""
+msgstr "reunión encontrada"
 
 #: services/translations.php:55
 msgid "meetings found"
-msgstr ""
+msgstr "reuniones encontradas"
 
 #: services/translations.php:56
 msgid "Name"
-msgstr ""
+msgstr "Nombre"
 
 #: services/translations.php:57
 msgid "Your account has been created."
-msgstr ""
+msgstr "Tu cuenta ha sido creada."
 
 #: services/translations.php:58
 msgid "Reset Password"
-msgstr ""
+msgstr "Restablecer la contraseña"
 
 #: services/translations.php:59
 msgid "Go to dashboard"
-msgstr ""
+msgstr "Ir al panel de control"
 
 #: services/translations.php:60
 msgid "Settings"
-msgstr ""
+msgstr "Ajustes"
 
 #: services/translations.php:62
 msgid "Notes go here"
-msgstr ""
+msgstr "Las notas van aquí"
 
 #: services/translations.php:63
 msgid "How many members are present?"
-msgstr ""
+msgstr "¿Cuántos miembros están presentes?"
 
 #: services/translations.php:64
 msgid "How many did you share with?"
-msgstr ""
+msgstr "¿Con cuántas compartiste?"
 
 #: services/translations.php:66
 msgid "How many people are we going to share with?"
-msgstr ""
+msgstr "¿Con cuántas personas vamos a compartir?"
 
 #: services/translations.php:67
 msgid "Sign in"
-msgstr ""
+msgstr "Iniciar sesión"
 
 #: services/translations.php:68
 msgid "Submit"
-msgstr ""
+msgstr "Enviar"
 
 #: services/translations.php:69
 msgid "3/3rds Meetings"
-msgstr ""
+msgstr "Reuniones de 3/3"
 
 #. Plugin Name of the plugin/theme
 msgid "Disciple.Tools - 3/3rds Meetings"
-msgstr ""
+msgstr "Disciple.Tools - Reuniones de 3/3"
 
 #. Plugin URI of the plugin/theme
 msgid "https://github.com/thecodezone/disciple-tools-three-thirds"
-msgstr ""
+msgstr "https://github.com/thecodezone/disciple-tools-three-thirds"
 
 #. Description of the plugin/theme
 msgid ""
-"Disciple.Tools - Provides 3/3rds meeting administration, facilitation, and tracking."
+"Disciple.Tools - Provides 3/3rds meeting administration, facilitation, and "
+"tracking."
 msgstr ""
+"Disciple.Tools: proporciona 3/3 de administración, facilitación y "
+"seguimiento de reuniones."
 
 #. Author URI of the plugin/theme
 msgid "https://codezone.io"
-msgstr ""
+msgstr "https://codezone.io"
