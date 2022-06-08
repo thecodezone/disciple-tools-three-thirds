@@ -62,5 +62,10 @@ system for git. For a more details on contribution see the
 
 
 ## Screenshots
-
-![screenshot](documentation/community/starter-banners/banner-blue-green.png)
+![screenshot](https://raw.githubusercontent.com/thecodezone/disciple-tools-three-thirds/master/documentation/screenshots/login.png)
+![screenshot](https://raw.githubusercontent.com/thecodezone/disciple-tools-three-thirds/master/documentation/screenshots/menu.png)
+![screenshot](https://raw.githubusercontent.com/thecodezone/disciple-tools-three-thirds/master/documentation/screenshots/meetings.png)
+![screenshot](https://raw.githubusercontent.com/thecodezone/disciple-tools-three-thirds/master/documentation/screenshots/create.png)
+![screenshot](https://raw.githubusercontent.com/thecodezone/disciple-tools-three-thirds/master/documentation/screenshots/edit.png)
+![screenshot](https://raw.githubusercontent.com/thecodezone/disciple-tools-three-thirds/master/documentation/screenshots/view.png)
+![screenshot](https://raw.githubusercontent.com/thecodezone/disciple-tools-three-thirds/master/documentation/screenshots/desktop.png)
