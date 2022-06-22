@@ -21,7 +21,7 @@ Adds 3/3rds meeting management and facilitation to the Disciple.Tools [Meetings 
 
 ## Installing
 - Install the [Meetings Tracker plugin](https://disciple.tools/plugins/comments-tracker/).
-- Download the [zip of the latest release](https://github.com/thecodezone/disciple-tools-three-thirds/releases/).
+- Download the [zip of the latest release](https://github.com/thecodezone/disciple-tools-three-thirds/releases/latest).
 - Install as a standard Disciple.Tools/Wordpress plugin in the system Admin/Plugins area.
 - Requires the user role of Administrator.
 
