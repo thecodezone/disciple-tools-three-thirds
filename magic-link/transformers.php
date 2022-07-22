@@ -34,7 +34,7 @@ class DT_33_Transformers {
      * @return mixed
      */
     public function meeting( $meeting, $with = [] ) {
-        if (!$meeting) {
+        if ( !$meeting ) {
             return $meeting;
         }
 
@@ -43,7 +43,7 @@ class DT_33_Transformers {
             $date['formatted'] = gmdate( get_option( 'date_format' ), $date['timestamp'] );
         }
         $label = $meeting['name'] ?? '';
-        if ( is_array( $date ) && !empty($date['formatted']) ) {
+        if ( is_array( $date ) && !empty( $date['formatted'] ) ) {
             $label .= ", " . $date['formatted'];
         }
         return [
@@ -85,8 +85,8 @@ class DT_33_Transformers {
      * @return mixed
      */
     public function ids( $posts ) {
-        if (!is_array($posts)) {
-          return [];
+        if ( !is_array( $posts ) ) {
+            return [];
         }
         return array_map( function ( $post ) {
             return $post['ID'];
