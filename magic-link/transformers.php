@@ -34,12 +34,16 @@ class DT_33_Transformers {
      * @return mixed
      */
     public function meeting( $meeting, $with = [] ) {
+        if (!$meeting) {
+            return $meeting;
+        }
+
         $date = $meeting['date'] ?? null;
         if ( is_array( $date ) && isset( $date['timestamp'] ) ) {
             $date['formatted'] = gmdate( get_option( 'date_format' ), $date['timestamp'] );
         }
         $label = $meeting['name'] ?? '';
-        if ( $date['formatted'] ) {
+        if ( is_array( $date ) && !empty($date['formatted']) ) {
             $label .= ", " . $date['formatted'];
         }
         return [
@@ -81,6 +85,9 @@ class DT_33_Transformers {
      * @return mixed
      */
     public function ids( $posts ) {
+        if (!is_array($posts)) {
+          return [];
+        }
         return array_map( function ( $post ) {
             return $post['ID'];
         }, $posts );

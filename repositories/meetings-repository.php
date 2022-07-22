@@ -271,6 +271,10 @@ class DT_33_Meetings_Repository {
             $fields[ $name ] = $this->utilities->format_array_field_value( $fields[ $name ] );
         }
 
+        if (!empty($fields['date']) && is_array($fields['date'])) {
+            $fields['date'] = $fields['date']['timestamp'];
+        }
+        
         return $fields;
     }
 
