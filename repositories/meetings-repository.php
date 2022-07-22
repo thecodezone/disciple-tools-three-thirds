@@ -274,7 +274,7 @@ class DT_33_Meetings_Repository {
         if (!empty($fields['date']) && is_array($fields['date'])) {
             $fields['date'] = $fields['date']['timestamp'];
         }
-        
+
         return $fields;
     }
 

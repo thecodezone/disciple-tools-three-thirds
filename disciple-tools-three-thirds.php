@@ -5,7 +5,7 @@
  * Description: Disciple.Tools - Provides 3/3rds meeting administration, facilitation, and tracking.
  * Text Domain: disciple-tools-three-thirds
  * Domain Path: /languages
- * Version:  1.0.0
+ * Version:  1.0.1
  * Author URI: https://codezone.io
  * GitHub Plugin URI: https://github.com/thecodezone/disciple-tools-three-thirds
  * Requires at least: 4.7.0

@@ -1,6 +1,6 @@
 {
   "name": "disciple-tools-three-thirds",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "[![Build Status](https://travis-ci.com/TheCodeZone/disciple-tools-three-thirds.svg?branch=master)](https://travis-ci.com/TheCodeZone/disciple-tools-three-thirds)",
   "main": "index.js",
   "directories": {
