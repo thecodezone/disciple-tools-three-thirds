@@ -11,6 +11,8 @@ class DT_33_Meeting_Type {
 
     private static $_instance = null;
 
+    public $meetings_service = null;
+
     public static function instance() {
         if ( is_null( self::$_instance ) ) {
             self::$_instance = new self();

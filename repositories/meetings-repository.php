@@ -7,6 +7,8 @@
 class DT_33_Meetings_Repository {
     private static $_instance = null;
 
+    public $utilities = null;
+
     /**
      * Fields defaults that should be included when saving meetings.
      * @var array[]

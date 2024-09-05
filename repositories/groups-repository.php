@@ -7,6 +7,8 @@
 class DT_33_Groups_Repository {
     private static $_instance = null;
 
+    public $meetings = null;
+
     private function args() {
         return [
             'sort' => 'name'
