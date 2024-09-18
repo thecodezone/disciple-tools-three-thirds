@@ -11,6 +11,10 @@ class DT_33_App_Controller {
     private static $_instance = null;
     public $meta = []; // Allows for instance specific data.
 
+    public $utilities = null;
+    public $meetings = null;
+    public $groups = null;
+
     public static function instance() {
         if ( is_null( self::$_instance ) ) {
             self::$_instance = new self();
