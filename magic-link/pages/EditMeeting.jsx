@@ -226,7 +226,7 @@ const EditMeetingPage = () => {
 
                                         <Card>
                                             <CardHeading>
-                                                <h2>Attendees</h2>
+                                                <h2>Attendees List</h2>
                                             </CardHeading>
                                             <CardSection>
                                                 <FieldGroup as={TextAreaField}
