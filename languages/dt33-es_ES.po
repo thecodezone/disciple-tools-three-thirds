@@ -335,7 +335,7 @@ msgid "3/3rds Meetings"
 msgstr "Reuniones de 3/3"
 
 #. Plugin Name of the plugin/theme
-msgid "Disciple.Tools - 3/3rds Meetings"
+msgid "Disciple.Tools - 3/3rds Meetings Customed Version"
 msgstr "Disciple.Tools - Reuniones de 3/3"
 
 #. Plugin URI of the plugin/theme

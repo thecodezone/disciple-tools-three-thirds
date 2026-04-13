@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: Disciple.Tools - 3/3rds Meetings
+ * Plugin Name: Disciple.Tools - 3/3rds Meetings Customed Version
  * Plugin URI: https://github.com/thecodezone/disciple-tools-three-thirds
  * Description: Disciple.Tools - Provides 3/3rds meeting administration, facilitation, and tracking.
  * Text Domain: disciple-tools-three-thirds
@@ -17,7 +17,7 @@
  * @license GPL-2.0 or later
  *          https://www.gnu.org/licenses/gpl-2.0.html
  */
-if ( !defined( 'ABSPATH' ) ) {
+if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
 }
 
@@ -28,7 +28,8 @@ if ( !defined( 'ABSPATH' ) ) {
  * @since  0.1
  * @access public
  */
-function disciple_tools_three_thirds() {
+function disciple_tools_three_thirds()
+{
     $disciple_tools_three_thirds_required_dt_theme_version = '1.19';
     $wp_theme = wp_get_theme();
     $version = $wp_theme->version;
@@ -36,19 +37,19 @@ function disciple_tools_three_thirds() {
     /*
      * Check if the Disciple.Tools theme is loaded and is the latest required version
      */
-    $is_theme_dt = class_exists( "Disciple_Tools" );
-    if ( $is_theme_dt && version_compare( $version, $disciple_tools_three_thirds_required_dt_theme_version, "<" ) ) {
-        add_action( 'admin_notices', 'disciple_tools_three_thirds_hook_admin_notice' );
-        add_action( 'wp_ajax_dismissed_notice_handler', 'dt_hook_ajax_notice_handler' );
+    $is_theme_dt = class_exists("Disciple_Tools");
+    if ($is_theme_dt && version_compare($version, $disciple_tools_three_thirds_required_dt_theme_version, "<")) {
+        add_action('admin_notices', 'disciple_tools_three_thirds_hook_admin_notice');
+        add_action('wp_ajax_dismissed_notice_handler', 'dt_hook_ajax_notice_handler');
         return false;
     }
-    if ( !$is_theme_dt ) {
+    if (!$is_theme_dt) {
         return false;
     }
     /**
      * Load useful function from the theme
      */
-    if ( !defined( 'DT_FUNCTIONS_READY' ) ) {
+    if (!defined('DT_FUNCTIONS_READY')) {
         require_once get_template_directory() . '/dt-core/global-functions.php';
     }
 
@@ -56,7 +57,7 @@ function disciple_tools_three_thirds() {
 
 }
 
-add_action( 'after_setup_theme', 'disciple_tools_three_thirds', 20 );
+add_action('after_setup_theme', 'disciple_tools_three_thirds', 20);
 
 /**
  * Singleton class for setting up the plugin.
@@ -64,24 +65,27 @@ add_action( 'after_setup_theme', 'disciple_tools_three_thirds', 20 );
  * @since  0.1
  * @access public
  */
-class DT_33 {
+class DT_33
+{
     const DOMAIN = "disciple_tools_three_thirds";
     public static $url;
     public static $dir;
 
     private static $_instance = null;
 
-    public static function instance() {
-        static::$url = plugin_dir_url( __FILE__ );
-        static::$dir = plugin_dir_path( __FILE__ );
+    public static function instance()
+    {
+        static::$url = plugin_dir_url(__FILE__);
+        static::$dir = plugin_dir_path(__FILE__);
 
-        if ( is_null( self::$_instance ) ) {
+        if (is_null(self::$_instance)) {
             self::$_instance = new self();
         }
         return self::$_instance;
     }
 
-    private function __construct() {
+    private function __construct()
+    {
         require_once 'repositories/meetings-repository.php';
         require_once 'repositories/groups-repository.php';
         require_once 'services/translations.php';
@@ -97,10 +101,10 @@ class DT_33 {
         //Translations support
         $this->i18n();
 
-        if ( is_admin() ) { // adds starter admin page and section for plugin
+        if (is_admin()) { // adds starter admin page and section for plugin
             //todo version 1.1
             //require_once 'admin/admin-menu-and-tabs.php';
-            add_filter( 'plugin_row_meta', [ $this, 'plugin_settings_links' ], 10, 4 );
+            add_filter('plugin_row_meta', [$this, 'plugin_settings_links'], 10, 4);
         }
     }
 
@@ -108,8 +112,9 @@ class DT_33 {
      * Filters the array of row meta for each/specific plugin in the Plugins list table.
      * Appends additional links below each/specific plugin on the plugins page.
      */
-    public function plugin_description_links( $links_array, $plugin_file_name, $plugin_data, $status ) {
-        if ( strpos( $plugin_file_name, basename( __FILE__ ) ) ) {
+    public function plugin_description_links($links_array, $plugin_file_name, $plugin_data, $status)
+    {
+        if (strpos($plugin_file_name, basename(__FILE__))) {
             $links_array[] = '<a href="https://codezone.io">CodeZone</a>';
         }
 
@@ -125,8 +130,9 @@ class DT_33 {
      * @param $status
      * @return mixed
      */
-    public function plugin_settings_links( $links_array, $plugin_file_name, $plugin_data, $status ) {
-        if ( strpos( $plugin_file_name, basename( __FILE__ ) ) ) {
+    public function plugin_settings_links($links_array, $plugin_file_name, $plugin_data, $status)
+    {
+        if (strpos($plugin_file_name, basename(__FILE__))) {
             $links_array[] = '<a href="admin.php?page=dt33_settings">Settings</a>';
         }
 
@@ -141,7 +147,8 @@ class DT_33 {
      * @since  0.1
      * @access public
      */
-    public static function activation() {
+    public static function activation()
+    {
         // add elements here that need to fire on activation
     }
 
@@ -152,9 +159,10 @@ class DT_33 {
      * @since  0.1
      * @access public
      */
-    public static function deactivation() {
+    public static function deactivation()
+    {
         // add functions here that need to happen on deactivation
-        delete_option( 'dismissed-disciple-tools-three-thirds' );
+        delete_option('dismissed-disciple-tools-three-thirds');
     }
 
     /**
@@ -164,9 +172,10 @@ class DT_33 {
      * @since  0.1
      * @access public
      */
-    public function i18n() {
+    public function i18n()
+    {
         $domain = 'disciple-tools-three-thirds';
-        load_plugin_textdomain( $domain, false, trailingslashit( dirname( plugin_basename( __FILE__ ) ) ) . 'languages' );
+        load_plugin_textdomain($domain, false, trailingslashit(dirname(plugin_basename(__FILE__))) . 'languages');
     }
 
     /**
@@ -176,7 +185,8 @@ class DT_33 {
      * @since  0.1
      * @access public
      */
-    public function __toString() {
+    public function __toString()
+    {
         return 'disciple-tools-three-thirds';
     }
 
@@ -187,8 +197,9 @@ class DT_33 {
      * @since  0.1
      * @access public
      */
-    public function __clone() {
-        _doing_it_wrong( __FUNCTION__, 'Whoah, partner!', '0.1' );
+    public function __clone()
+    {
+        _doing_it_wrong(__FUNCTION__, 'Whoah, partner!', '0.1');
     }
 
     /**
@@ -198,8 +209,9 @@ class DT_33 {
      * @since  0.1
      * @access public
      */
-    public function __wakeup() {
-        _doing_it_wrong( __FUNCTION__, 'Whoah, partner!', '0.1' );
+    public function __wakeup()
+    {
+        _doing_it_wrong(__FUNCTION__, 'Whoah, partner!', '0.1');
     }
 
     /**
@@ -211,33 +223,35 @@ class DT_33 {
      * @since  0.1
      * @access public
      */
-    public function __call( $method = '', $args = [] ) {
-        _doing_it_wrong( "disciple_tools_three_thirds::" . esc_html( $method ), 'Method does not exist.', '0.1' );
-        unset( $method, $args );
+    public function __call($method = '', $args = [])
+    {
+        _doing_it_wrong("disciple_tools_three_thirds::" . esc_html($method), 'Method does not exist.', '0.1');
+        unset($method, $args);
         return null;
     }
 }
 
 
 // Register activation hook.
-register_activation_hook( __FILE__, [ 'DT_33', 'activation' ] );
-register_deactivation_hook( __FILE__, [ 'DT_33', 'deactivation' ] );
+register_activation_hook(__FILE__, ['DT_33', 'activation']);
+register_deactivation_hook(__FILE__, ['DT_33', 'deactivation']);
 
 
-if ( !function_exists( 'disciple_tools_three_thirds_hook_admin_notice' ) ) {
-    function disciple_tools_three_thirds_hook_admin_notice() {
+if (!function_exists('disciple_tools_three_thirds_hook_admin_notice')) {
+    function disciple_tools_three_thirds_hook_admin_notice()
+    {
         global $disciple_tools_three_thirds_required_dt_theme_version;
         $wp_theme = wp_get_theme();
         $current_version = $wp_theme->version;
         $message = "'Disciple.Tools - 3/3rds Meetings' plugin requires 'Disciple.Tools' theme to work. Please activate 'Disciple.Tools' theme or make sure it is latest version.";
-        if ( $wp_theme->get_template() === "disciple-tools-theme" ) {
-            $message .= ' ' . sprintf( esc_html( 'Current Disciple.Tools version: %1$s, required version: %2$s' ), esc_html( $current_version ), esc_html( $disciple_tools_three_thirds_required_dt_theme_version ) );
+        if ($wp_theme->get_template() === "disciple-tools-theme") {
+            $message .= ' ' . sprintf(esc_html('Current Disciple.Tools version: %1$s, required version: %2$s'), esc_html($current_version), esc_html($disciple_tools_three_thirds_required_dt_theme_version));
         }
         // Check if it's been dismissed...
-        if ( !get_option( 'dismissed-disciple-tools-three-thirds', false ) ) { ?>
+        if (!get_option('dismissed-disciple-tools-three-thirds', false)) { ?>
             <div class="notice notice-error notice-disciple-tools-three-thirds is-dismissible"
-                 data-notice="disciple-tools-three-thirds">
-                <p><?php echo esc_html( $message ); ?></p>
+                data-notice="disciple-tools-three-thirds">
+                <p><?php echo esc_html($message); ?></p>
             </div>
             <script>
                 jQuery(function ($) {
@@ -247,7 +261,7 @@ if ( !function_exists( 'disciple_tools_three_thirds_hook_admin_notice' ) ) {
                             data: {
                                 action: 'dismissed_notice_handler',
                                 type: 'disciple-tools-three-thirds',
-                                security: '<?php echo esc_html( wp_create_nonce( 'wp_rest_dismiss' ) ) ?>'
+                                security: '<?php echo esc_html(wp_create_nonce('wp_rest_dismiss')) ?>'
                             }
                         })
                     });
@@ -260,12 +274,13 @@ if ( !function_exists( 'disciple_tools_three_thirds_hook_admin_notice' ) ) {
 /**
  * AJAX handler to store the state of dismissible notices.
  */
-if ( !function_exists( "dt_hook_ajax_notice_handler" ) ) {
-    function dt_hook_ajax_notice_handler() {
-        check_ajax_referer( 'wp_rest_dismiss', 'security' );
-        if ( isset( $_POST["type"] ) ) {
-            $type = sanitize_text_field( wp_unslash( $_POST["type"] ) );
-            update_option( 'dismissed-' . $type, true );
+if (!function_exists("dt_hook_ajax_notice_handler")) {
+    function dt_hook_ajax_notice_handler()
+    {
+        check_ajax_referer('wp_rest_dismiss', 'security');
+        if (isset($_POST["type"])) {
+            $type = sanitize_text_field(wp_unslash($_POST["type"]));
+            update_option('dismissed-' . $type, true);
         }
     }
 }
@@ -289,15 +304,15 @@ if ( !function_exists( "dt_hook_ajax_notice_handler" ) ) {
  * Also, see the instructions for version updating to understand the steps involved.
  * @see https://github.com/DiscipleTools/disciple-tools-version-control/wiki/How-to-Update-the-Starter-Plugin
  */
-add_action( 'plugins_loaded', function () {
-    if ( is_admin() && !( is_multisite() && class_exists( "DT_Multisite" ) ) || wp_doing_cron() ) {
+add_action('plugins_loaded', function () {
+    if (is_admin() && !(is_multisite() && class_exists("DT_Multisite")) || wp_doing_cron()) {
         // Check for plugin updates
-        if ( !class_exists( 'Puc_v4_Factory' ) ) {
-            if ( file_exists( get_template_directory() . '/dt-core/libraries/plugin-update-checker/plugin-update-checker.php' ) ) {
-                require( get_template_directory() . '/dt-core/libraries/plugin-update-checker/plugin-update-checker.php' );
+        if (!class_exists('Puc_v4_Factory')) {
+            if (file_exists(get_template_directory() . '/dt-core/libraries/plugin-update-checker/plugin-update-checker.php')) {
+                require(get_template_directory() . '/dt-core/libraries/plugin-update-checker/plugin-update-checker.php');
             }
         }
-        if ( class_exists( 'Puc_v4_Factory' ) ) {
+        if (class_exists('Puc_v4_Factory')) {
             Puc_v4_Factory::buildUpdateChecker(
                 'https://raw.githubusercontent.com/TheCodeZone/disciple-tools-three-thirds/master/version-control.json',
                 __FILE__,
@@ -306,4 +321,4 @@ add_action( 'plugins_loaded', function () {
 
         }
     }
-} );
+});
