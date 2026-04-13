@@ -183,7 +183,7 @@ const MeetingPage = () => {
 
                                         <Card show={!!values.three_thirds_looking_up_practice}>
                                             <CardHeading>
-                                                <h2>{translations.practice}</h2>
+                                                <h2>Attendance</h2>
                                             </CardHeading>
                                             <CardSection >
                                                 {values.three_thirds_looking_up_practice}
