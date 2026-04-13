@@ -226,11 +226,11 @@ const EditMeetingPage = () => {
 
                                         <Card>
                                             <CardHeading>
-                                                <h2>{translations.practice}</h2>
+                                                <h2>Attendees</h2>
                                             </CardHeading>
                                             <CardSection>
                                                 <FieldGroup as={TextAreaField}
-                                                            placeholder={translations.practice}
+                                                            placeholder="Attendees"
                                                             name={`three_thirds_looking_up_practice`}
                                                             rows={3}
                                                             onBlur={save}
